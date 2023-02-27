@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "Doanh thu của sản phẩm";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.36.3/apexcharts.min.css">
+    <link rel="stylesheet" href="~/css/chart.css">
+    <style>
+    </style>
+</head>
+<body>
+    <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+        <!-- end:: Content Head -->
+        <!-- begin:: Content -->
+        <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!--begin::Portlet-->
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                    TOP 10 HÀNG HÓA BÁN CHẠY <span>THÁNG NÀY</span>
+                                </h3>
+                            </div>
+                        </div>
+                        <!--begin::Form-->
+                        <div class="kt-form kt-form--label-left d-flex">
+                            <div class="kt-portlet__body col-lg-4 col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12">Chọn thời gian</label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <input type="text" class="form-control" id="kt_daterangepicker_1" name="daterange" readonly="" placeholder="Select time">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12">Tên khách hàng</label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <select class="col-lg-12 col-md-9 col-sm-12 form-control" id="slc_dskh">
+                                            @*<option value="value"></option>*@
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="kt-portlet__body col-lg-8 col-sm-12">
+                                <div id="chart"></div>
+                            </div>
+                        </div>
+                        <!--end::Form-->
+                    </div>
+                    <!--end::Portlet-->
+                </div>
+
+            </div>
+            <!-- end -->
+        </div>
+
+        <!-- begin:: Footer -->
+        <!-- end:: Footer -->
+    </div>
+    @section scripts {
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script src="~/Scripts/doanhthu/doanhthu.js"></script>
+
+        <!--begin::Page Scripts(used by this page) -->
+        <script src="https://code.highcharts.com/highcharts.js" type="text/javascript"></script>
+        <script src="https://code.highcharts.com/highcharts-more.js" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script>
+            var chartOptions = {
+                chart: {
+                    renderTo: 'chart'
+                },
+                xAxis: {
+                    reversed: false
+                },
+                series: [{
+                    data: [1, 2, 3, 4, 5, 6, 7, 8],
+                    type: 'bar'
+                }]
+            }
+
+            $(document).ready(function () {
+                var chart = new Highcharts.Chart(chartOptions);
+            });
+
+        </script>
+    }
+</body>
+</html>
