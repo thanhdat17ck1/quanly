@@ -7,10 +7,14 @@ function GetTopDTKHAllTime() {
         success: function (response) {
             // Code to handle the successful response from the API
             //alert("aa")
-            console.log(response)
             let html = ''
-            response.map(x => {
-                html += `
+            console.log(response)
+            if (response.length == 0) {
+                html = "<h3>Không có dữ liệu</h3>"
+            }
+            else {
+                response.map(x => {
+                    html += `
                         <div class="kt-widget5__item">
                             <div class="kt-widget5__content">
                                 <div class="kt-widget5__pic">
@@ -20,30 +24,19 @@ function GetTopDTKHAllTime() {
                                     <a href="#" class="kt-widget5__title">
                                         ${x.KhachHang}
                                     </a>
-                                    <p class="kt-widget5__desc">
-                                        Metronic admin themes.
-                                    </p>
-                                    <div class="kt-widget5__info">
-                                        <span>Author:</span>
-                                        <span class="kt-font-info">Keenthemes</span>
-                                        <span>Released:</span>
-                                        <span class="kt-font-info">23.08.17</span>
-                                    </div>
-                                </div>
+                              </div>
                             </div>
                             <div class="kt-widget5__content">
                                 <div class="kt-widget5__stats">
                                     <span class="kt-widget5__number">${x.DoanhThu}</span>
                                     <span class="kt-widget5__sales">USD</span>
                                 </div>
-                                <div class="kt-widget5__stats">
-                                    <span class="kt-widget5__number">1046</span>
-                                    <span class="kt-widget5__votes">votes</span>
-                                </div>
+                                
                             </div>
                         </div>`
-                
-            })
+
+                })
+            }
             $("#kt_widget5_tab4_content .kt-widget5").html(html)
         },
         error: function (xhr, status, error) {
@@ -61,10 +54,14 @@ function GetTopDTKHYearAgo() {
         success: function (response) {
             // Code to handle the successful response from the API
             //alert("aa")
-            console.log(response)
             let html = ''
-            response.map(x => {
-                html += `
+            console.log(response)
+            if (response.length == 0) {
+                html = "<h3>Không có dữ liệu</h3>"
+            }
+            else {
+                response.map(x => {
+                    html += `
                         <div class="kt-widget5__item">
                             <div class="kt-widget5__content">
                                 <div class="kt-widget5__pic">
@@ -74,30 +71,19 @@ function GetTopDTKHYearAgo() {
                                     <a href="#" class="kt-widget5__title">
                                         ${x.KhachHang}
                                     </a>
-                                    <p class="kt-widget5__desc">
-                                        Metronic admin themes.
-                                    </p>
-                                    <div class="kt-widget5__info">
-                                        <span>Author:</span>
-                                        <span class="kt-font-info">Keenthemes</span>
-                                        <span>Released:</span>
-                                        <span class="kt-font-info">23.08.17</span>
-                                    </div>
-                                </div>
+                              </div>
                             </div>
                             <div class="kt-widget5__content">
                                 <div class="kt-widget5__stats">
                                     <span class="kt-widget5__number">${x.DoanhThu}</span>
                                     <span class="kt-widget5__sales">USD</span>
                                 </div>
-                                <div class="kt-widget5__stats">
-                                    <span class="kt-widget5__number">1046</span>
-                                    <span class="kt-widget5__votes">votes</span>
-                                </div>
+                                
                             </div>
                         </div>`
 
-            })
+                })
+            }
             $("#kt_widget5_tab3_content .kt-widget5").html(html)
         },
         error: function (xhr, status, error) {
@@ -114,11 +100,14 @@ function GetTopDTKHMonthAgo() {
         dataType: "json",
         success: function (response) {
             // Code to handle the successful response from the API
-            //alert("aa")
-            console.log(response)
             let html = ''
-            response.map(x => {
-                html += `
+            console.log(response)
+            if (response.length == 0) {
+                html = "<h3>Không có dữ liệu</h3>"
+            }
+            else {
+                response.map(x => {
+                    html += `
                         <div class="kt-widget5__item">
                             <div class="kt-widget5__content">
                                 <div class="kt-widget5__pic">
@@ -128,30 +117,19 @@ function GetTopDTKHMonthAgo() {
                                     <a href="#" class="kt-widget5__title">
                                         ${x.KhachHang}
                                     </a>
-                                    <p class="kt-widget5__desc">
-                                        Metronic admin themes.
-                                    </p>
-                                    <div class="kt-widget5__info">
-                                        <span>Author:</span>
-                                        <span class="kt-font-info">Keenthemes</span>
-                                        <span>Released:</span>
-                                        <span class="kt-font-info">23.08.17</span>
-                                    </div>
-                                </div>
+                              </div>
                             </div>
                             <div class="kt-widget5__content">
                                 <div class="kt-widget5__stats">
                                     <span class="kt-widget5__number">${x.DoanhThu}</span>
                                     <span class="kt-widget5__sales">USD</span>
                                 </div>
-                                <div class="kt-widget5__stats">
-                                    <span class="kt-widget5__number">1046</span>
-                                    <span class="kt-widget5__votes">votes</span>
-                                </div>
+                                
                             </div>
                         </div>`
 
-            })
+                })
+            }
             $("#kt_widget5_tab2_content .kt-widget5").html(html)
         },
         error: function (xhr, status, error) {
@@ -169,10 +147,15 @@ function GetTopDTKHWeekAgo() {
         success: function (response) {
             // Code to handle the successful response from the API
             //alert("aa")
-            console.log(response)
             let html = ''
-            response.map(x => {
-                html += `
+            console.log(response)
+            if (response.length == 0) {
+                html = "<h3>Không có dữ liệu</h3>"
+            }
+            else {
+                response.map(x => {
+
+                    html += `
                         <div class="kt-widget5__item">
                             <div class="kt-widget5__content">
                                 <div class="kt-widget5__pic">
@@ -182,30 +165,20 @@ function GetTopDTKHWeekAgo() {
                                     <a href="#" class="kt-widget5__title">
                                         ${x.KhachHang}
                                     </a>
-                                    <p class="kt-widget5__desc">
-                                        Metronic admin themes.
-                                    </p>
-                                    <div class="kt-widget5__info">
-                                        <span>Author:</span>
-                                        <span class="kt-font-info">Keenthemes</span>
-                                        <span>Released:</span>
-                                        <span class="kt-font-info">23.08.17</span>
-                                    </div>
-                                </div>
+                              </div>
                             </div>
                             <div class="kt-widget5__content">
                                 <div class="kt-widget5__stats">
                                     <span class="kt-widget5__number">${x.DoanhThu}</span>
                                     <span class="kt-widget5__sales">USD</span>
                                 </div>
-                                <div class="kt-widget5__stats">
-                                    <span class="kt-widget5__number">1046</span>
-                                    <span class="kt-widget5__votes">votes</span>
-                                </div>
+                                
                             </div>
                         </div>`
 
-            })
+                })
+            }
+            
             $("#kt_widget5_tab1_content .kt-widget5").html(html)
         },
         error: function (xhr, status, error) {

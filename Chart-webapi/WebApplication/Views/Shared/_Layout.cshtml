@@ -84,9 +84,12 @@
 
     <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
         <div class="kt-header-mobile__logo">
-            <a href="demo1/index.html">
-                <img alt="Logo" src="./assets/media/logos/logo-light.png" />
-            </a>
+            <h1>
+                <a href="/">
+                    NTB IT
+                </a>
+
+            </h1>
         </div>
         <div class="kt-header-mobile__toolbar">
             <button class="kt-header-mobile__toggler kt-header-mobile__toggler--left"
@@ -102,7 +105,7 @@
         </div>
     </div>
     <!-- end:: Header Mobile -->
-    <div class="kt-grid kt-grid--hor kt-grid--root">
+    <div class="kt-grid kt-grid--hor kt-grid--root" style="height: 100%">
         <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
             <!-- begin:: Aside -->
             <button class="kt-aside-close " id="kt_aside_close_btn"><i class="la la-close"></i></button>
@@ -112,9 +115,12 @@
                 <!-- begin:: Aside -->
                 <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
                     <div class="kt-aside__brand-logo">
-                        <a href="demo1/index.html">
-                            <img alt="Logo" src="./assets/media/logos/logo-light.png" />
-                        </a>
+                        <h1>
+                            <a href="/">
+                                NTB IT
+                            </a>
+
+                        </h1>
                     </div>
 
                     <div class="kt-aside__brand-tools">
@@ -218,7 +224,7 @@
                                             data-ktmenu-submenu-toggle="hover">
                                             <a href="/doanhthu/sanpham"
                                                class="kt-menu__link kt-menu__toggle">
-                                                <i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Sản phẩm</span><i class="kt-menu__ver-arrow la la-angle-right"></i>
+                                                <i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Mã hàng</span><i class="kt-menu__ver-arrow la la-angle-right"></i>
                                             </a>
 
                                         </li>
@@ -325,8 +331,10 @@
                         <i class="la la-close"></i>
                     </button>
                     <div class="kt-header-menu-wrapper" id="kt_header_menu_wrapper">
-                        <h3 class="kt-subheader__title">@ViewBag.Title</h3>
+                        <div id="kt_header_menu" class="kt-header-menu kt-header-menu-mobile  kt-header-menu--layout-default align-items-center">
 
+                            <h3 class="kt-subheader__title">@ViewBag.Title</h3>
+                        </div>
                     </div>
                     <!-- end:: Header Menu --> <!-- begin:: Header Topbar -->
                     <div class="kt-header__topbar">

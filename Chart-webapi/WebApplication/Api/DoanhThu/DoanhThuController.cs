@@ -85,5 +85,29 @@ namespace WebApplication.Api.DoanhThu
             JArray arr = JArray.Parse(json);
             return arr;
         }
+
+        [HttpGet]
+        [Route("GETDTTungMaHang")]
+        public dynamic GETDTTungMaHang(string fromdate, string todate)
+        {
+            //return _repo.GetPhieuKCSCat(date);
+
+            DataTable tbl = _repo.GETDTTungMaHang(fromdate, todate);
+            string json = JsonConvert.SerializeObject(tbl, Formatting.Indented);
+            JArray arr = JArray.Parse(json);
+            return arr;
+        }
+
+        [HttpGet]
+        [Route("GETDTTheoSoLuong")]
+        public dynamic GETDTTheoSoLuong(string fromdate, string todate)
+        {
+            //return _repo.GetPhieuKCSCat(date);
+
+            DataTable tbl = _repo.GETDTTheoSoLuong(fromdate, todate);
+            string json = JsonConvert.SerializeObject(tbl, Formatting.Indented);
+            JArray arr = JArray.Parse(json);
+            return arr;
+        }
     }
 }
