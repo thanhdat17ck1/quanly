@@ -56,5 +56,29 @@ namespace WebApplication.Api.Cat
             JArray arr = JArray.Parse(json);
             return arr;
         }
+
+        //new
+        [HttpGet]
+        [Route("GetThongKeTLLoiThangTheoMaHang")]
+        public dynamic GetThongKeTLLoiThangTheoMaHang(string action,string line, string styleID,string month, string year)
+        {
+
+            DataTable tbl = _repo.GetThongKeTLLoiThangTheoMaHang(action,line, styleID, month, year);
+            string json = JsonConvert.SerializeObject(tbl, Formatting.Indented);
+            JArray arr = JArray.Parse(json);
+            return arr;
+        }
+
+        //chietiet
+        [HttpGet]
+        [Route("GetChatLuongChiTiet")]
+        public dynamic GetChatLuongChiTiet(string action, string line, string styleID, string month, string year)
+        {
+
+            DataTable tbl = _repo.GetChatLuongChiTiet(action, line, styleID, month, year);
+            string json = JsonConvert.SerializeObject(tbl, Formatting.Indented);
+            JArray arr = JArray.Parse(json);
+            return arr;
+        }
     }
 }

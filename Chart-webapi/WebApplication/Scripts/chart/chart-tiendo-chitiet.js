@@ -2,11 +2,12 @@
 var results = [];
 var results1 = [];
 let iD = 1;
-var dtiendo = new Date("01-02-2023");
-var listMaHAngTheoThang = [];
+var dtiendo = new Date();
 
 var dt = document.getElementById("dt");
-dt.value = formatDateMonthValid(dtiendo);
+var de = document.getElementById("de");
+de.value = formatDate3(dtiendo);
+dt.value = formatDate3(dtiendo.setFullYear(dtiendo.getFullYear() - 1));
 
 function formatDate(date) {
     var day = new Date(date).getDate();
@@ -32,14 +33,6 @@ function formatDate3(date) {
     var year = new Date(date).getFullYear();
     return year + "-" + month + "-" + day;
 }
-function formatDateMonthValid(date) {
-    var month = new Date(date).getMonth() + 1;
-    if (month < 10) {
-        month = "0" + month;
-    }
-    var year = new Date(date).getFullYear();
-    return year + "-" + month;
-}
 
 const get_day_of_time = (d1, d2) => {
     let ms1 = d1.getTime();
@@ -48,37 +41,39 @@ const get_day_of_time = (d1, d2) => {
 };
 
 dt.addEventListener('change', function () {
-    getPie(dt.value.split("-")[1], dt.value.split("-")[0])
+    getPie(formatDate(dt.value), formatDate(de.value))
+});
+
+de.addEventListener('change', function () {
+    getPie(formatDate(dt.value), formatDate(de.value))
 
 });
 
-//document.getElementById("selecttiendo").addEventListener("change", function () {
-//    var selected = document.getElementById("selecttiendo").value;
-//    if (selected == "Cat") {
-//        GetTienDoCat(localStorage.getItem("ChuyenTienDo"), dt.value, de.value);
-//    } else if (selected == "SLKH") {
-//        getPieDetail(localStorage.getItem("ChuyenTienDo"), dt.value, de.value);
-//    } else if (selected == "Ui") {
-//        GetTienDoUi(localStorage.getItem("ChuyenTienDo"), dt.value, de.value);
-//    } else if (selected == "BTP") {
-//        GetTienDoBTP(localStorage.getItem("ChuyenTienDo"), dt.value, de.value);
-//    } else {
-//        GetTienDoDG(localStorage.getItem("ChuyenTienDo"), dt.value, de.value);
-//    }
-//})
+document.getElementById("selecttiendo").addEventListener("change", function () {
+    var selected = document.getElementById("selecttiendo").value;
+    if (selected == "Cat") {
+        GetTienDoCat(localStorage.getItem("ChuyenTienDo"), dt.value, de.value);
+    } else if (selected == "SLKH") {
+        getPieDetail(localStorage.getItem("ChuyenTienDo"), dt.value, de.value);
+    } else if (selected == "Ui") {
+        GetTienDoUi(localStorage.getItem("ChuyenTienDo"), dt.value, de.value);
+    } else if (selected == "BTP") {
+        GetTienDoBTP(localStorage.getItem("ChuyenTienDo"), dt.value, de.value);
+    } else {
+        GetTienDoDG(localStorage.getItem("ChuyenTienDo"), dt.value, de.value);
+    }
+})
 
-function getPie(month, year) {
+function getPie(dt, de) {
     $.ajax({
         type: "GET",
-        url: "/api/TienDo/GetMaHangTheoThang?month=" + month + "&&year=" + year,
+        url: "/api/TienDo/GetChuyenTienDo?dt=" + dt + "&&de=" + de,
         dataType: "json",
         success: function (response) {
-            listMaHAngTheoThang = response;
-            console.log(listMaHAngTheoThang)
             results1 = []
             var num = 0;
             response.map(x => {
-                results.push("Mã hàng " + x.MaHang, x.SLKH)
+                results.push("Chuyền " + x.Chuyen, x.SLKH)
                 results1.push(results)
                 results = []
                 num++;
@@ -86,10 +81,9 @@ function getPie(month, year) {
             if (num > 0) {
                 renderPie(results1);
                 if (num > 0) {
-                    getPieDetail(response[0].StyleID, month, year);
-                    //GetChiTietTienDoMaHang(response[0].StyleID, month, year)
-                    console.log(response[0])
-                    localStorage.setItem("StyleIDTienDo", response[0].StyleID)
+                    getPieDetail(response[0].Chuyen, dt, de);
+                    document.getElementById("chuyentiendophantich").innerHTML = response[0].Chuyen;
+                    localStorage.setItem("ChuyenTienDo", response[0].Chuyen)
                 }
             } else {
                 alert("không đủ số liệu để phân tích,vui lòng chọn mốc thời gian khác");
@@ -106,33 +100,24 @@ function getPie(month, year) {
 }
 
 
-var listPieDetail = [];
+
 function getPieDetail(id, dt, de) {
+    document.getElementById("selecttiendo").value = "SLKH"
     $.ajax({
         type: "GET",
-        url: "/api/TienDo/GetAllMaHangTrongThangTheoChuyen?styleID=" + id + "&&month=" + dt + "&&year=" + de,
+        url: "/api/TienDo/GetChiTietChuyenTienDo?line=" + id + "&&dt=" + dt + "&&de=" + de,
         dataType: "json",
         success: function (response) {
-            console.log(response, 'ssxzX')
-            listPieDetail = response;
-            var resultstc = []
-            var results1tc = []
-
-            var num = 0;
+            category = []
+            data = []
             response.map(x => {
-                resultstc.push("Chuyền : " + x.Name, x.SLKH)
-                results1tc.push(resultstc)
-                resultstc = []
-                num++;
+                category.push(x.MaHang);
+                data.push(x.SLKH);
             })
-            GetChiTietTienDoMaHang(response[0].ID, response[0].StyleID, dt, de)
-            document.getElementById("tdnum").innerHTML = response[0].StyleID
-            document.getElementById("tdcnum").innerHTML = response[0].Name
-
-            renderPieDetail(results1tc)
-            //GetChiTietChuyenNgayGiao(id, dt, de)
-            //GetAllChiTietChuyenNgayGiao(dt, de)
-            //GetMoTaPhanTichMaHang(dt, de)
+            renderChart(data)
+            GetChiTietChuyenNgayGiao(id, dt, de)
+            GetAllChiTietChuyenNgayGiao(dt, de)
+            GetMoTaPhanTichMaHang(dt, de)
 
         },
         error: function (xhr, status, error) {
@@ -141,53 +126,6 @@ function getPieDetail(id, dt, de) {
         }
     });
 
-}
-
-function GetChiTietTienDoMaHang(line,id, dt, de) {
-    $.ajax({
-        type: "GET",
-        url: "/api/TienDo/GetChiTietTienDoMaHang?action=GetChiTietTienDoMaHang&&line=" + line +"&&styleID=" + id + "&&month=" + dt + "&&year=" + de,
-        dataType: "json",
-        success: function (response) {
-            console.log(response,"rs")
-            var charttd = [];
-            var charttditem = [];
-            charttd.push((response[0].SLCut_LK / response[0].SLKH * 100).toFixed(2), (response[0].LuyKe_BTP / response[0].SLKH * 100).toFixed(2), (response[0].RC_LK / response[0].SLKH * 100).toFixed(2), (response[0].GX_LK / response[0].SLKH * 100).toFixed(2));
-            charttditem.push("Cắt", "BTP", "RC", "Đóng thùng");
-            renderChart(charttd, charttditem);
-            document.getElementById("CAT").innerHTML = (response[0].SLCut_LK / response[0].SLKH * 100).toFixed(2) + '%';
-            if (parseInt(response[0].SLCut_LK / response[0].SLKH * 100) > 100) {
-                document.getElementById("CAT").style.width = '100%';
-            } else {
-                document.getElementById("CAT").style.width = (response[0].SLCut_LK / response[0].SLKH * 100).toFixed(2) + '%';
-            }
-
-            document.getElementById("BTP").innerHTML = (response[0].LuyKe_BTP / response[0].SLKH * 100).toFixed(2) + '%';
-            if (parseInt(response[0].LuyKe_BTP / response[0].SLKH * 100) > 100) {
-                document.getElementById("BTP").style.width = '100%';
-            } else {
-                document.getElementById("BTP").style.width = (response[0].LuyKe_BTP / response[0].SLKH * 100).toFixed(2) + '%';
-            }
-
-            document.getElementById("RC").innerHTML = (response[0].RC_LK / response[0].SLKH * 100).toFixed(2) + '%';
-            if (parseInt(response[0].RC_LK / response[0].SLKH * 100) > 100) {
-                document.getElementById("RC").style.width = '100%';
-            } else {
-                document.getElementById("RC").style.width = (response[0].RC_LK / response[0].SLKH * 100).toFixed(2) + '%';
-            }
-
-            document.getElementById("DT").innerHTML = (response[0].GX_LK / response[0].SLKH * 100).toFixed(2) + '%';
-            if (parseInt(response[0].GX_LK / response[0].SLKH * 100) > 100) {
-                document.getElementById("DT").style.width = '100%';
-            } else {
-                document.getElementById("DT").style.width = (response[0].GX_LK / response[0].SLKH * 100).toFixed(2) + '%';
-            }
-        },
-        error: function (xhr, status, error) {
-            // Code to handle any errors that may occur while connecting to the API
-            console.error(status + ": " + error);
-        }
-    });
 }
 
 function GetChiTietChuyenNgayGiao(id, dt, de) {
@@ -233,8 +171,6 @@ function GetAllChiTietChuyenNgayGiao(dt, de) {
                 }
                 )
             })
-
-        
 
             //Mã hàng thế mạnh 
             var mhtmList = [];
@@ -434,9 +370,8 @@ function GetTienDoDG(chuyen, dt, de) {
 
 }
 
-getPie(dt.value.split("-")[1], dt.value.split("-")[0])
-
-function renderChart(data1, category) {
+getPie(dt.value, de.value)
+function renderChart(data1) {
     document.getElementById("apex-chart-tiendo").innerHTML = '';
 
     var options = {
@@ -487,7 +422,7 @@ function renderPie(data) {
     Highcharts.chart('containertiendo', {
 
         title: {
-            text: 'Sơ đồ mã hàng - SLKH'
+            text: 'Sơ đồ chuyền - SLKH'
         },
 
         plotOptions: {
@@ -495,59 +430,13 @@ function renderPie(data) {
                 point: {
                     events: {
                         click: function (event) {
-                            iD = this.name.split(" ")[2];
+                            iD = this.name.split(" ")[1];
                             let html = "<div></div>"
-                            listMaHAngTheoThang.forEach(x => {
-                                if (x.MaHang == iD) {
-                                    document.querySelector("#containertiendotheochuyen").innerHTML = html
-                                    getPieDetail(x.StyleID, dt.value.split("-")[1], dt.value.split("-")[0])
-                                    localStorage.setItem("StyleIDTienDo", x.StyleID)
-                                }
-                            })
+                            document.querySelector("#apex-chart-tiendo").innerHTML = html
+                            getPieDetail(iD, formatDate(dt.value), formatDate(de.value))
+                            document.getElementById("chuyentiendophantich").innerHTML = iD;
+                            localStorage.setItem("ChuyenTienDo", iD)
 
-
-                        }
-                    }
-                }
-            }
-        },
-        series: [{
-            type: 'pie',
-            allowPointSelect: true,
-            data: data,
-
-        }],
-
-    });
-
-}
-function renderPieDetail(data) {
-    console.log(localStorage.getItem("StyleIDTienDo"), 'dđ')
-    Highcharts.chart('containertiendotheochuyen', {
-
-        title: {
-            text: 'Sơ đồ mã hàng ' + localStorage.getItem("StyleIDTienDo")+' theo chuyền'
-        },
-
-        plotOptions: {
-            series: {
-                point: {
-                    events: {
-                        click: function (event) {
-                            iD = this.name.split(" ")[2];
-                            console.log(iD);
-                            let html = "<div></div>"
-                            listPieDetail.forEach(x => {
-                                if (x.Name == iD) {
-                                    localStorage.setItem("ChuyenIDTienDo", x.ID)
-                                    GetChiTietTienDoMaHang(x.ID, localStorage.getItem("StyleIDTienDo"), dt.value.split("-")[1], dt.value.split("-")[0])
-                                    document.getElementById("tdnum").innerHTML = localStorage.getItem("StyleIDTienDo")
-                                    document.getElementById("tdcnum").innerHTML = x.Name
-
-
-                                }
-                            })
-                          
                         }
                     }
                 }
@@ -601,5 +490,3 @@ function renderLineChart(data, series, xaxis) {
     chart.render();
 
 }
-
-

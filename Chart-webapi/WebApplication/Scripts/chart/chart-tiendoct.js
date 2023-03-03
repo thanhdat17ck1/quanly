@@ -4,8 +4,11 @@ var results1 = [];
 let iD = 1;
 var dtiendo = new Date("01-02-2023");
 var listMaHAngTheoThang = [];
+var listKH = [];
 
 var dt = document.getElementById("dt");
+var selectbox = document.getElementById("selectkh");
+var selectboxchuyen = document.getElementById("selectchuyen")
 dt.value = formatDateMonthValid(dtiendo);
 
 function formatDate(date) {
@@ -49,24 +52,61 @@ const get_day_of_time = (d1, d2) => {
 
 dt.addEventListener('change', function () {
     getPie(dt.value.split("-")[1], dt.value.split("-")[0])
+    getOptionKH(dt.value.split("-")[1], dt.value.split("-")[0])
 
 });
 
-//document.getElementById("selecttiendo").addEventListener("change", function () {
-//    var selected = document.getElementById("selecttiendo").value;
-//    if (selected == "Cat") {
-//        GetTienDoCat(localStorage.getItem("ChuyenTienDo"), dt.value, de.value);
-//    } else if (selected == "SLKH") {
-//        getPieDetail(localStorage.getItem("ChuyenTienDo"), dt.value, de.value);
-//    } else if (selected == "Ui") {
-//        GetTienDoUi(localStorage.getItem("ChuyenTienDo"), dt.value, de.value);
-//    } else if (selected == "BTP") {
-//        GetTienDoBTP(localStorage.getItem("ChuyenTienDo"), dt.value, de.value);
-//    } else {
-//        GetTienDoDG(localStorage.getItem("ChuyenTienDo"), dt.value, de.value);
-//    }
-//})
+document.getElementById("selectkh").addEventListener("change", function () {
+    var selected = document.getElementById("selectkh").value;
+    getPie(dt.value.split("-")[1], dt.value.split("-")[0])
+})
 
+
+document.getElementById("selectchuyen").addEventListener("change", function () {
+    var selected = document.getElementById("selectchuyen").value;
+
+    GetChiTietTienDoMaHang(selected, localStorage.getItem("StyleIDTienDo"), dt.value.split("-")[1], dt.value.split("-")[0])
+    document.getElementById("tdnum").innerHTML = localStorage.getItem("StyleIDTienDo")
+    listPieDetail.map(x => {
+        if (x.ID == selected) {
+            document.getElementById("tdcnum").innerHTML = x.Name;
+
+        }
+    })
+    GetChiTietChuyenNgayGiao(selected, dt.value.split("-")[1], dt.value.split("-")[0])
+})
+
+function onlyUnique(value, index, array) {
+    return self.indexOf(value.MaKhachHang) === index;
+}
+getOptionKH(dt.value.split("-")[1], dt.value.split("-")[0])
+function getOptionKH(month, year) {
+    $.ajax({
+        type: "GET",
+        url: "/api/TienDo/GetMaHangTheoThang?month=" + month + "&&year=" + year,
+        dataType: "json",
+        success: function (response) {
+            listMaHAngTheoThang = response;
+            var listKHTemp = [];
+            response.forEach(x => {
+                listKHTemp.push({
+                    "KhachHang": x.KhachHang,
+                    "MaKhachHang": x.MaKhachHang
+                })
+            })
+            const key = 'MaKhachHang';
+            listKH = [...new Map(listKHTemp.map(item =>
+                [item[key], item])).values()];
+
+            rennderOptionKH(listKH);
+        },
+        error: function (xhr, status, error) {
+            // Code to handle any errors that may occur while connecting to the API
+            console.error(status + ": " + error);
+        }
+    });
+
+}
 function getPie(month, year) {
     $.ajax({
         type: "GET",
@@ -74,27 +114,54 @@ function getPie(month, year) {
         dataType: "json",
         success: function (response) {
             listMaHAngTheoThang = response;
-            console.log(listMaHAngTheoThang)
-            results1 = []
-            var num = 0;
-            response.map(x => {
-                results.push("Mã hàng " + x.MaHang, x.SLKH)
-                results1.push(results)
-                results = []
-                num++;
-            })
-            if (num > 0) {
-                renderPie(results1);
+            
+            if (selectbox.value == '') {
+              
+                results1 = []
+                var num = 0;
+                response.map(x => {
+                    results.push("Mã hàng " + x.MaHang, x.SLKH)
+                    results1.push(results)
+                    results = []
+                    num++;
+                })
                 if (num > 0) {
-                    getPieDetail(response[0].StyleID, month, year);
-                    //GetChiTietTienDoMaHang(response[0].StyleID, month, year)
-                    console.log(response[0])
-                    localStorage.setItem("StyleIDTienDo", response[0].StyleID)
+                    renderPie(results1);
+                    if (num > 0) {
+                        getPieDetail(response[0].StyleID, month, year);
+                        //GetChiTietTienDoMaHang(localStorage.getItem("ChuyenIDTienDo"), response[0].StyleID, month, year)
+                        localStorage.setItem("StyleIDTienDo", response[0].StyleID)
+                    }
+                } else {
+                    alert("không đủ số liệu để phân tích,vui lòng chọn mốc thời gian khác");
                 }
             } else {
-                alert("không đủ số liệu để phân tích,vui lòng chọn mốc thời gian khác");
+                results1 = []
+                var styleIDFLoad = '';
+                var num = 0;
+                response.map(x => {
+                    if (x.MaKhachHang == selectbox.value) {
+                        if (styleIDFLoad == '') {
+                            styleIDFLoad = x.StyleID;
+                        }
+                        results.push("Mã hàng " + x.MaHang, x.SLKH)
+                        results1.push(results)
+                        results = []
+                        num++;
+                    }
+                })
+                if (num > 0) {
+                    renderPie(results1);
+                    if (num > 0) {
+              
+                        getPieDetail(styleIDFLoad, month, year);
+                        //GetChiTietTienDoMaHang(localStorage.getItem("ChuyenIDTienDo"), styleIDFLoad, month, year)
+                        localStorage.setItem("StyleIDTienDo", results1[0].StyleID)
+                    }
+                } else {
+                    alert("không đủ số liệu để phân tích,vui lòng chọn mốc thời gian khác");
+                }
             }
-
 
         },
         error: function (xhr, status, error) {
@@ -113,7 +180,7 @@ function getPieDetail(id, dt, de) {
         url: "/api/TienDo/GetAllMaHangTrongThangTheoChuyen?styleID=" + id + "&&month=" + dt + "&&year=" + de,
         dataType: "json",
         success: function (response) {
-            console.log(response, 'ssxzX')
+            localStorage.setItem("StyleIDTienDo", id)
             listPieDetail = response;
             var resultstc = []
             var results1tc = []
@@ -125,6 +192,7 @@ function getPieDetail(id, dt, de) {
                 resultstc = []
                 num++;
             })
+            rennderOptionChuyen(response)
             GetChiTietTienDoMaHang(response[0].ID, response[0].StyleID, dt, de)
             document.getElementById("tdnum").innerHTML = response[0].StyleID
             document.getElementById("tdcnum").innerHTML = response[0].Name
@@ -149,7 +217,7 @@ function GetChiTietTienDoMaHang(line,id, dt, de) {
         url: "/api/TienDo/GetChiTietTienDoMaHang?action=GetChiTietTienDoMaHang&&line=" + line +"&&styleID=" + id + "&&month=" + dt + "&&year=" + de,
         dataType: "json",
         success: function (response) {
-            console.log(response,"rs")
+         
             var charttd = [];
             var charttditem = [];
             charttd.push((response[0].SLCut_LK / response[0].SLKH * 100).toFixed(2), (response[0].LuyKe_BTP / response[0].SLKH * 100).toFixed(2), (response[0].RC_LK / response[0].SLKH * 100).toFixed(2), (response[0].GX_LK / response[0].SLKH * 100).toFixed(2));
@@ -193,12 +261,13 @@ function GetChiTietTienDoMaHang(line,id, dt, de) {
 function GetChiTietChuyenNgayGiao(id, dt, de) {
     $.ajax({
         type: "GET",
-        url: "/api/TienDo/GetChiTietChuyenNgayGiao?line=" + id + "&&dt=" + dt + "&&de=" + de,
+        url: "/api/TienDo/GetChiTietTienDoMaHang?action=getchitietchuyenngaygiao&&line=" + id + "&&styleID=a" + "&&month=" + dt + "&&year=" + de,
         dataType: "json",
         success: function (response) {
+            console.log(response,"a")
             var series = []
             var xasix = []
-            console.log(response, "response")
+         
             response.forEach(x => {
                 let time = get_day_of_time(new Date(x.NgayTao), new Date(x.NgayGH))
                 series.push(
@@ -355,7 +424,7 @@ function GetTienDoCat(chuyen, dt, de) {
                 category.push(x.MaHang);
                 data.push(x.SLKH);
             })
-            console.log(data, "datacat")
+         
             renderChart(data)
         },
         error: function (xhr, status, error) {
@@ -378,7 +447,7 @@ function GetTienDoBTP(chuyen, dt, de) {
                 category.push(x.MaHang);
                 data.push(x.LuyKe_BTP);
             })
-            console.log(data, "dataBTP")
+    
             renderChart(data)
         },
         error: function (xhr, status, error) {
@@ -401,7 +470,7 @@ function GetTienDoUi(chuyen, dt, de) {
                 category.push(x.MaHang);
                 data.push(x.SLUI);
             })
-            console.log(data, "dataUi")
+          
             renderChart(data)
         },
         error: function (xhr, status, error) {
@@ -423,7 +492,7 @@ function GetTienDoDG(chuyen, dt, de) {
                 category.push(x.MaHang);
                 data.push(x.GX_LK);
             })
-            console.log(data, category, "dataGX")
+       
             renderChart(data)
         },
         error: function (xhr, status, error) {
@@ -437,7 +506,7 @@ function GetTienDoDG(chuyen, dt, de) {
 getPie(dt.value.split("-")[1], dt.value.split("-")[0])
 
 function renderChart(data1, category) {
-    document.getElementById("apex-chart-tiendo").innerHTML = '';
+    //document.getElementById("apex-chart-tiendo").innerHTML = '';
 
     var options = {
         chart: {
@@ -499,7 +568,7 @@ function renderPie(data) {
                             let html = "<div></div>"
                             listMaHAngTheoThang.forEach(x => {
                                 if (x.MaHang == iD) {
-                                    document.querySelector("#containertiendotheochuyen").innerHTML = html
+                                    //document.querySelector("#containertiendotheochuyen").innerHTML = html
                                     getPieDetail(x.StyleID, dt.value.split("-")[1], dt.value.split("-")[0])
                                     localStorage.setItem("StyleIDTienDo", x.StyleID)
                                 }
@@ -522,7 +591,7 @@ function renderPie(data) {
 
 }
 function renderPieDetail(data) {
-    console.log(localStorage.getItem("StyleIDTienDo"), 'dđ')
+  
     Highcharts.chart('containertiendotheochuyen', {
 
         title: {
@@ -535,7 +604,7 @@ function renderPieDetail(data) {
                     events: {
                         click: function (event) {
                             iD = this.name.split(" ")[2];
-                            console.log(iD);
+                          
                             let html = "<div></div>"
                             listPieDetail.forEach(x => {
                                 if (x.Name == iD) {
@@ -601,5 +670,35 @@ function renderLineChart(data, series, xaxis) {
     chart.render();
 
 }
+function rennderOptionKH(option) {
+  
+    let getImgs = `<option value="" >--Tất cả--</option>`;
+    for (let i = 0; i < option.length; i++) {
+        //var TenLenhTemp = option[i].TenLenh.toString().length > 13 ? option[i].TenLenh.toString().substr(0, 10) + "..." : option[i].TenLenh.toString()
+        getImgs =
+            getImgs +
+            `<option value="${option[i].MaKhachHang}" >${option[i].KhachHang}</option>
+                 `;
+
+    }
+    selectbox.innerHTML = getImgs;
+}
+
+function rennderOptionChuyen(option) {
+   
+    let getImgs = ``;
+
+    //let getImgs = `<option value="" >--Tất cả--</option>`;
+    for (let i = 0; i < option.length; i++) {
+        //var TenLenhTemp = option[i].TenLenh.toString().length > 13 ? option[i].TenLenh.toString().substr(0, 10) + "..." : option[i].TenLenh.toString()
+        getImgs =
+            getImgs +
+            `<option value="${option[i].ID}" >Chuyền ${option[i].Name}</option>
+                 `;
+    }
+    selectboxchuyen.innerHTML = getImgs;
+}
+
+
 
 

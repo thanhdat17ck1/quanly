@@ -127,5 +127,97 @@ namespace WebApplication.Models
             finally { if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); } }
         }
 
+        //Tiến độ new 
+        
+        public DataTable GetMaHangTheoThang(string month, string year)
+        {
+            SqlConnection _cnn = null;
+
+            try
+            {
+                _cnn = SqlHelper.GetConnection();
+                SqlCommand cmd = new SqlCommand("sp_SoDoTienDoTheoMaHang", _cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "GetAllMaHangTrongThang");
+                cmd.Parameters.AddWithValue("@Line", "");
+                cmd.Parameters.AddWithValue("@MaHang", "");
+                cmd.Parameters.AddWithValue("@month", month);
+                cmd.Parameters.AddWithValue("@year", year);
+
+
+                using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
+                {
+                    DataTable tb = new DataTable();
+                    adt.Fill(tb);
+                    return tb;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally { if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); } }
+        }
+        public DataTable GetAllMaHangTrongThangTheoChuyen(string styleID,string month, string year)
+        {
+            SqlConnection _cnn = null;
+
+            try
+            {
+                _cnn = SqlHelper.GetConnection();
+                SqlCommand cmd = new SqlCommand("sp_SoDoTienDoTheoMaHang", _cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "GetAllMaHangTrongThangTheoChuyen");
+                cmd.Parameters.AddWithValue("@Line", "");
+                cmd.Parameters.AddWithValue("@MaHang", styleID);
+                cmd.Parameters.AddWithValue("@month", month);
+                cmd.Parameters.AddWithValue("@year", year);
+
+
+                using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
+                {
+                    DataTable tb = new DataTable();
+                    adt.Fill(tb);
+                    return tb;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally { if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); } }
+        }
+        public DataTable GetChiTietTienDoMaHang(string action, string line, string styleID, string month, string year)
+        {
+            SqlConnection _cnn = null;
+
+            try
+            {
+                _cnn = SqlHelper.GetConnection();
+                SqlCommand cmd = new SqlCommand("sp_SoDoTienDoTheoMaHang", _cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", action);
+                cmd.Parameters.AddWithValue("@Line", line);
+                cmd.Parameters.AddWithValue("@MaHang", styleID);
+                cmd.Parameters.AddWithValue("@month", month);
+                cmd.Parameters.AddWithValue("@year", year);
+
+
+                using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
+                {
+                    DataTable tb = new DataTable();
+                    adt.Fill(tb);
+                    return tb;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally { if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); } }
+        }
     }
 }

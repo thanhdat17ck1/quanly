@@ -69,14 +69,14 @@
                     </div>
                 </div>
                 @*<div class="col-sm-12 col-md-6">
-                    <div class="layout-border">
-                        <div style="display:flex">
-                            <label for="datepicker" style="margin-top:5px">Chọn năm &#160; </label>
-                            <input type="text" class="form-control" name="datepicker" style="width:150px" id="datepicker" value="2023" />
+                        <div class="layout-border">
+                            <div style="display:flex">
+                                <label for="datepicker" style="margin-top:5px">Chọn năm &#160; </label>
+                                <input type="text" class="form-control" name="datepicker" style="width:150px" id="datepicker" value="2023" />
+                            </div>
+                            <div id="chart2"></div>
                         </div>
-                        <div id="chart2"></div>
-                    </div>
-                </div>*@
+                    </div>*@
             </div>
 
         </div>
@@ -117,13 +117,9 @@
                     <div class="layout-border">
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
-                                <label for="birthday">Từ ngày:</label>
-                                <input class="date" type="date" id="dtcl" name="dt">
+                                <label for="birthday">Chọn tháng:</label>
+                                <input class="date" type="month" id="dtcl" name="dt">
 
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <label for="birthday">Đến ngày:</label>
-                                <input class="date" type="date" id="decl" name="de">
                             </div>
                         </div>
                         <div id="containerchatluong">
@@ -232,16 +228,16 @@
 
                             </div>
                             @*<div class="col-sm-6 col-md-4">
-                                <div class="contentdiv">
-                                    <span>
-                                        Chuyền hỏng hàng nhiều nhất
-                                    </span>
+                                    <div class="contentdiv">
+                                        <span>
+                                            Chuyền hỏng hàng nhiều nhất
+                                        </span>
 
-                                    <div id="chh" class="contenttiendo">
+                                        <div id="chh" class="contenttiendo">
 
+                                        </div>
                                     </div>
-                                </div>
-                            </div>*@
+                                </div>*@
                             <div class="col-sm-6 col-md-4">
                                 <div class="contentdiv">
 
@@ -273,7 +269,7 @@
 
     <script src="~/Scripts/js cat/index.js"></script>
     @*<script src="~/Scripts/chart/chart-tiendo.js"></script>*@
-    <script src="~/Scripts/chart/chart-chatluong.js"></script>
+    <script src="~/Scripts/chart/chart-chatluongct.js"></script>
 
     @*<script src="~/Scripts/chart/chart-cat.js"></script>
         <script src="~/Scripts/chart/chart-donggoi.js"></script>*@

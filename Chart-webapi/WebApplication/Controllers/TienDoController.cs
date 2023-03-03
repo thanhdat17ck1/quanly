@@ -13,5 +13,13 @@ namespace WebApplication.Controllers
         {
             return View();
         }
+        public ActionResult ChiTietTD()
+        {
+            return View();
+        }
+        public ActionResult ChiTiet()
+        {
+            return View();
+        }
     }
 }

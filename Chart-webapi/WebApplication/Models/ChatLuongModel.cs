@@ -127,5 +127,69 @@ namespace WebApplication.Models
             }
             finally { if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); } }
         }
+
+        //get tong quan
+        public DataTable GetThongKeTLLoiThangTheoMaHang(string action,string line,string styleID, string month, string year)
+        {
+            SqlConnection _cnn = null;
+
+            try
+            {
+                _cnn = SqlHelper.GetConnection();
+                SqlCommand cmd = new SqlCommand("sp_SoDoChatLuongTheoMaHang", _cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", action);
+                cmd.Parameters.AddWithValue("@MaHang", styleID == null ? "" : styleID);
+
+                cmd.Parameters.AddWithValue("@Line", line == null ? "" : line);
+                cmd.Parameters.AddWithValue("@month", month);
+                cmd.Parameters.AddWithValue("@year", year);
+
+
+                using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
+                {
+                    DataTable tb = new DataTable();
+                    adt.Fill(tb);
+                    return tb;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally { if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); } }
+        }
+        //getchitiet
+        public DataTable GetChatLuongChiTiet(string action, string line, string styleID, string month, string year)
+        {
+            SqlConnection _cnn = null;
+
+            try
+            {
+                _cnn = SqlHelper.GetConnection();
+                SqlCommand cmd = new SqlCommand("sp_SoDoChatLuongChiTiet", _cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", action);
+                cmd.Parameters.AddWithValue("@MaHang", styleID == null ? "" : styleID);
+                cmd.Parameters.AddWithValue("@Line", line == null ? "" : line);
+                cmd.Parameters.AddWithValue("@month", month);
+                cmd.Parameters.AddWithValue("@year", year);
+
+
+                using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
+                {
+                    DataTable tb = new DataTable();
+                    adt.Fill(tb);
+                    return tb;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally { if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); } }
+        }
     }
 }

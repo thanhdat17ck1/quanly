@@ -16,7 +16,11 @@ namespace WebApplication.Repository.Cat
         DataTable GetChiTietChuyenNgayGiao(string line, DateTime dt, DateTime de);
         DataTable GetMoTa(string action ,string line, DateTime dt, DateTime de);
 
-
+        
+        //new 
+        DataTable GetMaHangTheoThang(string month, string year);
+        DataTable GetAllMaHangTrongThangTheoChuyen( string styleID,string month, string year);
+        DataTable GetChiTietTienDoMaHang(string line, string action, string styleID, string month, string year);
 
 
     }
@@ -47,6 +51,22 @@ namespace WebApplication.Repository.Cat
         public DataTable GetMoTa(string action ,string line, DateTime dt, DateTime de)
         {
             DataTable tb = _model.GetMoTa(action,line, dt, de);
+            return tb;
+        }
+        //new ....................
+        public DataTable GetMaHangTheoThang(string month,string year)
+        {
+            DataTable tb = _model.GetMaHangTheoThang(month,year);
+            return tb;
+        }
+        public DataTable GetAllMaHangTrongThangTheoChuyen(string styleID,string month, string year)
+        {
+            DataTable tb = _model.GetAllMaHangTrongThangTheoChuyen(styleID,month, year);
+            return tb;
+        }
+        public DataTable GetChiTietTienDoMaHang(string action, string line, string styleID, string month, string year)
+        {
+            DataTable tb = _model.GetChiTietTienDoMaHang( action, line, styleID, month, year);
             return tb;
         }
     }

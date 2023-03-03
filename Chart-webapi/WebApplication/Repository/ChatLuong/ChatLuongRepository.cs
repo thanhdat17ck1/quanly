@@ -18,9 +18,11 @@ namespace WebApplication.Repository.Cat
 
         //DataTable GetMoTa(string action ,string line, DateTime dt, DateTime de);
 
+        //new 
+        
+        DataTable GetThongKeTLLoiThangTheoMaHang(string action,string line,string styleID, string month, string year);
 
-
-
+        DataTable GetChatLuongChiTiet(string action, string line, string styleID, string month, string year);
     }
     public class ChatLuongRepository : IChatLuongRepository
     {
@@ -51,10 +53,23 @@ namespace WebApplication.Repository.Cat
             DataTable tb = _model.GetThongKeTLLoiTheoMaHang(line, dt, de);
             return tb;
         }
+
         //public DataTable GetMoTa(string action ,string line, DateTime dt, DateTime de)
         //{
         //    DataTable tb = _model.GetMoTa(action,line, dt, de);
         //    return tb;
         //}
+        public DataTable GetThongKeTLLoiThangTheoMaHang(string action,string line,string styleID, string month, string year)
+        {
+            DataTable tb = _model.GetThongKeTLLoiThangTheoMaHang(action,line, styleID,month, year);
+            return tb;
+        }
+
+        //chitiet
+        public DataTable GetChatLuongChiTiet(string action, string line, string styleID, string month, string year)
+        {
+            DataTable tb = _model.GetChatLuongChiTiet(action, line, styleID, month, year);
+            return tb;
+        }
     }
 }

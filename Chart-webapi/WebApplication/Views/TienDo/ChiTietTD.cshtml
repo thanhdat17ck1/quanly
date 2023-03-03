@@ -1,7 +1,6 @@
-﻿
-@*@{
-    ViewBag.Title = "Tiến độ";
-}*@
+﻿@*@{
+        ViewBag.Title = "Tiến độ";
+    }*@
 
 
 <!DOCTYPE html>
@@ -14,11 +13,11 @@
     <title>Admin dashboard</title>
     <link rel="stylesheet" href="~/css/css cat/index.css">
     @*<link rel="stylesheet"
-          href="~/Content/font.css" />
-    <link rel="stylesheet" type="text/css"
-          href="~/Content/bootstrap4.6.1.min.css" />
-    <link rel="stylesheet" type="text/css"
-          href="~/Content/all.css" />*@
+              href="~/Content/font.css" />
+        <link rel="stylesheet" type="text/css"
+              href="~/Content/bootstrap4.6.1.min.css" />
+        <link rel="stylesheet" type="text/css"
+              href="~/Content/all.css" />*@
     <link rel="stylesheet" href="~/Content/apexcharts.min.css">
     <link href="~/Content/datepicker.min.css" rel="stylesheet">
 
@@ -68,7 +67,8 @@
         }
         .title {
             font-size: 18px;
-            color: black;
+            color: green;
+            
         }
     </style>
 
@@ -79,7 +79,7 @@
         <div class="content-span  header-span">
             <div class="row">
                 <div class="col-sm-12 col-md-12">
-                  Tổng quan tiến độ mã hàng
+                    Chi tiết tiến độ mã hàng
                 </div>
             </div>
         </div>
@@ -93,10 +93,16 @@
                                 <input class="date" type="month" id="dt" name="dt">
 
                             </div>
+                            <div class="" style="width:220px;margin-top:3px">
+                                <label for="selectkh">Chọn KH:</label>
+                                <select id="selectkh">
+                                 
+                                </select>
+                            </div>
                             @*<div class="col-sm-12 col-md-6">
-                                <label for="birthday">Kết thúc:</label>
-                                <input class="date" type="month" id="de" name="de">
-                            </div>*@
+                                    <label for="birthday">Kết thúc:</label>
+                                    <input class="date" type="month" id="de" name="de">
+                                </div>*@
                         </div>
                         <div id="containertiendo">
                         </div>
@@ -104,22 +110,44 @@
                 </div>
                 <div class="col-sm-12 col-md-6">
                     <div class="layout-border">
-                        <br/>
-                        <!--<div class="custom-select" style="width:200px;">-->
-                            @*<select id="selecttiendo">
-                                <option value="SLKH">SLKH</option>
-                                <option value="Cat">Cắt</option>
-                                <option value="BTP">BTP</option>
-                                <option value="Ui">Ủi</option>
-                                <option value="DG">Đóng gói</option>
-                            </select>*@
-                        <!--</div>-->
-                        <div id="containertiendotheochuyen">
+                        <div class="" style="width:220px;margin-top:3px">
+                            <label for="selectchuyen">Chọn chuyền:</label>
+                            <select id="selectchuyen">
+                            </select>
+                        </div>
+                        @*<div id="containertiendotheochuyen">
+                          </div>*@
+                        <div class="layout-border">
+                            <div class="title">Tiến độ mã hàng <span id="tdnum"></span> của chuyền  <span id="tdcnum"></span></div>
+                            <div class="layout-bar">
+                                <p>Cắt</p>
+                                <div class="containerbar">
+                                    <div class="skill" id="CAT"></div>
+                                </div>
+                            </div>
+                            <div class="layout-bar">
+                                <p>BTP</p>
+                                <div class="containerbar">
+                                    <div class="skill" id="BTP"></div>
+                                </div>
+                            </div>
+                            <div class="layout-bar">
+                                <p>Ra chuyền</p>
+                                <div class="containerbar">
+                                    <div class="skill" id="RC"></div>
+                                </div>
+                            </div>
+                            <div class="layout-bar">
+                                <p>Đóng tùng</p>
+                                <div class="containerbar">
+                                    <div class="skill" id="DT"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                 </div>
-                <div class="col-sm-12 col-md-12" style="display:none">
+                <div class="col-sm-12 col-md-12">
                     <div class="layout-border">
                         <div id="container-tdAll">
                         </div>
@@ -130,8 +158,8 @@
 
                 </div>
                 <div class="col-sm-12 col-md-12">
-                 
-                    <div class="layout-border">
+
+                    @*<div class="layout-border">
                         <div class="title">Tiến độ mã hàng <span id="tdnum"></span> của chuyền  <span id="tdcnum"></span></div>
                         <div class="layout-bar">
                             <p>Cắt</p>
@@ -157,7 +185,7 @@
                                 <div class="skill" id="DT"></div>
                             </div>
                         </div>
-                    </div>
+                    </div>*@
 
                 </div>
             </div>
@@ -173,7 +201,7 @@
     <script src="~/Scripts/datepicker.min.js"></script>
 
     <script src="~/Scripts/js cat/index.js"></script>
-    <script src="~/Scripts/chart/chart-tiendo.js"></script>
+    <script src="~/Scripts/chart/chart-tiendoct.js"></script>
     @*<script src="~/Scripts/chart/chart-chatluong.js"></script>*@
 
     @*<script src="~/Scripts/chart/chart-cat.js"></script>

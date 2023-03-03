@@ -187,10 +187,14 @@
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap4.6.1.min.js" />
     <Content Include="Scripts\chart\chart-cat.js" />
+    <Content Include="Scripts\chart\chart-chatluong-tongquan.js" />
     <Content Include="Scripts\chart\chart-chatluong.js" />
+    <Content Include="Scripts\chart\chart-chatluongct.js" />
     <Content Include="Scripts\chart\chart-doanhthu.js" />
     <Content Include="Scripts\chart\chart-donggoi.js" />
+    <Content Include="Scripts\chart\chart-tiendo-chitiet.js" />
     <Content Include="Scripts\chart\chart-tiendo.js" />
+    <Content Include="Scripts\chart\chart-tiendoct.js" />
     <Content Include="Scripts\chart\chart.js" />
     <Content Include="Scripts\chart\chart1.js" />
     <Content Include="Scripts\datepicker.min.js" />
@@ -230,6 +234,10 @@
     <Content Include="Views\TienDo\Index.cshtml" />
     <Content Include="Views\ChatLuong\Index.cshtml" />
     <Content Include="Views\DoanhThu\tonghop.cshtml" />
+    <Content Include="Views\ChatLuong\ChiTiet.cshtml" />
+    <Content Include="Views\ChatLuong\TongQuan.cshtml" />
+    <Content Include="Views\TienDo\ChiTiet.cshtml" />
+    <Content Include="Views\TienDo\ChiTietTD.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Todo\" />
