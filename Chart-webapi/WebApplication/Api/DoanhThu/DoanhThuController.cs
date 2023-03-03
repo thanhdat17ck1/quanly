@@ -109,5 +109,17 @@ namespace WebApplication.Api.DoanhThu
             JArray arr = JArray.Parse(json);
             return arr;
         }
+
+        [HttpGet]
+        [Route("GETDTHomNay")]
+        public dynamic GETDTHomNay(string fromdate, string todate)
+        {
+            //return _repo.GetPhieuKCSCat(date);
+
+            DataTable tbl = _repo.GETDTHomNay(fromdate, todate);
+            string json = JsonConvert.SerializeObject(tbl, Formatting.Indented);
+            JArray arr = JArray.Parse(json);
+            return arr;
+        }
     }
 }

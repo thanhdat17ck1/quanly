@@ -245,5 +245,35 @@ namespace WebApplication.Models
             }
             finally { if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); } }
         }
+
+        public DataTable GETDTHomNay(string fromdate, string todate)
+        {
+            SqlConnection _cnn = null;
+
+            try
+            {
+                _cnn = SqlHelper.GetConnection();
+                SqlCommand cmd = new SqlCommand("SP_ERP_BAOCAOTONGHOPDOANHTHUWEB_REPORT", _cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "GETDTHomNay");
+                cmd.Parameters.AddWithValue("@FromDate", fromdate);
+                cmd.Parameters.AddWithValue("@ToDate", todate);
+                cmd.Parameters.AddWithValue("@UserName", "admin");
+                cmd.Parameters.AddWithValue("@timeline", "");
+                cmd.Parameters.AddWithValue("@MaHangKhach", "");
+                using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
+                {
+                    DataTable tb = new DataTable();
+                    adt.Fill(tb);
+                    return tb;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally { if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); } }
+        }
     }
 }

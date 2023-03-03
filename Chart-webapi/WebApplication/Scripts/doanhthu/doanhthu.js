@@ -190,8 +190,8 @@ function GetTopDTKHWeekAgo() {
 }
 GetTopDTKHWeekAgo();
 GetTopDTKHMonthAgo();
-GetTopDTKHYearAgo();
-GetTopDTKHAllTime();
+setTimeout(GetTopDTKHYearAgo(), 2000);
+setTimeout(GetTopDTKHAllTime(), 3000);
 
 //var picker = $('#kt_daterangepicker_1');
 

@@ -79,8 +79,27 @@ function GETDTTheoSoLuong(fromdate, todate) {
     });
 }
 
-
-
+function GETDTHomNay(fromdate, todate) {
+    $.ajax({
+        type: "GET",
+        url: "/api/DoanhThu/GETDTHomNay?fromdate=" + fromdate + '&todate=' + todate,
+        dataType: "json",
+        success: function (response) {
+            console.log(response[0].DoanhThu, "response")
+            if (response[0].DoanhThu == null) {
+                $(".kt-widget4__item .value").html('0')
+            }
+            else {
+                $(".kt-widget4__item .value").html(`${response[0].DoanhThu}`)
+            }
+        },
+        error: function (xhr, status, error) {
+            // Code to handle any errors that may occur while connecting to the API
+            console.error(status + ": " + error);
+        }
+    });
+}
+GETDTHomNay(FormatDate(HomNay), FormatDate(HomNay))
 function CreateChart(category, data) {
     let check0 = false;
     console.log(category, data)
@@ -212,4 +231,6 @@ $(document).ready(function () {
             }
         }
     })
+
+
 });
