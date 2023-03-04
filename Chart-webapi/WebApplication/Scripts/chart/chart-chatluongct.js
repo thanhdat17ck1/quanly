@@ -9,31 +9,32 @@ var results1clchuyen = [];
 let iDcl = 1;
 var dtchatluong = new Date("01-02-2023");
 var dataPieCL = [];
-
+var dataGhiChuLoi = [];
 var dataPieDetailCL = [];
-
+var dataThongTinTong = [];
 
 var dtcl = document.getElementById("dtcl");
 var dtiendo = new Date();
 
 dtcl.value = formatDateMonthValid(dtchatluong);
-//dtcl.value = formatDate3(dtchatluong.setFullYear(dtchatluong.getFullYear() - 1));
 
 
-
-//de.value = formatDate3(dtiendo);
-//dt.value = formatDate3(dtiendo.setFullYear(dtiendo.getFullYear() - 1));
 dtcl.addEventListener('change', function () {
     getPieCL(dtcl.value.split("-")[1], dtcl.value.split("-")[0])
+    document.getElementById("thang").innerHTML = " " + dtcl.value.split("-")[1]
 });
+document.getElementById("optionchuyen").addEventListener("change", function () {
+    var select = document.getElementById("optionchuyen").value;
+    setTimeout(function () {
+        getLineChartData(select, localStorage.getItem("MaHangChiTietChatLuong"), dtcl.value.split("-")[1], dtcl.value.split("-")[0])
+    }, 500
+    )
+})
 
-
-//decl.addEventListener('change', function () {
-//    getPieCL(formatDate(dt.value), formatDate(de.value))
-
-//});
 
 getPieCL(dtcl.value.split("-")[1], dtcl.value.split("-")[0])
+getghichuloi(dtcl.value.split("-")[1], dtcl.value.split("-")[0]);
+getthongtintong(dtcl.value.split("-")[1], dtcl.value.split("-")[0]);
 function formatDate(date) {
     var day = new Date(date).getDate();
     if (day < 10) {
@@ -60,11 +61,14 @@ function formatDate3(date) {
 }
 function formatDateMonthValid(date) {
     var month = new Date(date).getMonth() + 1;
+
     if (month < 10) {
         month = "0" + month;
     }
+    document.getElementById("thang").innerHTML = " " + month
     var year = new Date(date).getFullYear();
     return year + "-" + month;
+
 }
 function getPieCL(dt, de) {
     $.ajax({
@@ -73,28 +77,38 @@ function getPieCL(dt, de) {
         dataType: "json",
         success: function (response) {
             dataPieCL = response;
-            console.log(dataPieCL)
+            console.log(response, "CL")
+            var newArr = response.sort((a, b) => a.TongLoi - b.TongLoi); // b - a for reverse sort
+
+            renndertopsploi(newArr)
             results1cl = []
             var num = 0;
             response.map(x => {
-                resultscl.push("Mã Hàng " + x.MaHang, x.TongLoi)
+                resultscl.push("Mã Hàng :" + x.MaHang, x.TongLoi)
                 results1cl.push(resultscl)
                 resultscl = []
                 num++;
             })
+
             if (num > 0) {
                 renderPieCL(results1cl);
+                var maxTongKiem = arrayMaxTongKiem(response)
+
                 var tongloimax = arrayMaxTongLoi(response)
-                document.getElementById("chuyencancaithien").innerHTML = tongloimax[0].Name + " - Tổng lỗi : " + tongloimax[0].TongLoi
+                document.getElementById("mahangcancaithien").innerHTML = tongloimax[0].MaHang + " - Tổng lỗi : " + tongloimax[0].TongLoi
+                document.getElementById("hhtm").innerHTML = maxTongKiem[0].MaHang + " - Tổng sản phẩm : " + maxTongKiem[0].TongKiem
+
 
                 if (num > 0) {
                     //getPieDetailCL(response[0].Name, formatDate(dtcl.value), formatDate(decl.value))
+                    getLineData(response[0].StyleID, dt, de)
 
 
                     //localStorage.setItem("ChuyenChatLuong", response[0].Name)
                 }
 
-                document.getElementById("ptchuyen").innerHTML = localStorage.getItem("ChuyenChatLuong");
+                //document.getElementById("ptchuyen").innerHTML = localStorage.getItem("ChuyenChatLuong");
+                //document.getElementById("mhct").innerHTML = response[0].MaHang;
             } else {
                 alert("không đủ số liệu để phân tích,vui lòng chọn mốc thời gian khác");
 
@@ -107,9 +121,110 @@ function getPieCL(dt, de) {
     });
 
 }
+
+function getLineData(styleID, dt, de) {
+    $.ajax({
+        type: "GET",
+        url: "/api/ChatLuong/GetChatLuongChiTiet?action=getLineChart&&line=&&styleID=" + styleID + "&&month=" + dt + "&&year=" + de,
+        dataType: "json",
+        success: function (response) {
+            //var listChuyen = [];
+            //response.forEach(x => {
+            //    listChuyen.push(x)
+            //})
+            var lineData = [];
+            var lineLabel = [];
+            var num = 0;
+            response.map(x => {
+                lineData.push(x.TongKiem)
+                lineLabel.push("Chuyền :" + x.Name)
+                num++;
+            })
+            rennderOptionChuyen(response)
+            renderpecentchart(lineLabel, lineData)
+            if (num > 0) {
+                setTimeout(function () {
+                    getLineChartData(response[0].LineX, response[0].StyleID, dt, de)
+                }, 500
+                )
+            }
+        },
+        error: function (xhr, status, error) {
+            // Code to handle any errors that may occur while connecting to the API
+            console.error(status + ": " + error);
+        }
+    });
+
+}
+function getghichuloi(dt,de) {
+    $.ajax({
+        type: "GET",
+        url: "/api/ChatLuong/GetChatLuongChiTiet?action=getghichuloi&&line=&&styleID=&&month=" + dt + "&&year=" + de,
+        dataType: "json",
+        success: function (response) {
+            dataGhiChuLoi = response;
+            console.log(dataGhiChuLoi,"dataGhiChuLoi")
+        },
+        error: function (xhr, status, error) {
+            // Code to handle any errors that may occur while connecting to the API
+            console.error(status + ": " + error);
+        }
+    });
+
+}
+function getLineChartData(LineX, styleID, dt, de) {
+    $.ajax({
+        type: "GET",
+        url: "/api/ChatLuong/GetChatLuongChiTiet?action=getLineChart&&line=" + LineX + "&&styleID=" + styleID + "&&month=" + dt + "&&year=" + de,
+        dataType: "json",
+        success: function (response) {
+            var resultchuyentheomahang = []
+            var num = 0;
+            var summahang = 0;
+            var sumchuyen = 0;
+            var series = []
+            var seriesLoi = []
+            var dataghichuloi = []
+            var categoriesdataghichuloi = []
+            var xasix = []
+            response.forEach(k => {
+                series.push(
+                    k.SPDAT
+                )
+                seriesLoi.push(k.SPLOI)
+                xasix.push(k.Ngay)
+            })
+
+            dataGhiChuLoi.forEach(l => {
+                var sumghichu = 0;
+                response.forEach(k => {
+                    console.log(k)
+                    sumghichu += parseInt(k[l.ID]);
+                })
+                dataghichuloi.push(sumghichu)
+            })
+
+            dataGhiChuLoi.forEach(x => {
+                categoriesdataghichuloi.push(x.GhiChuLoi)
+            })
+            console.log(dataGhiChuLoi,"dataGhiChuLoi")
+            document.getElementById("linechartchatluong").innerHTML = '';
+            setTimeout(function () {
+                renderLineChartChatLuong(response, series, seriesLoi, xasix);
+                renderLoiTapTrung(dataghichuloi, categoriesdataghichuloi)
+
+            }, 200)
+        },
+        error: function (xhr, status, error) {
+            // Code to handle any errors that may occur while connecting to the API
+            console.error(status + ": " + error);
+        }
+    });
+
+}
 function arrayMaxChatLuong(arr) {
 
- 
+
     var len = arr.length, max = -Infinity;
     var obj = [];
     while (len--) {
@@ -119,7 +234,37 @@ function arrayMaxChatLuong(arr) {
             obj.push(arr[len])
         }
     }
- 
+
+    return obj;
+};
+function arrayMaxChiTietLoi(arr) {
+
+
+    var len = arr.length, max = -Infinity;
+    var obj = [];
+    while (len--) {
+        if (arr[len].Tong > max) {
+            max = arr[len].Tong;
+            obj = [];
+            obj.push(arr[len])
+        }
+    }
+
+    return obj;
+};
+function arrayMaxTongKiem(arr) {
+
+
+    var len = arr.length, max = -Infinity;
+    var obj = [];
+    while (len--) {
+        if (arr[len].TongKiem > max) {
+            max = arr[len].TongKiem;
+            obj = [];
+            obj.push(arr[len])
+        }
+    }
+
     return obj;
 };
 function arrayMaxTongLoi(arr) {
@@ -184,60 +329,26 @@ function getPieDetailCL(id, dt, de) {
         }
     });
 }
+function getthongtintong(dt, de) {
 
-function getPieDetailCLTheoMaHang(id,loi, dt, de) {
-    var idchuyen = "";
-    dataPieDetailCL.forEach(x => {
-        if (x.MaHang == id && x.TongLoi == loi) {
-            idchuyen = x.LineX;
-        }
-    })
     $.ajax({
         type: "GET",
-        url: "/api/ChatLuong/GetThongKeTLLoiTheoMaHang?line=" + idchuyen + "&&dt=" + dt + "&&de=" + de,
+        url: "/api/ChatLuong/GetChatLuongChiTiet?action=gettttong&&line=&&styleID=&&month=" + dt + "&&year=" + de,
         dataType: "json",
         success: function (response) {
-            var resultchuyentheomahang = []
-            var num = 0;
-            response.map(x => {
+            dataThongTinTong = response;
+            var datatong = [];
+            dataGhiChuLoi.forEach(l => {
+                var sumghichu = 0;
+                response.forEach(k => {
+                    sumghichu += parseInt(k[l.ID]);
+                })
+                datatong.push({ "Loi": l.GhiChuLoi, "Tong": sumghichu })
 
-                if (id == x.MaHang) {
-                    resultchuyentheomahang.push(x)
-                }
             })
-            var mattl = arrayMaxChatLuong(response)
-      
-            var mattlchuyen = arrayMaxChatLuong(resultchuyentheomahang)
-
-            var summahang = 0;
-            var sumchuyen = 0;
-
-            resultchuyentheomahang.forEach((num) => { summahang += num.TiLeLoi });
-            response.forEach((num) => { sumchuyen += num.TiLeLoi });
-
-            var averagemahang = (summahang / resultchuyentheomahang.length).toFixed(2);
-            var averagechuyen = (sumchuyen / response.length).toFixed(2);
-
-
-            document.getElementById("tlltbchuyen").innerHTML = averagechuyen;
-            document.getElementById("tlltb").innerHTML = averagemahang;
-
-            document.getElementById("tllcn").innerHTML = "Mã hàng :" + mattl[0].MaHang + " - Tỉ lệ lỗi:" + mattl[0].TiLeLoi + " - Ngày: " + mattl[0].Ngay;
-            document.getElementById("tllcnchuyen").innerHTML = "Ngày :" + mattlchuyen[0].Ngay + " - Tỉ lệ lỗi:" + mattlchuyen[0].TiLeLoi
-            var series = []
-            var seriesLoi = []
-
-            var xasix = []
-            resultchuyentheomahang.forEach(k => {
-                series.push(
-                    k.SPDAT
-                )
-                seriesLoi.push(k.SPLOI)
-                xasix.push(k.Ngay)
-            })
-            document.getElementById("linechartchatluong").innerHTML = '';
-            setTimeout(function () { renderLineChartChatLuong(resultchuyentheomahang, series, seriesLoi, xasix); },200)
-      
+            var maxTong = arrayMaxChiTietLoi(datatong)
+            document.getElementById("loithuonggap").innerHTML = ": " + maxTong[0].Loi;
+            document.getElementById("solangap").innerHTML = ": " + maxTong[0].Tong + " lần";
 
         },
         error: function (xhr, status, error) {
@@ -293,12 +404,12 @@ function getPieDetailCLTheoMaHangall(dt, de) {
         }
     });
 }
-getPieDetailCLTheoMaHangall(formatDate(dtcl.value), formatDate(decl.value))
+//getPieDetailCLTheoMaHangall(formatDate(dtcl.value), formatDate(decl.value))
 function renderPieCL(data) {
     Highcharts.chart('containerchatluong', {
 
         title: {
-            text: 'Biểu đồ lỗi theo chuyền'
+            text: ''
         },
 
         plotOptions: {
@@ -306,16 +417,19 @@ function renderPieCL(data) {
                 point: {
                     events: {
                         click: function (event) {
-                            iD = this.name.split(" ")[1];
-                          
-                            let html = "<div></div>"
-                            //document.querySelector("#apex-chart-chatluong").innerHTML = html
-                            getPieDetailCL(iD, formatDate(dtcl.value), formatDate(decl.value))
-                        
-                            localStorage.setItem("ChuyenChatLuong", iD)
-                            document.getElementById("mhctchuyen").innerHTML = iD;
+                            iD = this.name.split(":")[1];
+                            dataPieCL.forEach(x => {
+                                if (x.MaHang == iD) {
+                                    localStorage.setItem("MaHangChiTietChatLuong", x.StyleID)
+                                    getLineData(x.StyleID, dtcl.value.split("-")[1], dtcl.value.split("-")[0])
+                                    //document.getElementById("mhct").innerHTML = x.MaHang;
 
-                            document.getElementById("ptchuyen").innerHTML = localStorage.getItem("ChuyenChatLuong");
+                                }
+                            })
+                            let html = "<div></div>"
+                            document.getElementById("chart-percent").innerHTML = html
+
+
 
                         }
                     }
@@ -334,12 +448,11 @@ function renderPieCL(data) {
 }
 
 function renderPieCLTheoChuyen(data) {
-    document.getElementById("mhctchuyen").innerHTML = localStorage.getItem("ChuyenChatLuong");
 
     Highcharts.chart('containerchatluongtheochuyen', {
 
         title: {
-            text: 'Biểu đồ lỗi theo mã hàng - chuyền ' + localStorage.getItem("ChuyenChatLuong")
+            text: 'Biểu đồ lỗi theo mã hàng - chuyền '
         },
 
         plotOptions: {
@@ -348,14 +461,10 @@ function renderPieCLTheoChuyen(data) {
                     events: {
                         click: function (event) {
                             iD = this.name;
-                       
+
                             let html = "<div></div>"
-                            //document.querySelector("#apex-chart-chatluong").innerHTML = html
                             getPieDetailCLTheoMaHang(iD, this.y, formatDate(dt.value), formatDate(de.value))
                             document.getElementById("mhct").innerHTML = iD;
-
-                            //localStorage.setItem("ChuyenChatLuong", iD)
-
                         }
                     }
                 }
@@ -378,9 +487,9 @@ function renderLineChartChatLuong(data, series, seriesLoi, xaxis) {
             name: "Sản phẩm đạt",
             data: series
         }, {
-                name: "Sản phẩm lỗi",
-                data: seriesLoi
-            }],
+            name: "Sản phẩm lỗi",
+            data: seriesLoi
+        }],
         chart: {
             height: 350,
             type: 'line',
@@ -395,7 +504,7 @@ function renderLineChartChatLuong(data, series, seriesLoi, xaxis) {
             curve: 'straight'
         },
         title: {
-            text: 'Tỉ lệ lỗi theo mã hàng - '+data[0].MaHang,
+            text: '',
             align: 'left'
         },
         grid: {
@@ -413,5 +522,161 @@ function renderLineChartChatLuong(data, series, seriesLoi, xaxis) {
     chart.render();
 
 }
+function renderLoiTapTrung(data, categories) {
+    document.getElementById("chart-phantichloi").innerHTML = '';
+    var options = {
+        series: [{
+            name: '',
+            data: data
+        }],
+        chart: {
+            type: 'bar',
+            height: 350
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '55%',
+                endingShape: 'rounded'
+            },
+        },
+        dataLabels: {
+            enabled: false
+        },
+        title: {
+            text: ''
+        },
+        stroke: {
+            show: true,
+            width: 2,
+            colors: ['transparent']
+        },
+        xaxis: {
+            categories: categories,
+        },
+        yaxis: {
+            title: {
+                text: 'Số lần gặp lỗi'
+            }
+        },
+        fill: {
+            opacity: 1
+        },
+        tooltip: {
+            y: {
+                formatter: function (val) {
+                    return val + " lần"
+                }
+            }
+        }
+    };
+   
 
+    var chart = new ApexCharts(document.querySelector("#chart-phantichloi"), options);
+    chart.render();
+
+
+}
+
+function renderpecentchart(label, data) {
+    var options = {
+        series: data,
+        chart: {
+            width: 380,
+            type: 'pie',
+        },
+        title: {
+            text: ' '
+        },
+        plotOptions: {
+            series: {
+                point: {
+                    events: {
+                        click: function (event) {
+                            iD = this.name.split(":")[1];
+                            console.log(iD, "chuyền")
+                            //dataPieCL.forEach(x => {
+                            //    if (x.MaHang == iD) {
+                            //        getLineData(x.StyleID, dtcl.value.split("-")[1], dtcl.value.split("-")[0])
+                            //    }
+                            //})
+                            //let html = "<div></div>"
+                            //document.getElementById("chart-percent").innerHTML = html
+
+
+
+                        }
+                    }
+                }
+            }
+        },
+        labels: label,
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 200
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }]
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart-percent"), options);
+    chart.render();
+
+}
+
+function renndertopsploi(option) {
+
+    let getImgs = ``;
+    for (let i = 0; i < 3; i++) {
+        getImgs =
+            getImgs +
+            `<div class="kt-widget5__item">
+                                <div class="kt-widget5__content">
+                                    <div class="kt-widget5__pic">
+                                        <img class="kt-widget7__img" src="/assets/media/products/product27.jpg" alt="">
+                                    </div>
+                                    <div class="kt-widget5__section">
+                                        <a href="#" class="kt-widget5__title">
+                                            <span id="mahangtop">Mã hàng ${option[i].MaHang}</span>
+                                        </a>
+                                        <p class="kt-widget5__desc">
+                                            tổng lỗi : <span id="tongloi">${option[i].TongLoi}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="kt-widget5__content">
+                                    <div class="kt-widget5__stats">
+                                        <span class="kt-widget5__number">${option[i].SPLOI}</span>
+                                        <span class="kt-widget5__sales">SP lỗi</span>
+                                    </div>
+                                    <div class="kt-widget5__stats">
+                                        <span class="kt-widget5__number">${option[i].SPDAT}</span>
+                                        <span class="kt-widget5__votes">Sản phẩm</span>
+                                    </div>
+                                </div>
+                            </div>
+                 `;
+    }
+    document.getElementById("rendertopsploi").innerHTML = getImgs;
+}
+
+function rennderOptionChuyen(option) {
+
+    let getImgs = ``;
+
+    //let getImgs = `<option value="" >--Tất cả--</option>`;
+    for (let i = 0; i < option.length; i++) {
+        //var TenLenhTemp = option[i].TenLenh.toString().length > 13 ? option[i].TenLenh.toString().substr(0, 10) + "..." : option[i].TenLenh.toString()
+        getImgs =
+            getImgs +
+            `<option value="${option[i].LineX}" >Chuyền ${option[i].Name}</option>
+                 `;
+    }
+    document.getElementById("optionchuyen").innerHTML = getImgs;
+}
 

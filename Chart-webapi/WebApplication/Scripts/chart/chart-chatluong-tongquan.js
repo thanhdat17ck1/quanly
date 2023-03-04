@@ -10,6 +10,8 @@ let iDcl = 1;
 var dtchatluong = new Date("01-02-2023");
 var dataPieCL = [];
 var lstAllChuyen = [];
+var dataDicGiaTri = [];
+var dataThongTinTong = [];
 
 var dataPieDetailCL = [];
 //alert(dtchatluong)
@@ -22,25 +24,40 @@ var de = document.getElementById("de");
 var dtiendo = new Date();
 
 dtcl.value = formatDateMonthValid(dtchatluong);
-//dtcl.value = formatDate3(dtchatluong.setFullYear(dtchatluong.getFullYear() - 1));
 
-
-
-//de.value = formatDate3(dtiendo);
-//dt.value = formatDate3(dtiendo.setFullYear(dtiendo.getFullYear() - 1));
 dtcl.addEventListener('change', function () {
     getPieCL(dtcl.value.split("-")[1], dtcl.value.split("-")[0])
 });
 
-//decl.addEventListener('change', function () {
-//    getPieCL(formatDate(dt.value), formatDate(de.value))
-
+//$(function () {
+//    $.datepicker.regional['vi'] = {
+//        closeText: 'Đóng',
+//        prevText: '&#x3c;Trước',
+//        nextText: 'Tiếp&#x3e;',
+//        currentText: 'Hôm nay',
+//        monthNames: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6',
+//            'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+//        monthNamesShort: ['Thg1', 'Thg2', 'Thg3', 'Thg4', 'Thg5', 'Thg6',
+//            'Thg7', 'Thg8', 'Thg9', 'Thg10', 'Thg11', 'Thg12'],
+//        dayNames: ['Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy'],
+//        dayNamesShort: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+//        dayNamesMin: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+//        weekHeader: 'Tuần',
+//        dateFormat: 'dd/mm/yy',
+//        firstDay: 0,
+//        isRTL: false,
+//        showMonthAfterYear: false,
+//        yearSuffix: ''
+//    };
+//    $.datepicker.setDefaults($.datepicker.regional['vi']);
+//    $("#dtcl").datepicker();
 //});
+
 document.getElementById("selectchuyen").addEventListener("change", function () {
     //var selected = document.getElementById("selectkh").value;
     getPieDetailCL("", localStorage.getItem("MaHangChatLuongTongQuan"), dtcl.value.split("-")[1], dtcl.value.split("-")[0])
 })
-
+getdicgiaatri(dtcl.value.split("-")[1], dtcl.value.split("-")[0])
 
 getPieCL(dtcl.value.split("-")[1], dtcl.value.split("-")[0])
 function formatDate(date) {
@@ -122,6 +139,7 @@ function getPieCL(dt, de) {
         dataType: "json",
         success: function (response) {
             dataPieCL = response;
+     
             results1cl = []
             var num = 0;
             response.map(x => {
@@ -132,7 +150,7 @@ function getPieCL(dt, de) {
             })
             if (num > 0) {
                 renderPieCL(results1cl);
-                //GetAllChuyen("", response[0].StyleID, dtcl.value.split("-")[1], dtcl.value.split("-")[0])
+                GetAllChuyen("", response[0].StyleID, dtcl.value.split("-")[1], dtcl.value.split("-")[0])
                
                 if (num > 0) {
                     localStorage.setItem("MaHangChatLuongTongQuan", response[0].StyleID)
@@ -150,7 +168,74 @@ function getPieCL(dt, de) {
     });
 
 }
+function getdicgiaatri(dt, de) {
+    $.ajax({
+        type: "GET",
+        url: "/api/ChatLuong/GetChatLuongChiTiet?action=getdicgiatri&&line=&&styleID=&&month=" + dt + "&&year=" + de,
+        dataType: "json",
+        success: function (response) {
+            dataDicGiaTri = response;
+            getthongtintong(dt, de);
+            
+        },
+        error: function (xhr, status, error) {
+            // Code to handle any errors that may occur while connecting to the API
+            console.error(status + ": " + error);
+        }
+    });
 
+}
+function dynamicSort(property) {
+    var sortOrder = 1;
+    if (property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+    return function (a, b) {
+        /* next line works with strings and numbers, 
+         * and you may want to customize it to your needs
+         */
+        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        return result * sortOrder;
+    }
+}
+function getthongtintong(dt, de) {
+
+    $.ajax({
+        type: "GET",
+        url: "/api/ChatLuong/GetChatLuongChiTiet?action=gettttong&&line=&&styleID=&&month=" + dt + "&&year=" + de,
+        dataType: "json",
+        success: function (response) {
+            dataThongTinTong = response;
+            var DataTopTTL = [];
+            dataThongTinTong.forEach(x => {
+                if (x.TiLeLoi > dataDicGiaTri[0].Rate_Green)
+                    DataTopTTL.push({ "MaHang": x.MaHang, "TiLeLoi": x.TiLeLoi })
+            })
+            const arrayUniqueByKey = [...new Map(DataTopTTL.map(item =>
+                [item["MaHang"], item])).values()];
+
+            arrayUniqueByKey.sort((a, b) => {
+                return b.TiLeLoi - a.TiLeLoi;
+            });
+            var datattl = [];
+            var datattllabel = [];
+
+            for (var i = 0; i < 10; i++) {
+                datattl.push(arrayUniqueByKey[i].TiLeLoi)
+                datattllabel.push(arrayUniqueByKey[i].MaHang)
+
+            }
+
+            renderbarTiLeLoi(datattl.reverse(), datattllabel.reverse())
+            //console.log(arrayUniqueByKey,"Top TTL")
+        },
+        error: function (xhr, status, error) {
+            // Code to handle any errors that may occur while connecting to the API
+            console.error(status + ": " + error);
+        }
+    });
+}
 function GetAllChuyen(id, mahang, dt, de) {
     var styleID = '';
     console.log(mahang, dt, de,"de")
@@ -339,7 +424,7 @@ function renderPieCL(data) {
     Highcharts.chart('containerchatluong', {
 
         title: {
-            text: 'Biểu đồ tổng lỗi theo mã hàng'
+            text: ''
         },
 
         plotOptions: {
@@ -554,4 +639,30 @@ function rennderOptionKH(option) {
 
     }
     selectbox.innerHTML = getImgs;
+}
+function renderbarTiLeLoi(data,label) {
+    var options = {
+        series: [{
+            data:data
+        }],
+        chart: {
+            type: 'bar',
+            height: 350
+        },
+        plotOptions: {
+            bar: {
+                borderRadius: 4,
+                horizontal: true,
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        xaxis: {
+            categories: label,
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart-ttl"), options);
+    chart.render();
 }
