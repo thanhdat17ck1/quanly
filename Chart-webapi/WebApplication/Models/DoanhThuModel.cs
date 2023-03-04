@@ -275,5 +275,32 @@ namespace WebApplication.Models
             }
             finally { if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); } }
         }
+
+        public DataTable GETDThangTrongNam()
+        {
+            SqlConnection _cnn = null;
+
+            try
+            {
+                _cnn = SqlHelper.GetConnection();
+                SqlCommand cmd = new SqlCommand("SP_ERP_DoanhThuThangTrongNam", _cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "GETDThangTrongNam");
+                cmd.Parameters.AddWithValue("@FromDate", "06-01-2022");
+                cmd.Parameters.AddWithValue("@ToDate", "06-01-2022");
+                using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
+                {
+                    DataTable tb = new DataTable();
+                    adt.Fill(tb);
+                    return tb;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally { if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); } }
+        }
     }
 }

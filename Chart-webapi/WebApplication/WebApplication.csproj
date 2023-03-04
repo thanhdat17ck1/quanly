@@ -199,6 +199,7 @@
     <Content Include="Scripts\chart\chart1.js" />
     <Content Include="Scripts\datepicker.min.js" />
     <Content Include="Scripts\doanhthu\doanhthu.js" />
+    <Content Include="Scripts\doanhthu\khachhang.js" />
     <Content Include="Scripts\doanhthu\sanpham.js" />
     <Content Include="Scripts\doanhthu\tonghop.js" />
     <Content Include="Scripts\hightchart.js" />

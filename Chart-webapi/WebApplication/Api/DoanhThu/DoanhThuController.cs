@@ -121,5 +121,17 @@ namespace WebApplication.Api.DoanhThu
             JArray arr = JArray.Parse(json);
             return arr;
         }
+
+        [HttpGet]
+        [Route("GETDThangTrongNam")]
+        public dynamic GETDThangTrongNam()
+        {
+            //return _repo.GetPhieuKCSCat(date);
+
+            DataTable tbl = _repo.GETDThangTrongNam();
+            string json = JsonConvert.SerializeObject(tbl, Formatting.Indented);
+            JArray arr = JArray.Parse(json);
+            return arr;
+        }
     }
 }
