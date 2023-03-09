@@ -188,6 +188,8 @@ function GetTopDTKHWeekAgo() {
     });
 
 }
+
+
 GetTopDTKHWeekAgo();
 GetTopDTKHMonthAgo();
 GetTopDTKHYearAgo()

@@ -1,0 +1,195 @@
+﻿@{
+    ViewBag.Title = "Doanh thu khách hàng";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.36.3/apexcharts.min.css">
+    <link rel="stylesheet" href="~/css/chart.css">
+    <style>
+        .daterangepicker.ltr.show-calendar.opensleft {
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+        <!-- end:: Content Head -->
+        <!-- begin:: Content -->
+        <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+
+            <!-- Top 3 khách hàng doanh thu cao nhất -->
+            <div class="row">
+                <div class="col-xl-8 col-lg-12 order-lg-3 order-xl-1">
+                    <!--begin:: Widgets/Best Sellers-->
+                    <div class="kt-portlet kt-portlet--height-fluid">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                    Top 3 khách hàng doanh thu cao nhất
+                                </h3>
+                            </div>
+                            <div class="kt-portlet__head-toolbar">
+                                <ul class="nav nav-pills nav-pills-sm nav-pills-label nav-pills-bold" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#kt_widget5_tab1_content" role="tab">
+                                            Tuần trước
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#kt_widget5_tab2_content" role="tab">
+                                            Tháng trước
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#kt_widget5_tab3_content" role="tab">
+                                            Năm trước
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#kt_widget5_tab4_content" role="tab">
+                                            Tất cả thời gian
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__body">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="kt_widget5_tab1_content" aria-expanded="true">
+                                    <div class="kt-widget5">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="kt_widget5_tab2_content">
+                                    <div class="kt-widget5">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="kt_widget5_tab3_content">
+                                    <div class="kt-widget5">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="kt_widget5_tab4_content">
+                                    <div class="kt-widget5">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end:: Widgets/Best Sellers-->
+
+
+                </div>
+
+            </div>
+
+            <!-- end:: Content -->
+            <!-- Top 10 mặt hàng bán chạy -->
+            <!--<div class="row">
+                <div class="col-lg-6">-->
+            <!--begin::Portlet-->
+            <!--<div class="kt-portlet kt-portlet--tab">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <span class="kt-portlet__head-icon kt-hidden">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-title">
+                            Top 10 mặt hàng doanh theo theo tháng
+                        </h3>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div id="kt_gchart_1" style="height:500px;"><div style="position: relative;"><div dir="ltr" style="position: relative; width: 551px; height: 500px;"><div style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%;" aria-label="A chart."><svg width="551" height="500" aria-label="A chart." style="overflow: hidden;"><defs id="_ABSTRACT_RENDERER_ID_0"><clipPath id="_ABSTRACT_RENDERER_ID_1"><rect x="105" y="96" width="341" height="309"></rect></clipPath><filter id="_ABSTRACT_RENDERER_ID_5"><feGaussianBlur in="SourceAlpha" stdDeviation="2"></feGaussianBlur><feOffset dx="1" dy="1"></feOffset><feComponentTransfer><feFuncA type="linear" slope="0.1"></feFuncA></feComponentTransfer><feMerge><feMergeNode></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter></defs><rect x="0" y="0" width="551" height="500" stroke="none" stroke-width="0" fill="#ffffff"></rect><g><text text-anchor="start" x="105" y="73.05" font-family="Arial" font-size="13" font-weight="bold" stroke="none" stroke-width="0" fill="#000000">Motivation and Energy Level Throughout the Day</text><rect x="105" y="62" width="341" height="13" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></rect></g><g><rect x="459" y="96" width="79" height="51" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></rect><g><rect x="459" y="96" width="79" height="13" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></rect><g><text text-anchor="start" x="490" y="107.05" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#222222">Motiv…</text><rect x="490" y="96" width="48" height="13" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></rect></g><rect x="459" y="96" width="26" height="13" stroke="none" stroke-width="0" fill="#6e4ff5"></rect></g><g><rect x="459" y="117" width="79" height="30" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></rect><g><text text-anchor="start" x="490" y="128.05" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#222222">Energy</text><text text-anchor="start" x="490" y="145.05" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#222222">Level</text></g><rect x="459" y="117" width="26" height="13" stroke="none" stroke-width="0" fill="#fe3995"></rect></g></g><g><rect x="105" y="96" width="341" height="309" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></rect><g clip-path="url(http://127.0.0.1:5500/theme/classic/demo1/index.html#_ABSTRACT_RENDERER_ID_1)"><g><rect x="122" y="96" width="1" height="309" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="122" y="400" width="1" height="5" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="156" y="400" width="1" height="5" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="190" y="96" width="1" height="309" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="190" y="400" width="1" height="5" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="224" y="400" width="1" height="5" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="258" y="96" width="1" height="309" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="258" y="400" width="1" height="5" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="292" y="400" width="1" height="5" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="326" y="96" width="1" height="309" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="326" y="400" width="1" height="5" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="360" y="400" width="1" height="5" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="394" y="96" width="1" height="309" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="394" y="400" width="1" height="5" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="428" y="400" width="1" height="5" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="105" y="404" width="341" height="1" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="105" y="342" width="341" height="1" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="105" y="281" width="341" height="1" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="105" y="219" width="341" height="1" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="105" y="158" width="341" height="1" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="105" y="96" width="341" height="1" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="105" y="373" width="341" height="1" stroke="none" stroke-width="0" fill="#ebebeb"></rect><rect x="105" y="312" width="341" height="1" stroke="none" stroke-width="0" fill="#ebebeb"></rect><rect x="105" y="250" width="341" height="1" stroke="none" stroke-width="0" fill="#ebebeb"></rect><rect x="105" y="188" width="341" height="1" stroke="none" stroke-width="0" fill="#ebebeb"></rect><rect x="105" y="127" width="341" height="1" stroke="none" stroke-width="0" fill="#ebebeb"></rect></g><g><rect x="112" y="374" width="10" height="30" stroke="none" stroke-width="0" fill="#6e4ff5"></rect><rect x="146" y="343" width="10" height="61" stroke="none" stroke-width="0" fill="#6e4ff5"></rect><rect x="180" y="313" width="10" height="91" stroke="none" stroke-width="0" fill="#6e4ff5"></rect><rect x="214" y="282" width="10" height="122" stroke="none" stroke-width="0" fill="#6e4ff5"></rect><rect x="248" y="251" width="10" height="153" stroke="none" stroke-width="0" fill="#6e4ff5"></rect><rect x="282" y="220" width="10" height="184" stroke="none" stroke-width="0" fill="#6e4ff5"></rect><rect x="316" y="189" width="10" height="215" stroke="none" stroke-width="0" fill="#6e4ff5"></rect><rect x="350" y="159" width="10" height="245" stroke="none" stroke-width="0" fill="#6e4ff5"></rect><rect x="384" y="128" width="10" height="276" stroke="none" stroke-width="0" fill="#6e4ff5"></rect><rect x="418" y="97" width="10" height="307" stroke="none" stroke-width="0" fill="#6e4ff5"></rect><rect x="123" y="397" width="10" height="7" stroke="none" stroke-width="0" fill="#fe3995"></rect><rect x="157" y="390" width="10" height="14" stroke="none" stroke-width="0" fill="#fe3995"></rect><rect x="191" y="374" width="10" height="30" stroke="none" stroke-width="0" fill="#fe3995"></rect><rect x="225" y="336" width="10" height="68" stroke="none" stroke-width="0" fill="#fe3995"></rect><rect x="259" y="336" width="10" height="68" stroke="none" stroke-width="0" fill="#fe3995"></rect><rect x="293" y="313" width="10" height="91" stroke="none" stroke-width="0" fill="#fe3995"></rect><rect x="327" y="282" width="10" height="122" stroke="none" stroke-width="0" fill="#fe3995"></rect><rect x="361" y="243" width="10" height="161" stroke="none" stroke-width="0" fill="#fe3995"></rect><rect x="395" y="174" width="10" height="230" stroke="none" stroke-width="0" fill="#fe3995"></rect><rect x="429" y="97" width="10" height="307" stroke="none" stroke-width="0" fill="#fe3995"></rect></g><g><rect x="-150" y="96" width="1" height="309" stroke="none" stroke-width="0" fill="#333333"></rect><rect x="105" y="404" width="341" height="1" stroke="none" stroke-width="0" fill="#333333"></rect></g></g><g></g><g><g><text text-anchor="middle" x="122.5" y="424.05" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">8:00 AM</text></g><g><text text-anchor="middle" x="190.5" y="424.05" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">10:00 AM</text></g><g><text text-anchor="middle" x="258.5" y="424.05" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">12:00 PM</text></g><g><text text-anchor="middle" x="326.5" y="424.05" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">2:00 PM</text></g><g><text text-anchor="middle" x="394.5" y="424.05" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">4:00 PM</text></g><g><text text-anchor="end" x="92" y="409.05" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">0</text></g><g><text text-anchor="end" x="92" y="347.45" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">2</text></g><g><text text-anchor="end" x="92" y="285.85" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">4</text></g><g><text text-anchor="end" x="92" y="224.25" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">6</text></g><g><text text-anchor="end" x="92" y="162.65" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">8</text></g><g><text text-anchor="end" x="92" y="101.05" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">10</text></g></g></g><g><g><text text-anchor="middle" x="275.5" y="467.55" font-family="Arial" font-size="13" font-style="italic" stroke="none" stroke-width="0" fill="#222222">Time of Day</text><rect x="105" y="456.5" width="341" height="13" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></rect></g><g><text text-anchor="middle" x="43.55" y="250.5" font-family="Arial" font-size="13" font-style="italic" transform="rotate(-90 43.55 250.5)" stroke="none" stroke-width="0" fill="#222222">Rating (scale of 1-10)</text><path d="M32.49999999999999,405L32.50000000000001,96L45.50000000000001,96L45.49999999999999,405Z" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></path></g></g><g></g></svg><div aria-label="A tabular representation of the data in the chart." style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;"><table><thead><tr><th>Time of Day</th><th>Motivation Level</th><th>Energy Level</th></tr></thead><tbody><tr><td>8 am</td><td>1</td><td>0.25</td></tr><tr><td>9 am</td><td>2</td><td>0.5</td></tr><tr><td>10 am</td><td>3</td><td>1</td></tr><tr><td>11 am</td><td>4</td><td>2.25</td></tr><tr><td>12 pm</td><td>5</td><td>2.25</td></tr><tr><td>1 pm</td><td>6</td><td>3</td></tr><tr><td>2 pm</td><td>7</td><td>4</td></tr><tr><td>3 pm</td><td>8</td><td>5.25</td></tr><tr><td>4 pm</td><td>9</td><td>7.5</td></tr><tr><td>5 pm</td><td>10</td><td>10</td></tr></tbody></table></div></div></div><div aria-hidden="true" style="display: none; position: absolute; top: 510px; left: 561px; white-space: nowrap; font-family: Arial; font-size: 13px; font-weight: bold;">5.25</div><div></div></div></div>
+                </div>
+            </div>-->
+            <!--end::Portlet-->
+            <!--</div>
+            <div class="col-lg-6">-->
+            <!--begin::Portlet-->
+            <!--<div class="kt-portlet kt-portlet--tab">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <span class="kt-portlet__head-icon kt-hidden">
+                            <i class="la la-gear"></i>
+                        </span>
+                        <h3 class="kt-portlet__head-title">
+                            Top 10 mặt hàng doanh theo theo năm
+                        </h3>
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div id="kt_gchart_2" style="height:500px;"><div style="position: relative;"><div dir="ltr" style="position: relative; width: 551px; height: 500px;"><div style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%;" aria-label="A chart."><svg width="551" height="500" aria-label="A chart." style="overflow: hidden;"><defs id="_ABSTRACT_RENDERER_ID_2"><clipPath id="_ABSTRACT_RENDERER_ID_3"><rect x="105" y="96" width="341" height="309"></rect></clipPath><filter id="_ABSTRACT_RENDERER_ID_4"><feGaussianBlur in="SourceAlpha" stdDeviation="2"></feGaussianBlur><feOffset dx="1" dy="1"></feOffset><feComponentTransfer><feFuncA type="linear" slope="0.1"></feFuncA></feComponentTransfer><feMerge><feMergeNode></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter></defs><rect x="0" y="0" width="551" height="500" stroke="none" stroke-width="0" fill="#ffffff"></rect><g><text text-anchor="start" x="105" y="73.05" font-family="Arial" font-size="13" font-weight="bold" stroke="none" stroke-width="0" fill="#000000">Motivation and Energy Level Throughout the Day</text><rect x="105" y="62" width="341" height="13" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></rect></g><g><rect x="459" y="96" width="79" height="51" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></rect><g><rect x="459" y="96" width="79" height="13" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></rect><g><text text-anchor="start" x="490" y="107.05" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#222222">Motiv…</text><rect x="490" y="96" width="48" height="13" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></rect></g><rect x="459" y="96" width="26" height="13" stroke="none" stroke-width="0" fill="#6e4ff5"></rect></g><g><rect x="459" y="117" width="79" height="30" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></rect><g><text text-anchor="start" x="490" y="128.05" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#222222">Energy</text><text text-anchor="start" x="490" y="145.05" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#222222">Level</text></g><rect x="459" y="117" width="26" height="13" stroke="none" stroke-width="0" fill="#fe3995"></rect></g></g><g><rect x="105" y="96" width="341" height="309" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></rect><g clip-path="url(http://127.0.0.1:5500/theme/classic/demo1/index.html#_ABSTRACT_RENDERER_ID_3)"><g><rect x="122" y="96" width="1" height="309" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="122" y="400" width="1" height="5" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="156" y="400" width="1" height="5" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="190" y="96" width="1" height="309" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="190" y="400" width="1" height="5" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="224" y="400" width="1" height="5" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="258" y="96" width="1" height="309" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="258" y="400" width="1" height="5" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="292" y="400" width="1" height="5" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="326" y="96" width="1" height="309" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="326" y="400" width="1" height="5" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="360" y="400" width="1" height="5" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="394" y="96" width="1" height="309" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="394" y="400" width="1" height="5" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="428" y="400" width="1" height="5" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="105" y="404" width="341" height="1" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="105" y="342" width="341" height="1" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="105" y="281" width="341" height="1" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="105" y="219" width="341" height="1" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="105" y="158" width="341" height="1" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="105" y="96" width="341" height="1" stroke="none" stroke-width="0" fill="#cccccc"></rect><rect x="105" y="373" width="341" height="1" stroke="none" stroke-width="0" fill="#ebebeb"></rect><rect x="105" y="312" width="341" height="1" stroke="none" stroke-width="0" fill="#ebebeb"></rect><rect x="105" y="250" width="341" height="1" stroke="none" stroke-width="0" fill="#ebebeb"></rect><rect x="105" y="188" width="341" height="1" stroke="none" stroke-width="0" fill="#ebebeb"></rect><rect x="105" y="127" width="341" height="1" stroke="none" stroke-width="0" fill="#ebebeb"></rect></g><g><rect x="112" y="374" width="10" height="30" stroke="none" stroke-width="0" fill="#6e4ff5"></rect><rect x="146" y="343" width="10" height="61" stroke="none" stroke-width="0" fill="#6e4ff5"></rect><rect x="180" y="313" width="10" height="91" stroke="none" stroke-width="0" fill="#6e4ff5"></rect><rect x="214" y="282" width="10" height="122" stroke="none" stroke-width="0" fill="#6e4ff5"></rect><rect x="248" y="251" width="10" height="153" stroke="none" stroke-width="0" fill="#6e4ff5"></rect><rect x="282" y="220" width="10" height="184" stroke="none" stroke-width="0" fill="#6e4ff5"></rect><rect x="316" y="189" width="10" height="215" stroke="none" stroke-width="0" fill="#6e4ff5"></rect><rect x="350" y="159" width="10" height="245" stroke="none" stroke-width="0" fill="#6e4ff5"></rect><rect x="384" y="128" width="10" height="276" stroke="none" stroke-width="0" fill="#6e4ff5"></rect><rect x="418" y="97" width="10" height="307" stroke="none" stroke-width="0" fill="#6e4ff5"></rect><rect x="123" y="397" width="10" height="7" stroke="none" stroke-width="0" fill="#fe3995"></rect><rect x="157" y="390" width="10" height="14" stroke="none" stroke-width="0" fill="#fe3995"></rect><rect x="191" y="374" width="10" height="30" stroke="none" stroke-width="0" fill="#fe3995"></rect><rect x="225" y="336" width="10" height="68" stroke="none" stroke-width="0" fill="#fe3995"></rect><rect x="259" y="336" width="10" height="68" stroke="none" stroke-width="0" fill="#fe3995"></rect><rect x="293" y="313" width="10" height="91" stroke="none" stroke-width="0" fill="#fe3995"></rect><rect x="327" y="282" width="10" height="122" stroke="none" stroke-width="0" fill="#fe3995"></rect><rect x="361" y="243" width="10" height="161" stroke="none" stroke-width="0" fill="#fe3995"></rect><rect x="395" y="174" width="10" height="230" stroke="none" stroke-width="0" fill="#fe3995"></rect><rect x="429" y="97" width="10" height="307" stroke="none" stroke-width="0" fill="#fe3995"></rect></g><g><rect x="-150" y="96" width="1" height="309" stroke="none" stroke-width="0" fill="#333333"></rect><rect x="105" y="404" width="341" height="1" stroke="none" stroke-width="0" fill="#333333"></rect></g></g><g></g><g><g><text text-anchor="middle" x="122.5" y="424.05" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">8:00 AM</text></g><g><text text-anchor="middle" x="190.5" y="424.05" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">10:00 AM</text></g><g><text text-anchor="middle" x="258.5" y="424.05" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">12:00 PM</text></g><g><text text-anchor="middle" x="326.5" y="424.05" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">2:00 PM</text></g><g><text text-anchor="middle" x="394.5" y="424.05" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">4:00 PM</text></g><g><text text-anchor="end" x="92" y="409.05" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">0</text></g><g><text text-anchor="end" x="92" y="347.45" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">2</text></g><g><text text-anchor="end" x="92" y="285.85" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">4</text></g><g><text text-anchor="end" x="92" y="224.25" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">6</text></g><g><text text-anchor="end" x="92" y="162.65" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">8</text></g><g><text text-anchor="end" x="92" y="101.05" font-family="Arial" font-size="13" stroke="none" stroke-width="0" fill="#444444">10</text></g></g></g><g><g><text text-anchor="middle" x="275.5" y="467.55" font-family="Arial" font-size="13" font-style="italic" stroke="none" stroke-width="0" fill="#222222">Time of Day</text><rect x="105" y="456.5" width="341" height="13" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></rect></g><g><text text-anchor="middle" x="43.55" y="250.5" font-family="Arial" font-size="13" font-style="italic" transform="rotate(-90 43.55 250.5)" stroke="none" stroke-width="0" fill="#222222">Rating (scale of 1-10)</text><path d="M32.49999999999999,405L32.50000000000001,96L45.50000000000001,96L45.49999999999999,405Z" stroke="none" stroke-width="0" fill-opacity="0" fill="#ffffff"></path></g></g><g></g></svg><div aria-label="A tabular representation of the data in the chart." style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;"><table><thead><tr><th>Time of Day</th><th>Motivation Level</th><th>Energy Level</th></tr></thead><tbody><tr><td>8 am</td><td>1</td><td>0.25</td></tr><tr><td>9 am</td><td>2</td><td>0.5</td></tr><tr><td>10 am</td><td>3</td><td>1</td></tr><tr><td>11 am</td><td>4</td><td>2.25</td></tr><tr><td>12 pm</td><td>5</td><td>2.25</td></tr><tr><td>1 pm</td><td>6</td><td>3</td></tr><tr><td>2 pm</td><td>7</td><td>4</td></tr><tr><td>3 pm</td><td>8</td><td>5.25</td></tr><tr><td>4 pm</td><td>9</td><td>7.5</td></tr><tr><td>5 pm</td><td>10</td><td>10</td></tr></tbody></table></div></div></div><div aria-hidden="true" style="display: none; position: absolute; top: 510px; left: 561px; white-space: nowrap; font-family: Arial; font-size: 13px; font-weight: bold;">0.25</div><div></div></div></div>
+                </div>
+            </div>-->
+            <!--end::Portlet-->
+            <!--</div>
+            </div>-->
+            <div class="row">
+                <div class="col-lg-12">
+                    <!--begin::Portlet-->
+                    <div class="kt-portlet">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-portlet__head-title">
+                                    Chi tiết doanh thu khách hàng
+                                </h3>
+                            </div>
+                        </div>
+                        <!--begin::Form-->
+                        <div class="kt-form kt-form--label-left d-flex flex-wrap">
+                            <div class="kt-portlet__body col-lg-4 col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-4 col-sm-12">Chọn thời gian</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-12">
+                                        <input type="text" class="form-control" id="kt_daterangepicker_1" name="daterange" readonly="" placeholder="Select time">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-lg-4 col-sm-12">Tên khách hàng</label>
+                                    <div class="col-lg-8 col-md-8 col-sm-12">
+                                        <select class="col-lg-12 col-md-9 col-sm-12 form-control" id="slc_dskh">
+                                            @*<option value="value"></option>*@
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="kt-portlet__body col-lg-8 col-sm-12">
+                                <div id="chart"></div>
+                            </div>
+                        </div>
+                        <!--end::Form-->
+                    </div>
+                    <!--end::Portlet-->
+                </div>
+
+            </div>
+            <!-- end -->
+        </div>
+
+        <!-- begin:: Footer -->
+        <!-- end:: Footer -->
+    </div>
+    @section scripts {
+        @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>*@
+        
+
+        <!--begin::Page Scripts(used by this page) -->
+        @*<script src="~/assets/js/demo1/pages/crud/forms/widgets/bootstrap-daterangepicker.js" type="text/javascript"></script>*@
+        
+        <script src="~/Scripts/apexcharts.min.js"></script>
+        <!--end::Page Scripts -->
+        <script src="~/Scripts/doanhthu/doanhthu.js"></script>
+        <script src="~/Scripts/doanhthu/khachhang.js"></script>
+    }
+</body>
+</html>

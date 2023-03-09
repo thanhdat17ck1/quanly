@@ -133,5 +133,29 @@ namespace WebApplication.Api.DoanhThu
             JArray arr = JArray.Parse(json);
             return arr;
         }
+
+        [HttpGet]
+        [Route("GETDTTungChuyen")]
+        public dynamic GETDTTungChuyen()
+        {
+            //return _repo.GetPhieuKCSCat(date);
+
+            DataTable tbl = _repo.GETDTTungChuyen();
+            string json = JsonConvert.SerializeObject(tbl, Formatting.Indented);
+            JArray arr = JArray.Parse(json);
+            return arr;
+        }
+
+        [HttpGet]
+        [Route("GETDTTungMaHang")]
+        public dynamic GETDTTungMaHang()
+        {
+            //return _repo.GetPhieuKCSCat(date);
+
+            DataTable tbl = _repo.GETDTTungMaHang();
+            string json = JsonConvert.SerializeObject(tbl, Formatting.Indented);
+            JArray arr = JArray.Parse(json);
+            return arr;
+        }
     }
 }

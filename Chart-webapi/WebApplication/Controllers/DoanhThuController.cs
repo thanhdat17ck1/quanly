@@ -21,5 +21,9 @@ namespace WebApplication.Controllers
         {
             return View();
         }
+        public ActionResult theothoigian()
+        {
+            return View();
+        }
     }
 }

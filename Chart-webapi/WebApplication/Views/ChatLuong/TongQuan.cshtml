@@ -1,8 +1,7 @@
-﻿
-@*@{
-    ViewBag.Title = "Chất Lượng";
-    ViewBag.Title = "Chất Lượng";
-}*@
+﻿@{
+        ViewBag.Title = "Tổng quan Chất Lượng";
+        @*ViewBag.Title = "Chất Lượng";*@
+    }
 
 
 <!DOCTYPE html>
@@ -15,11 +14,11 @@
     <title>Admin dashboard</title>
     <link rel="stylesheet" href="~/css/css cat/index.css">
     @*<link rel="stylesheet"
-          href="~/Content/font.css" />
-    <link rel="stylesheet" type="text/css"
-          href="~/Content/bootstrap4.6.1.min.css" />
-    <link rel="stylesheet" type="text/css"
-          href="~/Content/all.css" />*@
+              href="~/Content/font.css" />
+        <link rel="stylesheet" type="text/css"
+              href="~/Content/bootstrap4.6.1.min.css" />
+        <link rel="stylesheet" type="text/css"
+              href="~/Content/all.css" />*@
     <link rel="stylesheet" href="~/Content/apexcharts.min.css">
     <link href="~/Content/datepicker.min.css" rel="stylesheet">
 
@@ -41,13 +40,13 @@
 
 <body>
     <main style="padding:5px">
-        <div class="content-span  header-span">
+        @*<div class="content-span  header-span">
             <div class="row">
                 <div class="col-sm-12 col-md-12">
-                   Tổng quan chất lượng 
+                    Tổng quan chất lượng
                 </div>
             </div>
-        </div>
+        </div>*@
         <div class="content-span" style="display:none" id="cat">
             <div class="row">
                 <div class="col-sm-12 col-md-6">
@@ -69,14 +68,14 @@
                     </div>
                 </div>
                 @*<div class="col-sm-12 col-md-6">
-                    <div class="layout-border">
-                        <div style="display:flex">
-                            <label for="datepicker" style="margin-top:5px">Chọn năm &#160; </label>
-                            <input type="text" class="form-control" name="datepicker" style="width:150px" id="datepicker" value="2023" />
+                        <div class="layout-border">
+                            <div style="display:flex">
+                                <label for="datepicker" style="margin-top:5px">Chọn năm &#160; </label>
+                                <input type="text" class="form-control" name="datepicker" style="width:150px" id="datepicker" value="2023" />
+                            </div>
+                            <div id="chart2"></div>
                         </div>
-                        <div id="chart2"></div>
-                    </div>
-                </div>*@
+                    </div>*@
             </div>
 
         </div>
@@ -118,10 +117,11 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
                                 <label for="birthday">Chọn tháng:</label>
-                                <input class="date" type="month" id="dtcl" name="dt">
+                                <input class="date" type="month" id="dtcl" name="dt" lang="vi">
 
                             </div>
                         </div>
+                        <div style="text-align:center;color:black;font-size:20px">Biểu đồ tổng lỗi theo mã hàng</div>
                         <div id="containerchatluong">
                         </div>
                     </div>
@@ -133,22 +133,25 @@
                             <select id="selectchuyen">
                             </select>
                         </div>
-                        @*<br />*@
                         <div style="text-align:center;color:black;font-size:20px">Biểu đồ sản phẩm - tỉ lệ lỗi</div>
+                        <br />
+
                         <div id="chartmix2">
                         </div>
                         @*<div id="containerchatluongtheochuyen">
-        </div>*@
+                            </div>*@
                     </div>
 
                 </div>
                 <div class="col-sm-12 col-md-12">
-                    <div class="layout-border">
-                        <div id="linechartchatluong">
+                    <div class="layout-border" style="text-align:center">
+                        <span style="font-size:18px;color:black;text-align:center">Top 10 mã hàng vượt mức tỉ lệ lỗi</span>
+                        <div id="chart-ttl">
                         </div>
                     </div>
 
                 </div>
+            </div>
         </div>
     </main>
 

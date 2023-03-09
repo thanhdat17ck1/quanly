@@ -1,8 +1,7 @@
-﻿
-@{
-    ViewBag.Title = "Chất Lượng";
-    ViewBag.Title = "Chất Lượng";
-}
+﻿@{
+        ViewBag.Title = "Chi tiết chất lượng";
+        @*ViewBag.Title = "Chất Lượng";*@
+    }
 
 
 <!DOCTYPE html>
@@ -41,17 +40,18 @@
 
 <body>
     <main style="padding:5px">
-        <div class="content-span  header-span">
+        @*<div class="content-span  header-span">
             <div class="row">
                 <div class="col-sm-12 col-md-12">
                     Chi tiết chất lượng
                 </div>
             </div>
-        </div>
+        </div>*@
         <div class="content-span" style="display:none" id="cat">
             <div class="row">
                 <div class="col-sm-12 col-md-6">
                     <div class="layout-border">
+
                         <div id="container-catall">
                         </div>
                         <div id="chart">
@@ -113,7 +113,7 @@
         </div>
         <div class="content-span" id="chatluong">
             <div class="row">
-                <div class="col-sm-12 col-md-6">
+                <div class="col-sm-12 col-md-8">
                     <div class="layout-border">
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
@@ -122,21 +122,52 @@
 
                             </div>
                         </div>
+                        <div style="text-align:center;color:black;font-size:20px">Biểu đồ tổng lỗi theo mã hàng</div>
                         <div id="containerchatluong">
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6">
+                <div class="col-sm-12 col-md-4">
+                    <div class="layout-border">
+                        <br />   <br />
+                        <div style="font-size:18px;color:black"> Top 3 mã hàng ít lỗi nhất tháng <span id="thang"></span></div>
+                        <br />
+                        <br />
+
+                        <div></div>
+                        <div class="kt-widget5" id="rendertopsploi">
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-12 col-md-4">
                     <div class="layout-border">
                         <br />
-                        <div id="containerchatluongtheochuyen">
+                        <div style="font-size:18px;color:black"> Chuyền tham gia sản xuất </div>
+                        <div id="chart-percent">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-12 col-md-8">
+                    <div class="layout-border">
+                        <div class="" style="width:220px;margin-top:3px">
+                            <label for="optionchuyen">Chọn chuyền:</label>
+                            <select id="optionchuyen">
+                            </select>
+                        </div>
+                        <div style="font-size:18px;color:black"> Tỉ lệ lỗi theo mã hàng</div>
+                        <div id="linechartchatluong">
                         </div>
                     </div>
 
                 </div>
                 <div class="col-sm-12 col-md-12">
                     <div class="layout-border">
-                        <div id="linechartchatluong">
+                        <div style="text-align:center;color:black;font-size:20px">Chi tiết lỗi gặp phải</div>
+                        <div id="chart-phantichloi">
                         </div>
                     </div>
 
@@ -148,8 +179,11 @@
                             <div class="col-sm-12 col-md-12">
                                 <div class="" style="text-align: left; padding-left: 10px">
                                     <br />
-                                    <span style="font-weight:bold;color:red"> ➡️ Cần cải thiện chất lượng sản phẩm của chuyền <span id="chuyencancaithien"></span></span><br />
-                                    <span style="font-weight: bold; color: red"> ➡️ Giảm tỉ lệ lỗi của <span id="mathangcancaithien"></span></span>
+                                    <span style="font-weight: bold; color: red"> ➡️  Loại hàng thế mạnh <span id="hhtm"></span></span><br />
+                                    <span style="font-weight:bold;color:red"> ➡️ Cần cải thiện chất lượng sản phẩm của mã hàng <span id="mahangcancaithien"></span></span><br />
+                                    <span style="font-weight:bold;color:red"> ➡️ Lỗi thường gặp phải <span id="loithuonggap"></span> - <span id="solangap"></span> </span><br />
+                                    @*<span style="font-weight: bold; color: red"> ➡️ Giảm tỉ lệ lỗi của <span id="mathangcancaithien"></span></span><br />*@
+
 
                                     @*<span style="font-weight:bold"> ➡️ Loại hàng cần cải thiện <span id="sanphamcancaithien"></span></span>*@
 
@@ -157,102 +191,6 @@
 
                             </div>
                         </div>
-
-
-                        <span style="font-weight:bold">✔️ phân tích lỗi theo chuyền (chuyền <span id="ptchuyen"></span>) </span>
-
-
-                        <div class="row">
-                            <div class="col-sm-6 col-md-4">
-                                <div class="contentdiv">
-
-                                    <span style="color:green">
-                                        Tỷ lệ lỗi cao nhất
-                                    </span>
-
-                                    <div id="tllcn" class="contenttiendo">
-
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="contentdiv">
-                                    <span style="color:green">
-                                        Loại hàng thế mạnh(ít lỗi)
-                                    </span>
-
-                                    <div id="hhtm" class="contenttiendo">
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="contentdiv">
-
-                                    <span style="color:green">
-                                        Tỷ lệ lỗi trung bình
-                                    </span>
-
-                                    <div id="tlltbchuyen" class="contenttiendo">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-
-                            <div class="col-sm-12 col-md-12">
-                                <div class="" style="text-align: left; padding-left: 10px">
-                                    <br />
-                                    @*<span style="font-weight:bold"> ➡️ Cần cải thiện chất lượng sản phẩm của chuyền <span id="chuyencancaithien"></span></span>*@
-                                    <span style="font-weight:bold;color:red"> ➡️ Loại hàng cần cải thiện <span id="sanphamcancaithien"></span></span>
-
-                                </div>
-
-                            </div>
-                        </div>
-                        <span style="font-weight:bold">✔️ phân tích tổng quan mã hàng <span id="mhct"></span> - chuyền <span id="mhctchuyen"></span>  </span>
-                        <div class="row">
-                            <div class="col-sm-6 col-md-4">
-                                <div class="contentdiv">
-
-                                    <span style="color:green">
-                                        Ngày có tỉ lệ lỗi cao nhất
-                                    </span>
-
-                                    <div id="tllcnchuyen" class="contenttiendo">
-
-                                    </div>
-                                </div>
-
-                            </div>
-                            @*<div class="col-sm-6 col-md-4">
-                                    <div class="contentdiv">
-                                        <span>
-                                            Chuyền hỏng hàng nhiều nhất
-                                        </span>
-
-                                        <div id="chh" class="contenttiendo">
-
-                                        </div>
-                                    </div>
-                                </div>*@
-                            <div class="col-sm-6 col-md-4">
-                                <div class="contentdiv">
-
-                                    <span style="color:green">
-                                        Tỷ lệ lỗi trung bình
-                                    </span>
-
-                                    <div id="tlltb" class="contenttiendo">
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
                     </div>
 
                 </div>

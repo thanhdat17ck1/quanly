@@ -18,6 +18,8 @@ namespace WebApplication.Repository.DoanhThu
         DataTable GETDTTheoSoLuong(string fromdate, string todate);
         DataTable GETDTHomNay(string fromdate, string todate);
         DataTable GETDThangTrongNam();
+        DataTable GETDTTungChuyen();
+        DataTable GETDTTungMaHang();
         DataTable GETChiTietDTKH(string fromdate, string todate, string makhachhang);
         //JArray Insert(string title);
         
@@ -86,6 +88,15 @@ namespace WebApplication.Repository.DoanhThu
             DataTable tb = _model.GETDThangTrongNam();
             return tb;
         }
-
+        public DataTable GETDTTungChuyen()
+        {
+            DataTable tb = _model.GETDTTungChuyen();
+            return tb;
+        }
+        public DataTable GETDTTungMaHang()
+        {
+            DataTable tb = _model.GETDTTungMaHang();
+            return tb;
+        }
     }
 }
