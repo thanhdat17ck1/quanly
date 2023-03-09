@@ -1,7 +1,6 @@
-﻿
-@*@{
-    ViewBag.Title = "Tiến độ";
-}*@
+﻿@{
+        ViewBag.Title = "Tổng quan tiến độ mã hàng";
+    }
 
 
 <!DOCTYPE html>
@@ -14,11 +13,11 @@
     <title>Admin dashboard</title>
     <link rel="stylesheet" href="~/css/css cat/index.css">
     @*<link rel="stylesheet"
-          href="~/Content/font.css" />
-    <link rel="stylesheet" type="text/css"
-          href="~/Content/bootstrap4.6.1.min.css" />
-    <link rel="stylesheet" type="text/css"
-          href="~/Content/all.css" />*@
+              href="~/Content/font.css" />
+        <link rel="stylesheet" type="text/css"
+              href="~/Content/bootstrap4.6.1.min.css" />
+        <link rel="stylesheet" type="text/css"
+              href="~/Content/all.css" />*@
     <link rel="stylesheet" href="~/Content/apexcharts.min.css">
     <link href="~/Content/datepicker.min.css" rel="stylesheet">
 
@@ -76,13 +75,13 @@
 
 <body>
     <main style="padding:5px">
-        <div class="content-span  header-span">
-            <div class="row">
-                <div class="col-sm-12 col-md-12">
-                  Tổng quan tiến độ mã hàng
+        @*<div class="content-span  header-span">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                      Tổng quan tiến độ mã hàng
+                    </div>
                 </div>
-            </div>
-        </div>
+            </div>*@
         <div class="content-span" id="tiendo">
             <div class="row">
                 <div class="col-sm-12 col-md-6">
@@ -94,9 +93,9 @@
 
                             </div>
                             @*<div class="col-sm-12 col-md-6">
-                                <label for="birthday">Kết thúc:</label>
-                                <input class="date" type="month" id="de" name="de">
-                            </div>*@
+                                    <label for="birthday">Kết thúc:</label>
+                                    <input class="date" type="month" id="de" name="de">
+                                </div>*@
                         </div>
                         <div id="containertiendo">
                         </div>
@@ -104,9 +103,9 @@
                 </div>
                 <div class="col-sm-12 col-md-6">
                     <div class="layout-border">
-                        <br/>
+                        <br />
                         <!--<div class="custom-select" style="width:200px;">-->
-                            @*<select id="selecttiendo">
+                        @*<select id="selecttiendo">
                                 <option value="SLKH">SLKH</option>
                                 <option value="Cat">Cắt</option>
                                 <option value="BTP">BTP</option>
@@ -130,7 +129,7 @@
 
                 </div>
                 <div class="col-sm-12 col-md-12">
-                 
+
                     <div class="layout-border">
                         <div class="title">Tiến độ mã hàng <span id="tdnum"></span> của chuyền  <span id="tdcnum"></span></div>
                         <div class="layout-bar">

@@ -139,7 +139,11 @@ function getPieCL(dt, de) {
         dataType: "json",
         success: function (response) {
             dataPieCL = response;
+<<<<<<< HEAD
      
+=======
+
+>>>>>>> 5bafcf50cc91c2f43fda0f9d67d52e9d6435a4b3
             results1cl = []
             var num = 0;
             response.map(x => {
@@ -151,11 +155,15 @@ function getPieCL(dt, de) {
             if (num > 0) {
                 renderPieCL(results1cl);
                 GetAllChuyen("", response[0].StyleID, dtcl.value.split("-")[1], dtcl.value.split("-")[0])
+<<<<<<< HEAD
                
+=======
+
+>>>>>>> 5bafcf50cc91c2f43fda0f9d67d52e9d6435a4b3
                 if (num > 0) {
                     localStorage.setItem("MaHangChatLuongTongQuan", response[0].StyleID)
                 }
-             
+
             } else {
                 alert("không đủ số liệu để phân tích,vui lòng chọn mốc thời gian khác");
 
@@ -176,6 +184,7 @@ function getdicgiaatri(dt, de) {
         success: function (response) {
             dataDicGiaTri = response;
             getthongtintong(dt, de);
+<<<<<<< HEAD
             
         },
         error: function (xhr, status, error) {
@@ -184,6 +193,16 @@ function getdicgiaatri(dt, de) {
         }
     });
 
+=======
+
+        },
+        error: function (xhr, status, error) {
+            // Code to handle any errors that may occur while connecting to the API
+            console.error(status + ": " + error);
+        }
+    });
+
+>>>>>>> 5bafcf50cc91c2f43fda0f9d67d52e9d6435a4b3
 }
 function dynamicSort(property) {
     var sortOrder = 1;
@@ -238,14 +257,14 @@ function getthongtintong(dt, de) {
 }
 function GetAllChuyen(id, mahang, dt, de) {
     var styleID = '';
-    console.log(mahang, dt, de,"de")
+    console.log(mahang, dt, de, "de")
     $.ajax({
         type: "GET",
         url: "/api/ChatLuong/GetThongKeTLLoiThangTheoMaHang?action=GetAllChuyen&&line=&&styleID=" + mahang + "&&month=" + dt + "&&year=" + de,
         dataType: "json",
         success: function (response) {
             lstAllChuyen = [];
-            
+
             response.forEach(x => {
                 lstAllChuyen.push({
                     "ID": x.LineX,
@@ -256,7 +275,7 @@ function GetAllChuyen(id, mahang, dt, de) {
 
             lstAllChuyen = [...new Map(lstAllChuyen.map(item =>
                 [item["ID"], item])).values()];
-            console.log(lstAllChuyen,"lstAllChuyen")
+            console.log(lstAllChuyen, "lstAllChuyen")
             rennderOptionKH(lstAllChuyen);
             getPieDetailCL("", response[0].StyleID, dtcl.value.split("-")[1], dtcl.value.split("-")[0])
         },
@@ -275,34 +294,34 @@ function getPieDetailCL(id, mahang, dt, de) {
         url: "/api/ChatLuong/GetThongKeTLLoiThangTheoMaHang?action=GetAllThongTinTheoMaHang&&line=&&styleID=" + mahang + "&&month=" + dt + "&&year=" + de,
         dataType: "json",
         success: function (response) {
-                var dtSPdat = []
-                var dtSPloi = []
-                var dtSPtll = []
-                var lstNgay = []
+            var dtSPdat = []
+            var dtSPloi = []
+            var dtSPtll = []
+            var lstNgay = []
 
-                dataPieDetailCL = response;
-                var num = 0;
-                response.map(x => {
-                    if (x.LineX == selectbox.value) {
-                        dtSPdat.push(x.SPDAT)
-                        dtSPloi.push(x.SPLOI)
-                        dtSPtll.push(x.TiLeLoi)
-                        lstNgay.push(x.Ngay)
-                        num++;
-                    }
-
-                   
-                })
-                //var mathangtm = arrayMinTongLoi(response);
-                //var sanphamcancaithien = arrayMaxTongLoi(response);
-                //document.getElementById("hhtm").innerHTML = mathangtm[0].MaHang + "-" + "Tổng lỗi: " + mathangtm[0].TongLoi
-                //document.getElementById("sanphamcancaithien").innerHTML = sanphamcancaithien[0].MaHang + " - tổng lỗi:" + sanphamcancaithien[0].TongLoi;
-            if (num > 0) {
-                    document.getElementById("chartmix2").innerHTML = "";
-                    renderPieCLTheoChuyen(dtSPdat, dtSPloi, dtSPtll, lstNgay);
-                    localStorage.setItem("MaHangChatLuongTongQuan", mahang)
+            dataPieDetailCL = response;
+            var num = 0;
+            response.map(x => {
+                if (x.LineX == selectbox.value) {
+                    dtSPdat.push(x.SPDAT)
+                    dtSPloi.push(x.SPLOI)
+                    dtSPtll.push(x.TiLeLoi)
+                    lstNgay.push(x.Ngay)
+                    num++;
                 }
-            
+
+
+            })
+            //var mathangtm = arrayMinTongLoi(response);
+            //var sanphamcancaithien = arrayMaxTongLoi(response);
+            //document.getElementById("hhtm").innerHTML = mathangtm[0].MaHang + "-" + "Tổng lỗi: " + mathangtm[0].TongLoi
+            //document.getElementById("sanphamcancaithien").innerHTML = sanphamcancaithien[0].MaHang + " - tổng lỗi:" + sanphamcancaithien[0].TongLoi;
+            if (num > 0) {
+                document.getElementById("chartmix2").innerHTML = "";
+                renderPieCLTheoChuyen(dtSPdat, dtSPloi, dtSPtll, lstNgay);
+                localStorage.setItem("MaHangChatLuongTongQuan", mahang)
+            }
+
         },
         error: function (xhr, status, error) {
             // Code to handle any errors that may occur while connecting to the API
@@ -439,7 +458,7 @@ function renderPieCL(data) {
                                     let html = "<div></div>"
                                     GetAllChuyen("", x.StyleID, dtcl.value.split("-")[1], dtcl.value.split("-")[0])
                                     document.getElementById("chartmix2").innerHTML = html;
-                                    setTimeout(getPieDetailCL("", x.StyleID, dtcl.value.split("-")[1], dtcl.value.split("-")[0]) ,1500)    
+                                    setTimeout(getPieDetailCL("", x.StyleID, dtcl.value.split("-")[1], dtcl.value.split("-")[0]), 1500)
                                     localStorage.setItem("MaHangChatLuongTongQuan", x.StyleID)
                                 }
                             })
@@ -640,10 +659,17 @@ function rennderOptionKH(option) {
     }
     selectbox.innerHTML = getImgs;
 }
+<<<<<<< HEAD
 function renderbarTiLeLoi(data,label) {
     var options = {
         series: [{
             data:data
+=======
+function renderbarTiLeLoi(data, label) {
+    var options = {
+        series: [{
+            data: data
+>>>>>>> 5bafcf50cc91c2f43fda0f9d67d52e9d6435a4b3
         }],
         chart: {
             type: 'bar',

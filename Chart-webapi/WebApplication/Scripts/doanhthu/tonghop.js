@@ -53,7 +53,6 @@ function GETDTTungMaHang(fromdate, todate) {
     });
 }
 
-
 function GETDTTheoSoLuong(fromdate, todate) {
     $.ajax({
         type: "GET",
@@ -144,6 +143,97 @@ function FormatDate(date) {
     //alert(formattedDate)
 }
 
+function renderPie(data, idTag, title) {
+    Highcharts.chart(idTag, {
+
+        title: {
+            text: title
+        },
+
+        //plotOptions: {
+        //    series: {
+        //        point: {
+        //            events: {
+        //                click: function (event) {
+        //                    iD = this.name.split(" ")[2];
+        //                    alert(iD)
+        //                    let html = "<div></div>"
+        //                    listMaHAngTheoThang.forEach(x => {
+        //                        if (x.MaHang == iD) {
+        //                            document.querySelector("#containertiendotheochuyen").innerHTML = html
+        //                            getPieDetail(x.StyleID, dt.value.split("-")[1], dt.value.split("-")[0])
+        //                            localStorage.setItem("StyleIDTienDo", x.StyleID)
+        //                        }
+        //                    })
+
+
+        //                }
+        //            }
+        //        }
+        //    }
+        //},
+        series: [{
+            type: 'pie',
+            allowPointSelect: true,
+            data: data,
+
+        }],
+
+    });
+
+}
+
+function GETDTTungChuyen() {
+    $.ajax({
+        type: "GET",
+        url: "/api/DoanhThu/GETDTTungChuyen",
+        dataType: "json",
+        success: function (response) {
+            var num = 0;
+            let results1 = []
+            let results = []
+            response.map(x => {
+                results.push(x.linex, x.doanhthu)
+                results1.push(results)
+                results = []
+                num++;
+            })
+            console.log(results1, "GETDTTungChuyen");
+            renderPie(results1, pieDTTungChuyen,"Thống kê doanh thu của từng chuyền")
+        },
+        error: function (xhr, status, error) {
+            // Code to handle any errors that may occur while connecting to the API
+            console.error(status + ": " + error);
+        }
+    });
+}
+function GETDTTungMaHang() {
+    $.ajax({
+        type: "GET",
+        url: "/api/DoanhThu/GETDTTungMaHang",
+        dataType: "json",
+        success: function (response) {
+            var num = 0;
+            let results1 = []
+            let results = []
+            response.map(x => {
+                results.push(x.mahang, x.doanhthu)
+                results1.push(results)
+                results = []
+                num++;
+            })
+            console.log(results1, "GETDTTungMaHang");
+            renderPie(results1, pieDTTungMH, "Thống kê Top 10 doanh thu của từng mã hàng")
+        },
+        error: function (xhr, status, error) {
+            // Code to handle any errors that may occur while connecting to the API
+            console.error(status + ": " + error);
+        }
+    });
+}
+
+GETDTTungChuyen();
+GETDTTungMaHang();
 $(document).ready(function () {
 
     GETDTTungMaHang(FormatDate(HomNay), FormatDate(HomNay))
@@ -234,3 +324,5 @@ $(document).ready(function () {
 
 
 });
+
+

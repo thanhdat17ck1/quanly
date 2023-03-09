@@ -134,31 +134,32 @@
   <ItemGroup>
     <Compile Include="Api\ChatLuong\ChatLuongController.cs" />
     <Compile Include="Api\DoanhThu\DoanhThuController.cs" />
+    <Compile Include="Api\Login\LoginController.cs" />
     <Compile Include="Api\TienDo\TienDoController.cs" />
-    <Compile Include="Api\Todo\TodoController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ChatLuongController.cs" />
     <Compile Include="Controllers\DoanhThuController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\KhaiController.cs" />
     <Compile Include="Controllers\TienDoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Libs\MD5StringCrypt.cs" />
+    <Compile Include="Libs\SqlHelper.cs" />
     <Compile Include="Models\ChatLuongModel.cs" />
     <Compile Include="Models\DoanhThuModel.cs" />
-    <Compile Include="Models\KeHoachDongThungModel.cs" />
     <Compile Include="Models\SqlHelper.cs" />
     <Compile Include="Models\TienDoModel.cs" />
-    <Compile Include="Models\TodoModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ChatLuong\ChatLuongRepository.cs" />
     <Compile Include="Repository\DoanhThu\DoanhThuRepository.cs" />
+    <Compile Include="Repository\Login\LoginRepository.cs" />
     <Compile Include="Repository\TienDo\TienDoRepository.cs" />
-    <Compile Include="Repository\Todo\TodoRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\apexcharts.min.css" />
@@ -197,9 +198,12 @@
     <Content Include="Scripts\chart\chart-tiendoct.js" />
     <Content Include="Scripts\chart\chart.js" />
     <Content Include="Scripts\chart\chart1.js" />
+    <Content Include="Scripts\admin\login.js" />
     <Content Include="Scripts\datepicker.min.js" />
     <Content Include="Scripts\doanhthu\doanhthu.js" />
+    <Content Include="Scripts\doanhthu\khachhang.js" />
     <Content Include="Scripts\doanhthu\sanpham.js" />
+    <Content Include="Scripts\doanhthu\theothoigian.js" />
     <Content Include="Scripts\doanhthu\tonghop.js" />
     <Content Include="Scripts\hightchart.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -230,7 +234,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\DoanhThu\khachhang.cshtml" />
     <Content Include="Views\DoanhThu\sanpham.cshtml" />
-    <Content Include="Views\Khai\Cat.cshtml" />
     <Content Include="Views\TienDo\Index.cshtml" />
     <Content Include="Views\ChatLuong\Index.cshtml" />
     <Content Include="Views\DoanhThu\tonghop.cshtml" />
@@ -238,6 +241,9 @@
     <Content Include="Views\ChatLuong\TongQuan.cshtml" />
     <Content Include="Views\TienDo\ChiTiet.cshtml" />
     <Content Include="Views\TienDo\ChiTietTD.cshtml" />
+    <Content Include="Views\Admin\Login.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\DoanhThu\theothoigian.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Todo\" />

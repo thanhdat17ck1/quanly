@@ -156,14 +156,22 @@ function getLineData(styleID, dt, de) {
     });
 
 }
+<<<<<<< HEAD
 function getghichuloi(dt,de) {
+=======
+function getghichuloi(dt, de) {
+>>>>>>> 5bafcf50cc91c2f43fda0f9d67d52e9d6435a4b3
     $.ajax({
         type: "GET",
         url: "/api/ChatLuong/GetChatLuongChiTiet?action=getghichuloi&&line=&&styleID=&&month=" + dt + "&&year=" + de,
         dataType: "json",
         success: function (response) {
             dataGhiChuLoi = response;
+<<<<<<< HEAD
             console.log(dataGhiChuLoi,"dataGhiChuLoi")
+=======
+            console.log(dataGhiChuLoi, "dataGhiChuLoi")
+>>>>>>> 5bafcf50cc91c2f43fda0f9d67d52e9d6435a4b3
         },
         error: function (xhr, status, error) {
             // Code to handle any errors that may occur while connecting to the API
@@ -207,7 +215,11 @@ function getLineChartData(LineX, styleID, dt, de) {
             dataGhiChuLoi.forEach(x => {
                 categoriesdataghichuloi.push(x.GhiChuLoi)
             })
+<<<<<<< HEAD
             console.log(dataGhiChuLoi,"dataGhiChuLoi")
+=======
+            console.log(dataGhiChuLoi, "dataGhiChuLoi")
+>>>>>>> 5bafcf50cc91c2f43fda0f9d67d52e9d6435a4b3
             document.getElementById("linechartchatluong").innerHTML = '';
             setTimeout(function () {
                 renderLineChartChatLuong(response, series, seriesLoi, xasix);
@@ -570,12 +582,21 @@ function renderLoiTapTrung(data, categories) {
             }
         }
     };
+<<<<<<< HEAD
    
 
     var chart = new ApexCharts(document.querySelector("#chart-phantichloi"), options);
     chart.render();
 
 
+=======
+
+
+    var chart = new ApexCharts(document.querySelector("#chart-phantichloi"), options);
+    chart.render();
+
+
+>>>>>>> 5bafcf50cc91c2f43fda0f9d67d52e9d6435a4b3
 }
 
 function renderpecentchart(label, data) {
@@ -678,5 +699,9 @@ function rennderOptionChuyen(option) {
                  `;
     }
     document.getElementById("optionchuyen").innerHTML = getImgs;
+<<<<<<< HEAD
 }
 
+=======
+}
+>>>>>>> 5bafcf50cc91c2f43fda0f9d67d52e9d6435a4b3

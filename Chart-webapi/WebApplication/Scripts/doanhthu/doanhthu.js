@@ -188,10 +188,12 @@ function GetTopDTKHWeekAgo() {
     });
 
 }
+
+
 GetTopDTKHWeekAgo();
 GetTopDTKHMonthAgo();
-setTimeout(GetTopDTKHYearAgo(), 2000);
-setTimeout(GetTopDTKHAllTime(), 3000);
+GetTopDTKHYearAgo()
+GetTopDTKHAllTime()
 
 //var picker = $('#kt_daterangepicker_1');
 
