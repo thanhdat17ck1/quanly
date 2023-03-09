@@ -1,0 +1,236 @@
+﻿@*@{
+    ViewBag.Title = "";
+}*@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin dashboard</title>
+    <link rel="stylesheet" href="~/css/css cat/index.css">
+    <link rel="stylesheet"
+          href="~/Content/font.css" />
+    <link rel="stylesheet" type="text/css"
+          href="~/Content/bootstrap4.6.1.min.css" />
+    <link rel="stylesheet" type="text/css"
+          href="~/Content/all.css" />
+    <link rel="stylesheet" href="~/Content/apexcharts.min.css">
+    <link href="~/Content/datepicker.min.css" rel="stylesheet">
+
+
+    @*date picker*@
+
+
+</head>
+
+<body>
+    <main>
+        <div class="content-span" style="display:none" id="cat">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="layout-border">
+                        <div id="container-catall">
+                        </div>
+                        <div id="chart">
+                            <div id="apex-chart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="layout-border">
+                        <div style="display:flex">
+                            <label for="datepicker" style="margin-top:5px">Chọn năm &#160; </label>
+                            <input type="text" class="form-control" name="datepicker" style="width:150px" id="datepicker" value="2023" />
+                        </div>
+                        <div id="chart2"></div>
+                    </div>
+                </div>
+                @*<div class="col-sm-12 col-md-6">
+                        <div class="layout-border">
+                            <div style="display:flex">
+                                <label for="datepicker" style="margin-top:5px">Chọn năm &#160; </label>
+                                <input type="text" class="form-control" name="datepicker" style="width:150px" id="datepicker" value="2023" />
+                            </div>
+                            <div id="chart2"></div>
+                        </div>
+                    </div>*@
+            </div>
+
+        </div>
+        <div class="content-span" style="display:none" id="may">
+            <div>may</div>
+        </div>
+        <div class="content-span" style="display:none" id="donggoi">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="layout-border">
+                        <div id="container-dgall">
+                        </div>
+                        <div id="chart">
+                            <div id="apex-chart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+
+                    <div class="layout-border">
+                        <div id="chart-ssdg"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="content-span" style="display:none" id="doanhthu">
+            <div id="containerdoanthu">
+            </div>
+            <div id="chart">
+                <div id="apex-chart"></div>
+            </div>
+        </div>
+        <div class="content-span" id="tiendo">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="layout-border">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <label for="birthday">Bắt đầu:</label>
+                                <input class="date" type="date" id="dt" name="dt">
+
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="birthday">Kết thúc:</label>
+                                <input class="date" type="date" id="de" name="de">
+                            </div>
+                        </div>
+                        <div id="containertiendo">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="layout-border">
+                        <div class="custom-select" style="width:200px;">
+                            <select id="selecttiendo">
+                                <option value="SLKH">SLKH</option>
+                                <option value="Cat">Cắt</option>
+                                <option value="BTP">BTP</option>
+                                <option value="Ui">Ủi</option>
+                                <option value="DG">Đóng gói</option>
+                            </select>
+                        </div>
+                        <div id="chart">
+                            <div id="apex-chart-tiendo"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="layout-border">
+
+                        <div id="linecharttiendo">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="layout-border">
+                        <div id="phatichtiendo">
+                            <span style="font-weight:bold">✔️ phân tích tổng quan </span>
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="contentdiv">
+
+                                        <span style="color:green">
+                                            Mặt hàng
+                                            Thế mạnh
+                                        </span>
+
+                                        <div id="mhtm" class="contenttiendo">
+                                            156.000
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="contentdiv">
+                                        <span style="color:green">
+                                            Thực hiện
+                                            nhanh nhất
+                                        </span>
+
+                                        <div id="chuyennn" class="contenttiendo">
+                                            01
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-sm-12 col-md-12">
+                                        <div class="" style="text-align: left; padding-left: 15px">
+                                            <br />
+                                            @*<span style="font-weight:bold"> ➡️ Cần cải thiện chất lượng sản phẩm của chuyền <span id="chuyencancaithien"></span></span>*@
+                                            <span style="font-weight:bold;color:red"> ➡️ Mã hàng <span id="mhtmtoichuyen"></span> <span id="mahangtoichuyen"></span></span>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <span style="font-weight:bold">✔️ phân tích tiến độ chuyền <span id="chuyentiendophantich"></span></span>
+                            <div class="row">
+                                @*<div class="col-sm-6 col-md-6">
+                                        <div class="contentdiv">
+                                            <span style="color:green">
+                                                Mặt hàng
+                                                Thế mạnh
+                                            </span>
+                                            <div id="mhtm" class="contenttiendo">
+                                                156.000
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="contentdiv">
+                                        <span style="color:green">
+                                            Thực hiện
+                                            nhanh nhất
+                                        </span>
+
+                                        <div id="chuyennntiendo" class="contenttiendo">
+                                            01
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/popper.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/bootstrap4.6.1.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/apexcharts.min.js"></script>
+    <script src="~/Scripts/hightchart.js"></script>
+    <script src="~/Scripts/datepicker.min.js"></script>
+
+    <script src="~/Scripts/js cat/index.js"></script>
+    <script src="~/Scripts/chart/chart-tiendo-chitiet.js"></script>
+    @*<script src="~/Scripts/chart/chart-chatluong.js"></script>*@
+
+    @*<script src="~/Scripts/chart/chart-cat.js"></script>
+        <script src="~/Scripts/chart/chart-donggoi.js"></script>*@
+
+
+
+</body>
+
+</html>

@@ -51,7 +51,7 @@ namespace WebApplication.Models
                 cmd.Parameters.AddWithValue("@FromDate", "01-01-2022");
                 cmd.Parameters.AddWithValue("@ToDate", "12-31-2022");
                 cmd.Parameters.AddWithValue("@UserName", "admin");
-                cmd.Parameters.AddWithValue("@timeline", "namtruoc");
+                cmd.Parameters.AddWithValue("@timeline", "namnay");
                 cmd.Parameters.AddWithValue("@MaHangKhach", "");
                 using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
                 {
@@ -80,7 +80,7 @@ namespace WebApplication.Models
                 cmd.Parameters.AddWithValue("@FromDate", "06-01-2022");
                 cmd.Parameters.AddWithValue("@ToDate", "06-30-2022");
                 cmd.Parameters.AddWithValue("@UserName", "admin");
-                cmd.Parameters.AddWithValue("@timeline", "thangtruoc");
+                cmd.Parameters.AddWithValue("@timeline", "thangnay");
                 cmd.Parameters.AddWithValue("@MaHangKhach", "");
                 using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
                 {
@@ -109,7 +109,7 @@ namespace WebApplication.Models
                 cmd.Parameters.AddWithValue("@FromDate", "06-01-2022");
                 cmd.Parameters.AddWithValue("@ToDate", "06-30-2022");
                 cmd.Parameters.AddWithValue("@UserName", "admin");
-                cmd.Parameters.AddWithValue("@timeline", "tuantruoc");
+                cmd.Parameters.AddWithValue("@timeline", "tuannay");
                 cmd.Parameters.AddWithValue("@MaHangKhach", "");
                 using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
                 {
@@ -261,6 +261,86 @@ namespace WebApplication.Models
                 cmd.Parameters.AddWithValue("@UserName", "admin");
                 cmd.Parameters.AddWithValue("@timeline", "");
                 cmd.Parameters.AddWithValue("@MaHangKhach", "");
+                using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
+                {
+                    DataTable tb = new DataTable();
+                    adt.Fill(tb);
+                    return tb;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally { if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); } }
+        }
+
+        public DataTable GETDThangTrongNam()
+        {
+            SqlConnection _cnn = null;
+
+            try
+            {
+                _cnn = SqlHelper.GetConnection();
+                SqlCommand cmd = new SqlCommand("SP_ERP_DoanhThuThangTrongNam", _cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "GETDThangTrongNam");
+                cmd.Parameters.AddWithValue("@FromDate", "06-01-2022");
+                cmd.Parameters.AddWithValue("@ToDate", "06-01-2022");
+                using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
+                {
+                    DataTable tb = new DataTable();
+                    adt.Fill(tb);
+                    return tb;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally { if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); } }
+        }
+
+        public DataTable GETDTTungChuyen()
+        {
+            SqlConnection _cnn = null;
+
+            try
+            {
+                _cnn = SqlHelper.GetConnection();
+                SqlCommand cmd = new SqlCommand("SP_ERP_DoanhThuThangTrongNam", _cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "GETDTTungChuyen");
+                cmd.Parameters.AddWithValue("@FromDate", "06-01-2022");
+                cmd.Parameters.AddWithValue("@ToDate", "06-01-2022");
+                using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
+                {
+                    DataTable tb = new DataTable();
+                    adt.Fill(tb);
+                    return tb;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally { if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); } }
+        }
+        public DataTable GETDTTungMaHang()
+        {
+            SqlConnection _cnn = null;
+
+            try
+            {
+                _cnn = SqlHelper.GetConnection();
+                SqlCommand cmd = new SqlCommand("SP_ERP_DoanhThuThangTrongNam", _cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "GETDTTungMaHang");
+                cmd.Parameters.AddWithValue("@FromDate", "06-01-2022");
+                cmd.Parameters.AddWithValue("@ToDate", "06-01-2022");
                 using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
                 {
                     DataTable tb = new DataTable();
