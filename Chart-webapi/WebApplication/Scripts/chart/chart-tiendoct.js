@@ -674,7 +674,6 @@ function rennderOptionKH(option) {
   
     let getImgs = `<option value="" >--Tất cả--</option>`;
     for (let i = 0; i < option.length; i++) {
-        //var TenLenhTemp = option[i].TenLenh.toString().length > 13 ? option[i].TenLenh.toString().substr(0, 10) + "..." : option[i].TenLenh.toString()
         getImgs =
             getImgs +
             `<option value="${option[i].MaKhachHang}" >${option[i].KhachHang}</option>
@@ -687,10 +686,7 @@ function rennderOptionKH(option) {
 function rennderOptionChuyen(option) {
    
     let getImgs = ``;
-
-    //let getImgs = `<option value="" >--Tất cả--</option>`;
     for (let i = 0; i < option.length; i++) {
-        //var TenLenhTemp = option[i].TenLenh.toString().length > 13 ? option[i].TenLenh.toString().substr(0, 10) + "..." : option[i].TenLenh.toString()
         getImgs =
             getImgs +
             `<option value="${option[i].ID}" >Chuyền ${option[i].Name}</option>
