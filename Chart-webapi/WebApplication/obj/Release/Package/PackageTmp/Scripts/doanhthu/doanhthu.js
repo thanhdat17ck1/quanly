@@ -188,10 +188,12 @@ function GetTopDTKHWeekAgo() {
     });
 
 }
+
+
 GetTopDTKHWeekAgo();
 GetTopDTKHMonthAgo();
 GetTopDTKHYearAgo()
-GetTopDTKHAllTime()
+//GetTopDTKHAllTime()
 
 //var picker = $('#kt_daterangepicker_1');
 
