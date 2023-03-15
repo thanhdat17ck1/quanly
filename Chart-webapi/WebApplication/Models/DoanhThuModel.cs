@@ -169,7 +169,7 @@ namespace WebApplication.Models
                 cmd.Parameters.AddWithValue("@FromDate", fromdate);
                 cmd.Parameters.AddWithValue("@ToDate", todate);
                 cmd.Parameters.AddWithValue("@UserName", "admin");
-                cmd.Parameters.AddWithValue("@timeline", "tuantruoc");
+                cmd.Parameters.AddWithValue("@timeline", "");
                 cmd.Parameters.AddWithValue("@MaHangKhach", "");
                 using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
                 {
@@ -275,19 +275,50 @@ namespace WebApplication.Models
             }
             finally { if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); } }
         }
-
-        public DataTable GETDThangTrongNam()
+        public DataTable GetTopDTTuyChon(string fromdate, string todate)
         {
             SqlConnection _cnn = null;
 
             try
             {
                 _cnn = SqlHelper.GetConnection();
-                SqlCommand cmd = new SqlCommand("SP_ERP_DoanhThuThangTrongNam", _cnn);
+                SqlCommand cmd = new SqlCommand("SP_ERP_BAOCAOTONGHOPDOANHTHUWEB_REPORT", _cnn);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@Action", "GETDThangTrongNam");
-                cmd.Parameters.AddWithValue("@FromDate", "06-01-2022");
-                cmd.Parameters.AddWithValue("@ToDate", "06-01-2022");
+                cmd.Parameters.AddWithValue("@Action", "GetTopDTKH");
+                cmd.Parameters.AddWithValue("@FromDate", fromdate);
+                cmd.Parameters.AddWithValue("@ToDate", todate);
+                cmd.Parameters.AddWithValue("@UserName", "admin");
+                cmd.Parameters.AddWithValue("@timeline", "");
+                cmd.Parameters.AddWithValue("@MaHangKhach", "");
+                using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
+                {
+                    DataTable tb = new DataTable();
+                    adt.Fill(tb);
+                    return tb;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally { if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); } }
+        }
+        public DataTable GETTongSPHomNay(string fromdate, string todate)
+        {
+            SqlConnection _cnn = null;
+
+            try
+            {
+                _cnn = SqlHelper.GetConnection();
+                SqlCommand cmd = new SqlCommand("SP_ERP_BAOCAOTONGHOPDOANHTHUWEB_REPORT", _cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "GETTongSPHomNay");
+                cmd.Parameters.AddWithValue("@FromDate", fromdate);
+                cmd.Parameters.AddWithValue("@ToDate", todate);
+                cmd.Parameters.AddWithValue("@UserName", "admin");
+                cmd.Parameters.AddWithValue("@timeline", "");
+                cmd.Parameters.AddWithValue("@MaHangKhach", "");
                 using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
                 {
                     DataTable tb = new DataTable();
@@ -303,7 +334,34 @@ namespace WebApplication.Models
             finally { if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); } }
         }
 
-        public DataTable GETDTTungChuyen()
+        public DataTable GETDThangTrongNam(string year)
+        {
+            SqlConnection _cnn = null;
+
+            try
+            {
+                _cnn = SqlHelper.GetConnection();
+                SqlCommand cmd = new SqlCommand("SP_ERP_DoanhThuThangTrongNam1", _cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "GETDThangTrongNam");
+                cmd.Parameters.AddWithValue("@Month", "");
+                cmd.Parameters.AddWithValue("@Year", year);
+                using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
+                {
+                    DataTable tb = new DataTable();
+                    adt.Fill(tb);
+                    return tb;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally { if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); } }
+        }
+
+        public DataTable GETDTTungChuyen(string fromdate, string todate)
         {
             SqlConnection _cnn = null;
 
@@ -313,8 +371,8 @@ namespace WebApplication.Models
                 SqlCommand cmd = new SqlCommand("SP_ERP_DoanhThuThangTrongNam", _cnn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Action", "GETDTTungChuyen");
-                cmd.Parameters.AddWithValue("@FromDate", "06-01-2022");
-                cmd.Parameters.AddWithValue("@ToDate", "06-01-2022");
+                cmd.Parameters.AddWithValue("@FromDate", fromdate);
+                cmd.Parameters.AddWithValue("@ToDate", todate);
                 using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
                 {
                     DataTable tb = new DataTable();
@@ -341,6 +399,85 @@ namespace WebApplication.Models
                 cmd.Parameters.AddWithValue("@Action", "GETDTTungMaHang");
                 cmd.Parameters.AddWithValue("@FromDate", "06-01-2022");
                 cmd.Parameters.AddWithValue("@ToDate", "06-01-2022");
+                using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
+                {
+                    DataTable tb = new DataTable();
+                    adt.Fill(tb);
+                    return tb;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally { if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); } }
+        }
+
+        public DataTable GETDTTungChuyenTheoThang(string month, string year)
+        {
+            SqlConnection _cnn = null;
+
+            try
+            {
+                _cnn = SqlHelper.GetConnection();
+                SqlCommand cmd = new SqlCommand("SP_ERP_DoanhThuThangTrongNam1", _cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "GETDTTCTheoThang");
+                cmd.Parameters.AddWithValue("@Month", month);
+                cmd.Parameters.AddWithValue("@Year", year);
+                using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
+                {
+                    DataTable tb = new DataTable();
+                    adt.Fill(tb);
+                    return tb;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally { if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); } }
+        }
+        public DataTable GETDTTungMaHangTheoThang(string month, string year)
+        {
+            SqlConnection _cnn = null;
+
+            try
+            {
+                _cnn = SqlHelper.GetConnection();
+                SqlCommand cmd = new SqlCommand("SP_ERP_DoanhThuThangTrongNam1", _cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "GETDTTungMHTheoThang");
+                cmd.Parameters.AddWithValue("@Month", month);
+                cmd.Parameters.AddWithValue("@Year", year);
+                using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
+                {
+                    DataTable tb = new DataTable();
+                    adt.Fill(tb);
+                    return tb;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally { if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); } }
+        }
+        public DataTable GETDTTungMaHangTable()
+        {
+            SqlConnection _cnn = null;
+
+            try
+            {
+                _cnn = SqlHelper.GetConnection();
+                SqlCommand cmd = new SqlCommand("SP_ERP_DoanhThuThangTrongNam", _cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Action", "GETDTTungMaHangTable");
+                cmd.Parameters.AddWithValue("@FromDate", "06-01-2022");
+                cmd.Parameters.AddWithValue("@ToDate", "06-30-2022");
                 using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
                 {
                     DataTable tb = new DataTable();

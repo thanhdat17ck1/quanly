@@ -28,107 +28,68 @@ let category = []; let data = []
 
 
 
-function GETDTTungMaHang(fromdate, todate) {
+//function GETDTTungMaHang(fromdate, todate) {
+//    $.ajax({
+//        type: "GET",
+//        url: "/api/DoanhThu/GETDTTungMaHang?fromdate=" + fromdate + '&todate=' + todate,
+//        dataType: "json",
+//        success: function (response) {
+//            document.getElementById("chart").innerHTML = "";
+//            console.log(response)
+//            category = []
+//            data = []
+//            response.map(x => {
+//                category.push(x.MaHang);
+//                data.push(x.DoanhThu);
+
+//            })
+
+//            CreateChart(category, data)
+//        },
+//        error: function (xhr, status, error) {
+//            // Code to handle any errors that may occur while connecting to the API
+//            console.error(status + ": " + error);
+//        }
+//    });
+//}
+
+//function GETDTTheoSoLuong(fromdate, todate) {
+//    $.ajax({
+//        type: "GET",
+//        url: "/api/DoanhThu/GETDTTheoSoLuong?fromdate=" + fromdate + '&todate=' + todate,
+//        dataType: "json",
+//        success: function (response) {
+//            document.getElementById("chart").innerHTML = "";
+//            console.log(response)
+//            category = []
+//            data = []
+//            response.map(x => {
+//                category.push(x.MaHang);
+//                data.push(x.SanPham);
+
+//            })
+
+//            CreateChart(category, data)
+//        },
+//        error: function (xhr, status, error) {
+//            // Code to handle any errors that may occur while connecting to the API
+//            console.error(status + ": " + error);
+//        }
+//    });
+//}
+function GETTongSPHomNay(fromdate, todate) {
     $.ajax({
         type: "GET",
-        url: "/api/DoanhThu/GETDTTungMaHang?fromdate=" + fromdate + '&todate=' + todate,
+        url: "/api/DoanhThu/GETTongSPHomNay?fromdate=" + fromdate + '&todate=' + todate,
         dataType: "json",
         success: function (response) {
-            document.getElementById("chart").innerHTML = "";
-            console.log(response)
-            category = []
-            data = []
-            response.map(x => {
-                category.push(x.MaHang);
-                data.push(x.DoanhThu);
-
-            })
-
-            CreateChart(category, data)
-        },
-        error: function (xhr, status, error) {
-            // Code to handle any errors that may occur while connecting to the API
-            console.error(status + ": " + error);
-        }
-    });
-}
-function DoanhThuTungThang() {
-    let value = []
-    $.ajax({
-        type: "GET",
-        url: "/api/DoanhThu/GETDThangTrongNam",
-        dataType: "json",
-        success: function (response) {
-            response.map(x => {
-                value.push(x.DoanhThu)
-            })
-            var data = value;
-            var categories = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
-
-            var newData = data.map(function (value) {
-                return value === null ? "NA" : value;
-            });
-            console.log(newData,"value")
-
-            var options = {
-                chart: {
-                    type: 'bar',
-                    height: 350,
-                },
-                series: [{
-                    data: newData
-                }],
-                xaxis: {
-                    categories: categories
-                },
-                crosshairs: {
-                    fill: {
-                        type: 'gradient',
-                        gradient: {
-                            colorFrom: '#D8E3F0',
-                            colorTo: '#BED1E6',
-                            stops: [0, 100],
-                            opacityFrom: 0.4,
-                            opacityTo: 0.5,
-                        }
-                    }
-                },
-                series: [{
-                    data: data,
-                    name: 'Giá trị',
-                    type: 'bar'
-                }]
+            console.log(response[0].DoanhThu, "response")
+            if (response[0].DoanhThu == null) {
+                $(".kt-widget4__item #tongsanpham").html('0')
             }
-
-            var chart = new ApexCharts(document.querySelector("#chart1"), options);
-            chart.render();
-
-        },
-        error: function (xhr, status, error) {
-            // Code to handle any errors that may occur while connecting to the API
-            console.error(status + ": " + error);
-        }
-    });
-
-}
-DoanhThuTungThang();
-function GETDTTheoSoLuong(fromdate, todate) {
-    $.ajax({
-        type: "GET",
-        url: "/api/DoanhThu/GETDTTheoSoLuong?fromdate=" + fromdate + '&todate=' + todate,
-        dataType: "json",
-        success: function (response) {
-            document.getElementById("chart").innerHTML = "";
-            console.log(response)
-            category = []
-            data = []
-            response.map(x => {
-                category.push(x.MaHang);
-                data.push(x.SanPham);
-
-            })
-
-            CreateChart(category, data)
+            else {
+                $(".kt-widget4__item #tongsanpham").html(`${response[0].DoanhThu}`)
+            }
         },
         error: function (xhr, status, error) {
             // Code to handle any errors that may occur while connecting to the API
@@ -136,7 +97,6 @@ function GETDTTheoSoLuong(fromdate, todate) {
         }
     });
 }
-
 function GETDTHomNay(fromdate, todate) {
     $.ajax({
         type: "GET",
@@ -145,10 +105,10 @@ function GETDTHomNay(fromdate, todate) {
         success: function (response) {
             console.log(response[0].DoanhThu, "response")
             if (response[0].DoanhThu == null) {
-                $(".kt-widget4__item .value").html('0')
+                $(".kt-widget4__item #tongdanhthu").html('0')
             }
             else {
-                $(".kt-widget4__item .value").html(`${response[0].DoanhThu}`)
+                $(".kt-widget4__item #tongdanhthu").html(`${response[0].DoanhThu}`)
             }
         },
         error: function (xhr, status, error) {
@@ -157,7 +117,10 @@ function GETDTHomNay(fromdate, todate) {
         }
     });
 }
+
+//setInterval(GETDTHomNay(FormatDate(HomNay), FormatDate(HomNay)), 1000)
 GETDTHomNay(FormatDate(HomNay), FormatDate(HomNay))
+GETTongSPHomNay(FormatDate(HomNay), FormatDate(HomNay))
 function CreateChart(category, data) {
     let check0 = false;
     console.log(category, data)
@@ -202,8 +165,167 @@ function FormatDate(date) {
     //alert(formattedDate)
 }
 
-$(document).ready(function () {
+function renderPie(data, idTag, title) {
+    Highcharts.chart(idTag, {
 
+        title: {
+            text: title
+        },
+        series: [{
+            type: 'pie',
+            allowPointSelect: true,
+            data: data,
+
+        }],
+
+    });
+
+}
+
+function GETDTTungChuyen(fromdate, todate) {
+    $.ajax({
+        type: "GET",
+        url: "/api/DoanhThu/GETDTTungChuyen?fromdate=" + fromdate + '&todate=' + todate,
+        dataType: "json",
+        success: function (response) {
+            var num = 0;
+            let results1 = []
+            let results = []
+            response.map(x => {
+                results.push(x.linex, x.doanhthu)
+                results1.push(results)
+                results = []
+                num++;
+            })
+            console.log(results1, "GETDTTungChuyen");
+            renderPie(results1, pieDTTungChuyen,"Doanh thu của từng chuyền hôm nay")
+        },
+        error: function (xhr, status, error) {
+            // Code to handle any errors that may occur while connecting to the API
+            console.error(status + ": " + error);
+        }
+    });
+}
+function GETDTTungMaHang(fromdate, todate) {
+    $.ajax({
+        type: "GET",
+        url: "/api/DoanhThu/GETDTTungMaHang?fromdate=" + fromdate + '&todate=' + todate,
+        dataType: "json",
+        success: function (response) {
+            var num = 0;
+            let results1 = []
+            let results = []
+            response.map(x => {
+                results.push(x.mahang, x.doanhthu)
+                results1.push(results)
+                results = []
+                num++;
+            })
+            console.log(results1, "GETDTTungMaHang");
+            renderPie(results1, pieDTTungMH, "Doanh thu của từng mã hàng hôm nay")
+        },
+        error: function (xhr, status, error) {
+            // Code to handle any errors that may occur while connecting to the API
+            console.error(status + ": " + error);
+        }
+    });
+}
+$(function () {
+    $('input[name="daterange"]').daterangepicker({
+        "locale": {
+            "format": "MM/DD/YYYY",
+            "separator": " - ",
+            "applyLabel": "Áp dụng",
+            "cancelLabel": "Hủy",
+            "fromLabel": "Từ",
+            "toLabel": "Đến",
+            "customRangeLabel": "Tùy chỉnh",
+            "weekLabel": "W",
+            "daysOfWeek": [
+                "CN",
+                "T2",
+                "T3",
+                "T4",
+                "T5",
+                "T6",
+                "T7"
+            ],
+            "monthNames": [
+                "Tháng 1",
+                "Tháng 2",
+                "Tháng 3",
+                "Tháng 4",
+                "Tháng 5",
+                "Tháng 6",
+                "Tháng 7",
+                "Tháng 8",
+                "Tháng 9",
+                "Tháng 10",
+                "Tháng 11",
+                "Tháng 12"
+            ],
+            "firstDay": 1
+        },
+        opens: 'left'
+    }, function (start, end, label) {
+        fromdate = start.format('YYYY-MM-DD');
+        todate = end.format('YYYY-MM-DD');
+        GetTopDTTuyChon(fromdate, todate)
+        boolCheck = false;
+    });
+});
+
+function GetTopDTTuyChon(fromdate, todate) {
+    $.ajax({
+        type: "GET",
+        url: "/api/DoanhThu/GetTopDTTuyChon?fromdate=" + fromdate + '&todate=' + todate,
+        dataType: "json",
+        success: function (response) {
+            // Code to handle the successful response from the API
+            //alert("aa")
+            let html = ''
+            console.log(response)
+            if (response.length == 0) {
+                html = "<h3>Không có dữ liệu</h3>"
+            }
+            else {
+                response.map(x => {
+                    html += `
+                        <div class="kt-widget5__item">
+                            <div class="kt-widget5__content">
+                                <div class="kt-widget5__pic">
+                                    <img class="kt-widget7__img" src="/assets/media/products/product27.jpg" alt="">
+                                </div>
+                                <div class="kt-widget5__section">
+                                    <a href="#" class="kt-widget5__title">
+                                        ${x.KhachHang}
+                                    </a>
+                              </div>
+                            </div>
+                            <div class="kt-widget5__content">
+                                <div class="kt-widget5__stats">
+                                    <span class="kt-widget5__number">${x.DoanhThu}</span>
+                                    <span class="kt-widget5__sales">USD</span>
+                                </div>
+                                
+                            </div>
+                        </div>`
+
+                })
+            }
+            $("#kt_widget5_tab4_content .kt-widget5 #doanhthutuychon").html(html)
+        },
+        error: function (xhr, status, error) {
+            // Code to handle any errors that may occur while connecting to the API
+            console.error(status + ": " + error);
+        }
+    });
+
+}
+//GETDTTungChuyen();
+//GETDTTungMaHang();
+$(document).ready(function () {
+    GETDTTungChuyen(FormatDate(HomNay), FormatDate(HomNay))
     GETDTTungMaHang(FormatDate(HomNay), FormatDate(HomNay))
 
     $("#slc_date").on("change", function () {

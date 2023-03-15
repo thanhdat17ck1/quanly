@@ -26,8 +26,6 @@ let NgayDauThangTruoc = FormatDate1(firstDayOfMonthAgo)
 
 let lastDayOfLastMonthAgo = new Date(today.getFullYear(), today.getMonth(), 0);
 let NgayCuoiThangTruoc = FormatDate1(lastDayOfLastMonthAgo)
-
-
 function FormatDate1(date) {
     return date.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
 }
@@ -193,8 +191,8 @@ function renderPie(data, idTag, title) {
     });
 
 }
-GETDTTungChuyen(month,year);
-GETDTTungMaHang(month,year);
+GETDTTungChuyen('3','2022');
+GETDTTungMaHang('3','2022');
 
 $("#slc_year").on("change", function () {
     namDangChon = $(this).val()
@@ -202,30 +200,7 @@ $("#slc_year").on("change", function () {
 
 })
 DoanhThuTungThang(namHienTai);
-function GETDTTheoMaHang(fromdate, todate) {
-    $.ajax({
-        type: "GET",
-        url: "/api/DoanhThu/GETDTTungMaHang?fromdate=" + fromdate + '&todate=' + todate,
-        dataType: "json",
-        success: function (response) {
-            document.getElementById("chart").innerHTML = "";
-            console.log(response)
-            category = []
-            data = []
-            response.map(x => {
-                category.push(x.MaHang);
-                data.push(x.DoanhThu);
 
-            })
-
-            CreateChart(category, data)
-        },
-        error: function (xhr, status, error) {
-            // Code to handle any errors that may occur while connecting to the API
-            console.error(status + ": " + error);
-        }
-    });
-}
 function GETDTTheoSoLuong(fromdate, todate) {
     $.ajax({
         type: "GET",
@@ -288,29 +263,29 @@ function CreateChart(category, data) {
 $(document).ready(function () {
 
     //GETDTTungMaHang(FormatDate(HomNay), FormatDate(HomNay))
-    GETDTTheoMaHang(FormatDate(HomNay), FormatDate(HomNay))
+
     $("#slc_date").on("change", function () {
         console.log($("#slc_theo").val(), $("#slc_date").val())
         if ($("#slc_theo").val() == 1) {
             if ($("#slc_date").val() == 1) {
                 $(".kt-portlet__head-title.dtmh span").html("<span> HÔM NAY</span>")
-                GETDTTheoMaHang(FormatDate(HomNay), FormatDate(HomNay))
+                GETDTTungMaHang(FormatDate(HomNay), FormatDate(HomNay))
             }
             else if ($("#slc_date").val() == 2) {
                 $(".kt-portlet__head-title.dtmh span").html("<span> HÔM QUA</span>")
-                GETDTTheoMaHang(FormatDate(HomQua), FormatDate(HomNay))
+                GETDTTungMaHang(FormatDate(HomQua), FormatDate(HomNay))
             }
             else if ($("#slc_date").val() == 3) {
                 $(".kt-portlet__head-title.dtmh span").html("<span> 7 NGÀY QUA</span>")
-                GETDTTheoMaHang(FormatDate(TuanTruoc), FormatDate(HomNay))
+                GETDTTungMaHang(FormatDate(TuanTruoc), FormatDate(HomNay))
             }
             else if ($("#slc_date").val() == 4) {
                 $(".kt-portlet__head-title.dtmh span").html("<span> THÁNG NÀY</span>")
-                GETDTTheoMaHang(FormatDate(ThangNay), FormatDate(HomNay))
+                GETDTTungMaHang(FormatDate(ThangNay), FormatDate(HomNay))
             }
             else {
                 $(".kt-portlet__head-title.dtmh span").html("<span> THÁNG TRƯỚC</span>")
-                GETDTTheoMaHang(FormatDate(NgayDauThangTruoc), FormatDate(NgayCuoiThangTruoc))
+                GETDTTungMaHang(FormatDate(NgayDauThangTruoc), FormatDate(NgayCuoiThangTruoc))
             }
         }
         else {
@@ -339,19 +314,19 @@ $(document).ready(function () {
     $("#slc_theo").on("change", function () {
         if ($("#slc_theo").val() == 1) {
             if ($("#slc_date").val() == 1) {
-                GETDTTheoMaHang(FormatDate(HomNay), FormatDate(HomNay))
+                GETDTTungMaHang(FormatDate(HomNay), FormatDate(HomNay))
             }
             else if ($("#slc_date").val() == 2) {
-                GETDTTheoMaHang(FormatDate(HomQua), FormatDate(HomNay))
+                GETDTTungMaHang(FormatDate(HomQua), FormatDate(HomNay))
             }
             else if ($("#slc_date").val() == 3) {
-                GETDTTheoMaHang(FormatDate(TuanTruoc), FormatDate(HomNay))
+                GETDTTungMaHang(FormatDate(TuanTruoc), FormatDate(HomNay))
             }
             else if ($("#slc_date").val() == 4) {
-                GETDTTheoMaHang(FormatDate(ThangNay), FormatDate(HomNay))
+                GETDTTungMaHang(FormatDate(ThangNay), FormatDate(HomNay))
             }
             else {
-                GETDTTheoMaHang(FormatDate(NgayDauThangTruoc), FormatDate(NgayCuoiThangTruoc))
+                GETDTTungMaHang(FormatDate(NgayDauThangTruoc), FormatDate(NgayCuoiThangTruoc))
             }
         }
         else {

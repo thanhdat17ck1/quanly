@@ -7,14 +7,21 @@ function getdskh(fromdate, todate) {
         url: "/api/DoanhThu/GETDSKH?fromdate=" + fromdate + '&todate=' + todate,
         dataType: "json",
         success: function (response) {
+            console.log(response,"response")
             let html = '';
-            response.map(x => {
-                html += `
+            if (response.length == 0) {
+                $("#chart").html(`Không có dữ liệu`)
+                
+            }
+            else {
+                response.map(x => {
+                    html += `
                             <option value="${x.MaKhachHang}">${x.KhachHang}</option>
                         `
-            })
-            $("#slc_dskh").html(html)
-            getChiTietDTKH(fromdate, todate, response[0]["MaKhachHang"])
+                })
+                $("#slc_dskh").html(html)
+                getChiTietDTKH(fromdate, todate, response[0]["MaKhachHang"])
+            }
         },
         error: function (xhr, status, error) {
             // Code to handle any errors that may occur while connecting to the API
@@ -138,7 +145,7 @@ function getChiTietDTKH(fromdate, todate, makhachhang) {
     });
 }
 $(function () {
-    $('input[name="daterange"]').daterangepicker({
+    $('input[name="daterangechitietdt"]').daterangepicker({
         "locale": {
             "format": "MM/DD/YYYY",
             "separator": " - ",
@@ -179,8 +186,102 @@ $(function () {
         todate = end.format('YYYY-MM-DD');
         getdskh(fromdate, todate)
         boolCheck = false;
-                });
+    });
+
+    $('input[name="daterangetopdanhthu"]').daterangepicker({
+        "locale": {
+            "format": "MM/DD/YYYY",
+            "separator": " - ",
+            "applyLabel": "Áp dụng",
+            "cancelLabel": "Hủy",
+            "fromLabel": "Từ",
+            "toLabel": "Đến",
+            "customRangeLabel": "Tùy chỉnh",
+            "weekLabel": "W",
+            "daysOfWeek": [
+                "CN",
+                "T2",
+                "T3",
+                "T4",
+                "T5",
+                "T6",
+                "T7"
+            ],
+            "monthNames": [
+                "Tháng 1",
+                "Tháng 2",
+                "Tháng 3",
+                "Tháng 4",
+                "Tháng 5",
+                "Tháng 6",
+                "Tháng 7",
+                "Tháng 8",
+                "Tháng 9",
+                "Tháng 10",
+                "Tháng 11",
+                "Tháng 12"
+            ],
+            "firstDay": 1
+        },
+        opens: 'left'
+    }, function (start, end, label) {
+        fromdate = start.format('YYYY-MM-DD');
+        todate = end.format('YYYY-MM-DD');
+        GetTopDTTuyChon(fromdate, todate)
+        boolCheck = false;
+    });
 });
+//$(function () {
+    
+//});
+
+function GetTopDTTuyChon(fromdate, todate) {
+    $.ajax({
+        type: "GET",
+        url: "/api/DoanhThu/GetTopDTTuyChon?fromdate=" + fromdate + '&todate=' + todate,
+        dataType: "json",
+        success: function (response) {
+            // Code to handle the successful response from the API
+            //alert("aa")
+            let html = ''
+            console.log(response)
+            if (response.length == 0) {
+                html = "<h3>Không có dữ liệu</h3>"
+            }
+            else {
+                response.map(x => {
+                    html += `
+                        <div class="kt-widget5__item">
+                            <div class="kt-widget5__content">
+                                <div class="kt-widget5__pic">
+                                    <img class="kt-widget7__img" src="/assets/media/products/product27.jpg" alt="">
+                                </div>
+                                <div class="kt-widget5__section">
+                                    <a href="#" class="kt-widget5__title">
+                                        ${x.KhachHang}
+                                    </a>
+                              </div>
+                            </div>
+                            <div class="kt-widget5__content">
+                                <div class="kt-widget5__stats">
+                                    <span class="kt-widget5__number">${x.DoanhThu}</span>
+                                    <span class="kt-widget5__sales">USD</span>
+                                </div>
+                                
+                            </div>
+                        </div>`
+
+                })
+            }
+            $("#kt_widget5_tab4_content .kt-widget5 #doanhthutuychon").html(html)
+        },
+        error: function (xhr, status, error) {
+            // Code to handle any errors that may occur while connecting to the API
+            console.error(status + ": " + error);
+        }
+    });
+
+}
 
 $("#slc_dskh").on("change", function () {
 

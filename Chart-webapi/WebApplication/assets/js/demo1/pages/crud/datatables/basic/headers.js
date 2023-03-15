@@ -1,4 +1,5 @@
 "use strict";
+
 var KTDatatablesBasicHeaders = function() {
 
 	var initTable1 = function() {

@@ -28,23 +28,69 @@ let category = []; let data = []
 
 
 
-function GETDTTungMaHang(fromdate, todate) {
+//function GETDTTungMaHang(fromdate, todate) {
+//    $.ajax({
+//        type: "GET",
+//        url: "/api/DoanhThu/GETDTTungMaHang?fromdate=" + fromdate + '&todate=' + todate,
+//        dataType: "json",
+//        success: function (response) {
+//            document.getElementById("chart").innerHTML = "";
+//            console.log(response)
+//            category = []
+//            data = []
+//            response.map(x => {
+//                category.push(x.MaHang);
+//                data.push(x.DoanhThu);
+
+//            })
+
+//            CreateChart(category, data)
+//        },
+//        error: function (xhr, status, error) {
+//            // Code to handle any errors that may occur while connecting to the API
+//            console.error(status + ": " + error);
+//        }
+//    });
+//}
+
+//function GETDTTheoSoLuong(fromdate, todate) {
+//    $.ajax({
+//        type: "GET",
+//        url: "/api/DoanhThu/GETDTTheoSoLuong?fromdate=" + fromdate + '&todate=' + todate,
+//        dataType: "json",
+//        success: function (response) {
+//            document.getElementById("chart").innerHTML = "";
+//            console.log(response)
+//            category = []
+//            data = []
+//            response.map(x => {
+//                category.push(x.MaHang);
+//                data.push(x.SanPham);
+
+//            })
+
+//            CreateChart(category, data)
+//        },
+//        error: function (xhr, status, error) {
+//            // Code to handle any errors that may occur while connecting to the API
+//            console.error(status + ": " + error);
+//        }
+//    });
+//}
+function GETTongSPHomNay(fromdate, todate) {
     $.ajax({
         type: "GET",
-        url: "/api/DoanhThu/GETDTTungMaHang?fromdate=" + fromdate + '&todate=' + todate,
+        url: "/api/DoanhThu/GETTongSPHomNay?fromdate=" + fromdate + '&todate=' + todate,
         dataType: "json",
         success: function (response) {
-            document.getElementById("chart").innerHTML = "";
-            console.log(response)
-            category = []
-            data = []
-            response.map(x => {
-                category.push(x.MaHang);
-                data.push(x.DoanhThu);
-
-            })
-
-            CreateChart(category, data)
+            console.log(response[0].DoanhThu, "response")
+            if (response[0].sanpham == null) {
+                $(".kt-widget4__item #tongsanpham").html('0')
+            }
+            else {
+                //alert("aa")
+                $(".kt-widget4__item #tongsanpham").html(`${response[0].sanpham}`)
+            }
         },
         error: function (xhr, status, error) {
             // Code to handle any errors that may occur while connecting to the API
@@ -52,32 +98,6 @@ function GETDTTungMaHang(fromdate, todate) {
         }
     });
 }
-
-function GETDTTheoSoLuong(fromdate, todate) {
-    $.ajax({
-        type: "GET",
-        url: "/api/DoanhThu/GETDTTheoSoLuong?fromdate=" + fromdate + '&todate=' + todate,
-        dataType: "json",
-        success: function (response) {
-            document.getElementById("chart").innerHTML = "";
-            console.log(response)
-            category = []
-            data = []
-            response.map(x => {
-                category.push(x.MaHang);
-                data.push(x.SanPham);
-
-            })
-
-            CreateChart(category, data)
-        },
-        error: function (xhr, status, error) {
-            // Code to handle any errors that may occur while connecting to the API
-            console.error(status + ": " + error);
-        }
-    });
-}
-
 function GETDTHomNay(fromdate, todate) {
     $.ajax({
         type: "GET",
@@ -86,10 +106,10 @@ function GETDTHomNay(fromdate, todate) {
         success: function (response) {
             console.log(response[0].DoanhThu, "response")
             if (response[0].DoanhThu == null) {
-                $(".kt-widget4__item .value").html('0')
+                $(".kt-widget4__item #tongdanhthu").html('0')
             }
             else {
-                $(".kt-widget4__item .value").html(`${response[0].DoanhThu}`)
+                $(".kt-widget4__item #tongdanhthu").html(`${response[0].DoanhThu}`)
             }
         },
         error: function (xhr, status, error) {
@@ -98,7 +118,10 @@ function GETDTHomNay(fromdate, todate) {
         }
     });
 }
+
+//setInterval(GETDTHomNay(FormatDate(HomNay), FormatDate(HomNay)), 1000)
 GETDTHomNay(FormatDate(HomNay), FormatDate(HomNay))
+GETTongSPHomNay(FormatDate(HomNay), FormatDate(HomNay))
 function CreateChart(category, data) {
     let check0 = false;
     console.log(category, data)
@@ -149,29 +172,6 @@ function renderPie(data, idTag, title) {
         title: {
             text: title
         },
-
-        //plotOptions: {
-        //    series: {
-        //        point: {
-        //            events: {
-        //                click: function (event) {
-        //                    iD = this.name.split(" ")[2];
-        //                    alert(iD)
-        //                    let html = "<div></div>"
-        //                    listMaHAngTheoThang.forEach(x => {
-        //                        if (x.MaHang == iD) {
-        //                            document.querySelector("#containertiendotheochuyen").innerHTML = html
-        //                            getPieDetail(x.StyleID, dt.value.split("-")[1], dt.value.split("-")[0])
-        //                            localStorage.setItem("StyleIDTienDo", x.StyleID)
-        //                        }
-        //                    })
-
-
-        //                }
-        //            }
-        //        }
-        //    }
-        //},
         series: [{
             type: 'pie',
             allowPointSelect: true,
@@ -183,10 +183,10 @@ function renderPie(data, idTag, title) {
 
 }
 
-function GETDTTungChuyen() {
+function GETDTTungChuyen(fromdate, todate) {
     $.ajax({
         type: "GET",
-        url: "/api/DoanhThu/GETDTTungChuyen",
+        url: "/api/DoanhThu/GETDTTungChuyen?fromdate=" + fromdate + '&todate=' + todate,
         dataType: "json",
         success: function (response) {
             var num = 0;
@@ -199,7 +199,7 @@ function GETDTTungChuyen() {
                 num++;
             })
             console.log(results1, "GETDTTungChuyen");
-            renderPie(results1, pieDTTungChuyen,"Thống kê doanh thu của từng chuyền")
+            renderPie(results1, pieDTTungChuyen,"Doanh thu của từng chuyền hôm nay")
         },
         error: function (xhr, status, error) {
             // Code to handle any errors that may occur while connecting to the API
@@ -207,10 +207,10 @@ function GETDTTungChuyen() {
         }
     });
 }
-function GETDTTungMaHang() {
+function GETDTTungMaHang(fromdate, todate) {
     $.ajax({
         type: "GET",
-        url: "/api/DoanhThu/GETDTTungMaHang",
+        url: "/api/DoanhThu/GETDTTungMaHang?fromdate=" + fromdate + '&todate=' + todate,
         dataType: "json",
         success: function (response) {
             var num = 0;
@@ -223,7 +223,7 @@ function GETDTTungMaHang() {
                 num++;
             })
             console.log(results1, "GETDTTungMaHang");
-            renderPie(results1, pieDTTungMH, "Thống kê Top 10 doanh thu của từng mã hàng")
+            renderPie(results1, pieDTTungMH, "Doanh thu của từng mã hàng hôm nay")
         },
         error: function (xhr, status, error) {
             // Code to handle any errors that may occur while connecting to the API
@@ -231,11 +231,102 @@ function GETDTTungMaHang() {
         }
     });
 }
+$(function () {
+    $('input[name="daterange"]').daterangepicker({
+        "locale": {
+            "format": "MM/DD/YYYY",
+            "separator": " - ",
+            "applyLabel": "Áp dụng",
+            "cancelLabel": "Hủy",
+            "fromLabel": "Từ",
+            "toLabel": "Đến",
+            "customRangeLabel": "Tùy chỉnh",
+            "weekLabel": "W",
+            "daysOfWeek": [
+                "CN",
+                "T2",
+                "T3",
+                "T4",
+                "T5",
+                "T6",
+                "T7"
+            ],
+            "monthNames": [
+                "Tháng 1",
+                "Tháng 2",
+                "Tháng 3",
+                "Tháng 4",
+                "Tháng 5",
+                "Tháng 6",
+                "Tháng 7",
+                "Tháng 8",
+                "Tháng 9",
+                "Tháng 10",
+                "Tháng 11",
+                "Tháng 12"
+            ],
+            "firstDay": 1
+        },
+        opens: 'left'
+    }, function (start, end, label) {
+        fromdate = start.format('YYYY-MM-DD');
+        todate = end.format('YYYY-MM-DD');
+        GetTopDTTuyChon(fromdate, todate)
+        boolCheck = false;
+    });
+});
 
-GETDTTungChuyen();
-GETDTTungMaHang();
+function GetTopDTTuyChon(fromdate, todate) {
+    $.ajax({
+        type: "GET",
+        url: "/api/DoanhThu/GetTopDTTuyChon?fromdate=" + fromdate + '&todate=' + todate,
+        dataType: "json",
+        success: function (response) {
+            // Code to handle the successful response from the API
+            //alert("aa")
+            let html = ''
+            console.log(response)
+            if (response.length == 0) {
+                html = "<h3>Không có dữ liệu</h3>"
+            }
+            else {
+                response.map(x => {
+                    html += `
+                        <div class="kt-widget5__item">
+                            <div class="kt-widget5__content">
+                                <div class="kt-widget5__pic">
+                                    <img class="kt-widget7__img" src="/assets/media/products/product27.jpg" alt="">
+                                </div>
+                                <div class="kt-widget5__section">
+                                    <a href="#" class="kt-widget5__title">
+                                        ${x.KhachHang}
+                                    </a>
+                              </div>
+                            </div>
+                            <div class="kt-widget5__content">
+                                <div class="kt-widget5__stats">
+                                    <span class="kt-widget5__number">${x.DoanhThu}</span>
+                                    <span class="kt-widget5__sales">USD</span>
+                                </div>
+                                
+                            </div>
+                        </div>`
+
+                })
+            }
+            $("#kt_widget5_tab4_content .kt-widget5 #doanhthutuychon").html(html)
+        },
+        error: function (xhr, status, error) {
+            // Code to handle any errors that may occur while connecting to the API
+            console.error(status + ": " + error);
+        }
+    });
+
+}
+//GETDTTungChuyen();
+//GETDTTungMaHang();
 $(document).ready(function () {
-
+    GETDTTungChuyen(FormatDate(HomNay), FormatDate(HomNay))
     GETDTTungMaHang(FormatDate(HomNay), FormatDate(HomNay))
 
     $("#slc_date").on("change", function () {

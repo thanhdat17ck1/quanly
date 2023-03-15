@@ -200,6 +200,8 @@
     <Content Include="Scripts\chart\chart1.js" />
     <Content Include="Scripts\admin\login.js" />
     <Content Include="Scripts\datepicker.min.js" />
+    <Content Include="Scripts\doanhthu\api.js" />
+    <Content Include="Scripts\doanhthu\datatable.js" />
     <Content Include="Scripts\doanhthu\doanhthu.js" />
     <Content Include="Scripts\doanhthu\khachhang.js" />
     <Content Include="Scripts\doanhthu\sanpham.js" />
@@ -244,6 +246,7 @@
     <Content Include="Views\Admin\Login.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\DoanhThu\theothoigian.cshtml" />
+    <Content Include="Views\DoanhThu\api.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Todo\" />

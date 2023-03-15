@@ -17,9 +17,14 @@ namespace WebApplication.Repository.DoanhThu
         DataTable GETDTTungMaHang(string fromdate, string todate);
         DataTable GETDTTheoSoLuong(string fromdate, string todate);
         DataTable GETDTHomNay(string fromdate, string todate);
-        DataTable GETDThangTrongNam();
-        DataTable GETDTTungChuyen();
+        DataTable GetTopDTTuyChon(string fromdate, string todate);
+        DataTable GETTongSPHomNay(string fromdate, string todate);
+        DataTable GETDThangTrongNam(string year);
+        DataTable GETDTTungChuyen(string fromdate, string todate);
         DataTable GETDTTungMaHang();
+        DataTable GETDTTungMaHangTable();
+        DataTable GETDTTungChuyenTheoThang(string month, string year);
+        DataTable GETDTTungMaHangTheoThang(string month, string year);
         DataTable GETChiTietDTKH(string fromdate, string todate, string makhachhang);
         //JArray Insert(string title);
         
@@ -82,20 +87,46 @@ namespace WebApplication.Repository.DoanhThu
             DataTable tb = _model.GETDTHomNay(fromdate, todate);
             return tb;
         }
-
-        public DataTable GETDThangTrongNam()
+        public DataTable GetTopDTTuyChon(string fromdate, string todate)
         {
-            DataTable tb = _model.GETDThangTrongNam();
+            DataTable tb = _model.GetTopDTTuyChon(fromdate, todate);
             return tb;
         }
-        public DataTable GETDTTungChuyen()
+        public DataTable GETTongSPHomNay(string fromdate, string todate)
         {
-            DataTable tb = _model.GETDTTungChuyen();
+            DataTable tb = _model.GETTongSPHomNay(fromdate, todate);
+            return tb;
+        }
+
+        public DataTable GETDThangTrongNam(string year)
+        {
+            DataTable tb = _model.GETDThangTrongNam(year);
+            return tb;
+        }
+        public DataTable GETDTTungChuyen(string fromdate, string todate)
+        {
+            DataTable tb = _model.GETDTTungChuyen(fromdate, todate);
             return tb;
         }
         public DataTable GETDTTungMaHang()
         {
             DataTable tb = _model.GETDTTungMaHang();
+            return tb;
+        }
+        public DataTable GETDTTungMaHangTable()
+        {
+            DataTable tb = _model.GETDTTungMaHangTable();
+            return tb;
+        }
+
+        public DataTable GETDTTungChuyenTheoThang(string month, string year)
+        {
+            DataTable tb = _model.GETDTTungChuyenTheoThang(month, year);
+            return tb;
+        }
+        public DataTable GETDTTungMaHangTheoThang(string month, string year)
+        {
+            DataTable tb = _model.GETDTTungMaHangTheoThang(month, year);
             return tb;
         }
     }

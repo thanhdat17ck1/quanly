@@ -121,14 +121,36 @@ namespace WebApplication.Api.DoanhThu
             JArray arr = JArray.Parse(json);
             return arr;
         }
-
         [HttpGet]
-        [Route("GETDThangTrongNam")]
-        public dynamic GETDThangTrongNam()
+        [Route("GetTopDTTuyChon")]
+        public dynamic GetTopDTTuyChon(string fromdate, string todate)
         {
             //return _repo.GetPhieuKCSCat(date);
 
-            DataTable tbl = _repo.GETDThangTrongNam();
+            DataTable tbl = _repo.GetTopDTTuyChon(fromdate, todate);
+            string json = JsonConvert.SerializeObject(tbl, Formatting.Indented);
+            JArray arr = JArray.Parse(json);
+            return arr;
+        }
+        [HttpGet]
+        [Route("GETTongSPHomNay")]
+        public dynamic GETTongSPHomNay(string fromdate, string todate)
+        {
+            //return _repo.GetPhieuKCSCat(date);
+
+            DataTable tbl = _repo.GETTongSPHomNay(fromdate, todate);
+            string json = JsonConvert.SerializeObject(tbl, Formatting.Indented);
+            JArray arr = JArray.Parse(json);
+            return arr;
+        }
+
+        [HttpGet]
+        [Route("GETDThangTrongNam")]
+        public dynamic GETDThangTrongNam(string year)
+        {
+            //return _repo.GetPhieuKCSCat(date);
+
+            DataTable tbl = _repo.GETDThangTrongNam(year);
             string json = JsonConvert.SerializeObject(tbl, Formatting.Indented);
             JArray arr = JArray.Parse(json);
             return arr;
@@ -136,11 +158,11 @@ namespace WebApplication.Api.DoanhThu
 
         [HttpGet]
         [Route("GETDTTungChuyen")]
-        public dynamic GETDTTungChuyen()
+        public dynamic GETDTTungChuyen(string fromdate, string todate)
         {
             //return _repo.GetPhieuKCSCat(date);
 
-            DataTable tbl = _repo.GETDTTungChuyen();
+            DataTable tbl = _repo.GETDTTungChuyen(fromdate, todate);
             string json = JsonConvert.SerializeObject(tbl, Formatting.Indented);
             JArray arr = JArray.Parse(json);
             return arr;
@@ -153,6 +175,39 @@ namespace WebApplication.Api.DoanhThu
             //return _repo.GetPhieuKCSCat(date);
 
             DataTable tbl = _repo.GETDTTungMaHang();
+            string json = JsonConvert.SerializeObject(tbl, Formatting.Indented);
+            JArray arr = JArray.Parse(json);
+            return arr;
+        }
+        [HttpGet]
+        [Route("GETDTTungMaHangTable")]
+        public dynamic GETDTTungMaHangTable()
+        {
+            //return _repo.GetPhieuKCSCat(date);
+
+            DataTable tbl = _repo.GETDTTungMaHangTable();
+            string json = JsonConvert.SerializeObject(tbl, Formatting.Indented);
+            JArray arr = JArray.Parse(json);
+            return arr;
+        }
+        [HttpGet]
+        [Route("GETDTTungChuyenTheoThang")]
+        public dynamic GETDTTungChuyenTheoThang(string month, string year)
+        {
+            //return _repo.GetPhieuKCSCat(date);
+
+            DataTable tbl = _repo.GETDTTungChuyenTheoThang(month,year);
+            string json = JsonConvert.SerializeObject(tbl, Formatting.Indented);
+            JArray arr = JArray.Parse(json);
+            return arr;
+        }
+        [HttpGet]
+        [Route("GETDTTungMaHangTheoThang")]
+        public dynamic GETDTTungMaHangTheoThang(string month, string year)
+        {
+            //return _repo.GetPhieuKCSCat(date);
+
+            DataTable tbl = _repo.GETDTTungMaHangTheoThang(month, year);
             string json = JsonConvert.SerializeObject(tbl, Formatting.Indented);
             JArray arr = JArray.Parse(json);
             return arr;
