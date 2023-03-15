@@ -239,7 +239,6 @@
     <Content Include="Views\TienDo\Index.cshtml" />
     <Content Include="Views\ChatLuong\Index.cshtml" />
     <Content Include="Views\DoanhThu\tonghop.cshtml" />
-    <Content Include="Views\ChatLuong\ChiTiet.cshtml" />
     <Content Include="Views\ChatLuong\TongQuan.cshtml" />
     <Content Include="Views\TienDo\ChiTiet.cshtml" />
     <Content Include="Views\TienDo\ChiTietTD.cshtml" />
@@ -247,6 +246,7 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\DoanhThu\theothoigian.cshtml" />
     <Content Include="Views\DoanhThu\api.cshtml" />
+    <Content Include="Views\ChatLuong\ChiTietChatLuong.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Todo\" />

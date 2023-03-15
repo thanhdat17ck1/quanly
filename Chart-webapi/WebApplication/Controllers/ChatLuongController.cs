@@ -13,7 +13,7 @@ namespace WebApplication.Controllers
         {
             return View();
         }
-        public ActionResult ChiTiet()
+        public ActionResult ChiTietChatLuong()
         {
             return View();
         }
