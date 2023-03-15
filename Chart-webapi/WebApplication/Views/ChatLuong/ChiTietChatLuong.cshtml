@@ -1,0 +1,187 @@
+﻿﻿@{
+    ViewBag.Title = "Chi tiết chất lượng";
+}
+
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin dashboard</title>
+    <link rel="stylesheet" href="~/css/css cat/index.css">
+    <link rel="stylesheet"
+          href="~/Content/font.css" />
+    <link rel="stylesheet" type="text/css"
+          href="~/Content/bootstrap4.6.1.min.css" />
+    <link rel="stylesheet" type="text/css"
+          href="~/Content/all.css" />
+    <link rel="stylesheet" href="~/Content/apexcharts.min.css">
+    <link href="~/Content/datepicker.min.css" rel="stylesheet">
+    <style>
+        .header-span {
+            text-align: center;
+            font-size: 25px;
+            font-weight: bold;
+            border: 1px solid whitesmoke;
+            padding: 5px;
+            box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+            border-radius: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <main style="padding:5px">
+        <div class="content-span" style="display:none" id="cat">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="layout-border">
+                        <div id="container-catall">
+                        </div>
+                        <div id="chart">
+                            <div id="apex-chart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="layout-border">
+                        <div style="display:flex">
+                            <label for="datepicker" style="margin-top:5px">Chọn năm &#160; </label>
+                            <input type="text" class="form-control" name="datepicker" style="width:150px" id="datepicker" value="2023" />
+                        </div>
+                        <div id="chart2"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="content-span" style="display:none" id="may">
+            <div>may</div>
+        </div>
+        <div class="content-span" style="display:none" id="donggoi">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="layout-border">
+                        <div id="container-dgall">
+                        </div>
+                        <div id="chart">
+                            <div id="apex-chart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+
+                    <div class="layout-border">
+                        <div id="chart-ssdg"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="content-span" style="display:none" id="doanhthu">
+            <div id="containerdoanthu">
+            </div>
+            <div id="chart">
+                <div id="apex-chart"></div>
+            </div>
+        </div>
+        <div class="content-span" id="chatluong">
+            <div class="row">
+                <div class="col-sm-12 col-md-8">
+                    <div class="layout-border">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <label for="birthday">Chọn tháng:</label>
+                                <input class="date" type="month" id="dtcl" name="dt">
+
+                            </div>
+                        </div>
+                        <div style="text-align:center;color:black;font-size:20px">Biểu đồ tổng lỗi theo mã hàng</div>
+                        <div id="containerchatluong">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="layout-border">
+                        <br />   <br />
+                        <div style="font-size:18px;color:black"> Top 3 mã hàng ít lỗi nhất tháng <span id="thang"></span></div>
+                        <br />
+                        <br />
+
+                        <div></div>
+                        <div class="kt-widget5" id="rendertopsploi">
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="layout-border">
+                        <br />
+                        <div style="font-size:18px;color:black"> Chuyền tham gia sản xuất </div>
+                        <div id="chart-percent">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-12 col-md-8">
+                    <div class="layout-border">
+                        <div class="" style="width:220px;margin-top:3px">
+                            <label for="optionchuyen">Chọn chuyền:</label>
+                            <select id="optionchuyen">
+                            </select>
+                        </div>
+                        <div style="font-size:18px;color:black"> Tỉ lệ lỗi theo mã hàng</div>
+                        <div id="linechartchatluong">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-12 col-md-12">
+                    <div class="layout-border">
+                        <div style="text-align:center;color:black;font-size:20px">Chi tiết lỗi gặp phải</div>
+                        <div id="chart-phantichloi">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-12 col-md-12">
+                    <div class="layout-border" style="background-color:#fff">
+                        <span style="font-weight:bold">✔️ Tổng quan toàn bộ </span>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12">
+                                <div class="" style="text-align: left; padding-left: 10px">
+                                    <br />
+                                    <span style="font-weight: bold; color: red"> ➡️  Loại hàng thế mạnh <span id="hhtm"></span></span><br />
+                                    <span style="font-weight:bold;color:red"> ➡️ Cần cải thiện chất lượng sản phẩm của mã hàng <span id="mahangcancaithien"></span></span><br />
+                                    <span style="font-weight:bold;color:red"> ➡️ Lỗi thường gặp phải <span id="loithuonggap"></span> - <span id="solangap"></span> </span><br />
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/popper.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/bootstrap4.6.1.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/apexcharts.min.js"></script>
+    <script src="~/Scripts/hightchart.js"></script>
+    <script src="~/Scripts/datepicker.min.js"></script>
+
+    <script src="~/Scripts/js cat/index.js"></script>
+    <script src="~/Scripts/chart/chart-chatluongct.js"></script>
+</body>
+
+</html>
