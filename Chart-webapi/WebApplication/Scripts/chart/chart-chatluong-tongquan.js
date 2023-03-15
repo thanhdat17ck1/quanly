@@ -139,11 +139,6 @@ function getPieCL(dt, de) {
         dataType: "json",
         success: function (response) {
             dataPieCL = response;
-<<<<<<< HEAD
-     
-=======
-
->>>>>>> 5bafcf50cc91c2f43fda0f9d67d52e9d6435a4b3
             results1cl = []
             var num = 0;
             response.map(x => {
@@ -155,11 +150,6 @@ function getPieCL(dt, de) {
             if (num > 0) {
                 renderPieCL(results1cl);
                 GetAllChuyen("", response[0].StyleID, dtcl.value.split("-")[1], dtcl.value.split("-")[0])
-<<<<<<< HEAD
-               
-=======
-
->>>>>>> 5bafcf50cc91c2f43fda0f9d67d52e9d6435a4b3
                 if (num > 0) {
                     localStorage.setItem("MaHangChatLuongTongQuan", response[0].StyleID)
                 }
@@ -184,7 +174,6 @@ function getdicgiaatri(dt, de) {
         success: function (response) {
             dataDicGiaTri = response;
             getthongtintong(dt, de);
-<<<<<<< HEAD
             
         },
         error: function (xhr, status, error) {
@@ -193,16 +182,6 @@ function getdicgiaatri(dt, de) {
         }
     });
 
-=======
-
-        },
-        error: function (xhr, status, error) {
-            // Code to handle any errors that may occur while connecting to the API
-            console.error(status + ": " + error);
-        }
-    });
-
->>>>>>> 5bafcf50cc91c2f43fda0f9d67d52e9d6435a4b3
 }
 function dynamicSort(property) {
     var sortOrder = 1;
@@ -659,17 +638,11 @@ function rennderOptionKH(option) {
     }
     selectbox.innerHTML = getImgs;
 }
-<<<<<<< HEAD
-function renderbarTiLeLoi(data,label) {
-    var options = {
-        series: [{
-            data:data
-=======
+
 function renderbarTiLeLoi(data, label) {
     var options = {
         series: [{
             data: data
->>>>>>> 5bafcf50cc91c2f43fda0f9d67d52e9d6435a4b3
         }],
         chart: {
             type: 'bar',

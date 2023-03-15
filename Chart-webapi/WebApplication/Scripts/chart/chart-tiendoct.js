@@ -66,6 +66,8 @@ document.getElementById("selectchuyen").addEventListener("change", function () {
     var selected = document.getElementById("selectchuyen").value;
 
     GetChiTietTienDoMaHang(selected, localStorage.getItem("StyleIDTienDo"), dt.value.split("-")[1], dt.value.split("-")[0])
+    GetChiTietTienDoNgayGiao(selected, localStorage.getItem("StyleIDTienDo"), dt.value.split("-")[1], dt.value.split("-")[0])
+
     document.getElementById("tdnum").innerHTML = localStorage.getItem("StyleIDTienDo")
     listPieDetail.map(x => {
         if (x.ID == selected) {
@@ -91,7 +93,7 @@ function getOptionKH(month, year) {
             response.forEach(x => {
                 listKHTemp.push({
                     "KhachHang": x.KhachHang,
-                    "MaKhachHang": x.MaKhachHang
+                    "MaKhachHang": x.MaKhachHang,
                 })
             })
             const key = 'MaKhachHang';
@@ -194,6 +196,7 @@ function getPieDetail(id, dt, de) {
             })
             rennderOptionChuyen(response)
             GetChiTietTienDoMaHang(response[0].ID, response[0].StyleID, dt, de)
+            GetChiTietTienDoNgayGiao(response[0].ID, response[0].StyleID, dt, de)
             document.getElementById("tdnum").innerHTML = response[0].StyleID
             document.getElementById("tdcnum").innerHTML = response[0].Name
 
@@ -222,7 +225,7 @@ function GetChiTietTienDoMaHang(line,id, dt, de) {
             var charttditem = [];
             charttd.push((response[0].SLCut_LK / response[0].SLKH * 100).toFixed(2), (response[0].LuyKe_BTP / response[0].SLKH * 100).toFixed(2), (response[0].RC_LK / response[0].SLKH * 100).toFixed(2), (response[0].GX_LK / response[0].SLKH * 100).toFixed(2));
             charttditem.push("Cắt", "BTP", "RC", "Đóng thùng");
-            renderChart(charttd, charttditem);
+            //renderChart(charttd, charttditem);
             document.getElementById("CAT").innerHTML = (response[0].SLCut_LK / response[0].SLKH * 100).toFixed(2) + '%';
             if (parseInt(response[0].SLCut_LK / response[0].SLKH * 100) > 100) {
                 document.getElementById("CAT").style.width = '100%';
@@ -257,6 +260,32 @@ function GetChiTietTienDoMaHang(line,id, dt, de) {
         }
     });
 }
+
+function GetChiTietTienDoNgayGiao(line, id, dt, de) {
+    $.ajax({
+        type: "GET",
+        url: "/api/TienDo/GetChiTietTienDoMaHang?action=GetChiTietTienDoNgayGiao&&line=" + line + "&&styleID=" + id + "&&month=" + dt + "&&year=" + de,
+        dataType: "json",
+        success: function (response) {
+            var data = [];
+            var po = [];
+            document.getElementById("mahangdagiao").innerHTML = id;
+            response.forEach(x => {
+                data.push(x.SLKH);
+                po.push("Chuyền: " +x.Chuyen +" - "+ x.MaHang + " - PO:" + x.PO);
+
+            })
+            renderChart(data,po)
+        },
+        error: function (xhr, status, error) {
+            // Code to handle any errors that may occur while connecting to the API
+            console.error(status + ": " + error);
+        }
+    });
+}
+
+
+
 
 function GetChiTietChuyenNgayGiao(id, dt, de) {
     $.ajax({
@@ -412,142 +441,176 @@ function GetMoTaPhanTichMaHang(dt, de) {
 
 }
 
-function GetTienDoCat(chuyen, dt, de) {
-    $.ajax({
-        type: "GET",
-        url: "/api/TienDo/GetMoTa?action=GetTienDoCatMaHang&&line=" + chuyen + "&&dt=" + dt + "&&de=" + de,
-        dataType: "json",
-        success: function (response) {
-            category = []
-            data = []
-            response.map(x => {
-                category.push(x.MaHang);
-                data.push(x.SLKH);
-            })
+//function GetTienDoCat(chuyen, dt, de) {
+//    $.ajax({
+//        type: "GET",
+//        url: "/api/TienDo/GetMoTa?action=GetTienDoCatMaHang&&line=" + chuyen + "&&dt=" + dt + "&&de=" + de,
+//        dataType: "json",
+//        success: function (response) {
+//            category = []
+//            data = []
+//            response.map(x => {
+//                category.push(x.MaHang);
+//                data.push(x.SLKH);
+//            })
          
-            renderChart(data)
-        },
-        error: function (xhr, status, error) {
-            // Code to handle any errors that may occur while connecting to the API
-            console.error(status + ": " + error);
-        }
-    });
+//            renderChart(data)
+//        },
+//        error: function (xhr, status, error) {
+//            // Code to handle any errors that may occur while connecting to the API
+//            console.error(status + ": " + error);
+//        }
+//    });
 
-}
+//}
 
-function GetTienDoBTP(chuyen, dt, de) {
-    $.ajax({
-        type: "GET",
-        url: "/api/TienDo/GetMoTa?action=GetTienDoBTPMaHang&&line=" + chuyen + "&&dt=" + dt + "&&de=" + de,
-        dataType: "json",
-        success: function (response) {
-            category = []
-            data = []
-            response.map(x => {
-                category.push(x.MaHang);
-                data.push(x.LuyKe_BTP);
-            })
+//function GetTienDoBTP(chuyen, dt, de) {
+//    $.ajax({
+//        type: "GET",
+//        url: "/api/TienDo/GetMoTa?action=GetTienDoBTPMaHang&&line=" + chuyen + "&&dt=" + dt + "&&de=" + de,
+//        dataType: "json",
+//        success: function (response) {
+//            category = []
+//            data = []
+//            response.map(x => {
+//                category.push(x.MaHang);
+//                data.push(x.LuyKe_BTP);
+//            })
     
-            renderChart(data)
-        },
-        error: function (xhr, status, error) {
-            // Code to handle any errors that may occur while connecting to the API
-            console.error(status + ": " + error);
-        }
-    });
+//            renderChart(data)
+//        },
+//        error: function (xhr, status, error) {
+//            // Code to handle any errors that may occur while connecting to the API
+//            console.error(status + ": " + error);
+//        }
+//    });
 
-}
+//}
 
-function GetTienDoUi(chuyen, dt, de) {
-    $.ajax({
-        type: "GET",
-        url: "/api/TienDo/GetMoTa?action=GetTienDoUiMaHang&&line=" + chuyen + "&&dt=" + dt + "&&de=" + de,
-        dataType: "json",
-        success: function (response) {
-            category = []
-            data = []
-            response.map(x => {
-                category.push(x.MaHang);
-                data.push(x.SLUI);
-            })
+//function GetTienDoUi(chuyen, dt, de) {
+//    $.ajax({
+//        type: "GET",
+//        url: "/api/TienDo/GetMoTa?action=GetTienDoUiMaHang&&line=" + chuyen + "&&dt=" + dt + "&&de=" + de,
+//        dataType: "json",
+//        success: function (response) {
+//            category = []
+//            data = []
+//            response.map(x => {
+//                category.push(x.MaHang);
+//                data.push(x.SLUI);
+//            })
           
-            renderChart(data)
-        },
-        error: function (xhr, status, error) {
-            // Code to handle any errors that may occur while connecting to the API
-            console.error(status + ": " + error);
-        }
-    });
+//            renderChart(data)
+//        },
+//        error: function (xhr, status, error) {
+//            // Code to handle any errors that may occur while connecting to the API
+//            console.error(status + ": " + error);
+//        }
+//    });
 
-}
-function GetTienDoDG(chuyen, dt, de) {
-    $.ajax({
-        type: "GET",
-        url: "/api/TienDo/GetMoTa?action=GetTienDoDongGoiMaHang&&line=" + chuyen + "&&dt=" + dt + "&&de=" + de,
-        dataType: "json",
-        success: function (response) {
-            category = []
-            data = []
-            response.map(x => {
-                category.push(x.MaHang);
-                data.push(x.GX_LK);
-            })
+//}
+//function GetTienDoDG(chuyen, dt, de) {
+//    $.ajax({
+//        type: "GET",
+//        url: "/api/TienDo/GetMoTa?action=GetTienDoDongGoiMaHang&&line=" + chuyen + "&&dt=" + dt + "&&de=" + de,
+//        dataType: "json",
+//        success: function (response) {
+//            category = []
+//            data = []
+//            response.map(x => {
+//                category.push(x.MaHang);
+//                data.push(x.GX_LK);
+//            })
        
-            renderChart(data)
-        },
-        error: function (xhr, status, error) {
-            // Code to handle any errors that may occur while connecting to the API
-            console.error(status + ": " + error);
-        }
-    });
+//            renderChart(data)
+//        },
+//        error: function (xhr, status, error) {
+//            // Code to handle any errors that may occur while connecting to the API
+//            console.error(status + ": " + error);
+//        }
+//    });
 
-}
+//}
 
 getPie(dt.value.split("-")[1], dt.value.split("-")[0])
 
-function renderChart(data1, category) {
-    //document.getElementById("apex-chart-tiendo").innerHTML = '';
+function renderChart(data, label) {
+    document.getElementById("apex-chart-tiendo").innerHTML = '';
 
     var options = {
+        series: [{
+            data: data
+        }],
         chart: {
-            width: "100%",
-            height: 380,
-            type: "bar"
+            type: 'bar',
+            height: 380
         },
         plotOptions: {
             bar: {
-                horizontal: true
+                barHeight: '100%',
+                distributed: true,
+                horizontal: true,
+                dataLabels: {
+                    position: 'bottom'
+                },
             }
         },
+        colors: ['#33b2df', '#546E7A', '#d4526e', '#13d8aa', '#A5978B', '#2b908f', '#f9a3a4', '#90ee7e',
+            '#f48024', '#69d2e7'
+        ],
         dataLabels: {
-            enabled: false
+            enabled: true,
+            textAnchor: 'start',
+            style: {
+                colors: ['#fff']
+            },
+            formatter: function (val, opt) {
+                return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val
+            },
+            offsetX: 0,
+            dropShadow: {
+                enabled: true
+            }
         },
         stroke: {
             width: 1,
-            colors: ["#fff"]
+            colors: ['#fff']
         },
-        series: [
-            {
-                data: data1
-            }
-        ],
         xaxis: {
-            categories: category
+            categories: label,
         },
+        yaxis: {
+            labels: {
+                show: false
+            }
+        },
+        //title: {
+        //    text: 'Custom DataLabels',
+        //    align: 'center',
+        //    floating: true
+        //},
+        //subtitle: {
+        //    text: 'Category Names as DataLabels inside bars',
+        //    align: 'center',
+        //},
         tooltip: {
-            custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-                return (
-                    '<div class="arrow_box">' +
-                    "<span>" +
-                    w.globals.labels[dataPointIndex] +
-                    ": " +
-                    series[seriesIndex][dataPointIndex] +
-                    "</span>" +
-                    "</div>"
-                );
+            theme: 'dark',
+            x: {
+                show: false
+            },
+            y: {
+                title: {
+                    formatter: function () {
+                        return ''
+                    }
+                }
             }
         }
     };
+
+    //var chart = new ApexCharts(document.querySelector("#chart"), options);
+    //chart.render();
+
     var chart = new ApexCharts(document.querySelector("#apex-chart-tiendo"), options);
     chart.render();
 }
@@ -566,6 +629,7 @@ function renderPie(data) {
                         click: function (event) {
                             iD = this.name.split(" ")[2];
                             let html = "<div></div>"
+                      
                             listMaHAngTheoThang.forEach(x => {
                                 if (x.MaHang == iD) {
                                     //document.querySelector("#containertiendotheochuyen").innerHTML = html

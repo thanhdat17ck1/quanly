@@ -156,22 +156,16 @@ function getLineData(styleID, dt, de) {
     });
 
 }
-<<<<<<< HEAD
+
 function getghichuloi(dt,de) {
-=======
-function getghichuloi(dt, de) {
->>>>>>> 5bafcf50cc91c2f43fda0f9d67d52e9d6435a4b3
+
     $.ajax({
         type: "GET",
         url: "/api/ChatLuong/GetChatLuongChiTiet?action=getghichuloi&&line=&&styleID=&&month=" + dt + "&&year=" + de,
         dataType: "json",
         success: function (response) {
             dataGhiChuLoi = response;
-<<<<<<< HEAD
             console.log(dataGhiChuLoi,"dataGhiChuLoi")
-=======
-            console.log(dataGhiChuLoi, "dataGhiChuLoi")
->>>>>>> 5bafcf50cc91c2f43fda0f9d67d52e9d6435a4b3
         },
         error: function (xhr, status, error) {
             // Code to handle any errors that may occur while connecting to the API
@@ -215,11 +209,8 @@ function getLineChartData(LineX, styleID, dt, de) {
             dataGhiChuLoi.forEach(x => {
                 categoriesdataghichuloi.push(x.GhiChuLoi)
             })
-<<<<<<< HEAD
             console.log(dataGhiChuLoi,"dataGhiChuLoi")
-=======
-            console.log(dataGhiChuLoi, "dataGhiChuLoi")
->>>>>>> 5bafcf50cc91c2f43fda0f9d67d52e9d6435a4b3
+
             document.getElementById("linechartchatluong").innerHTML = '';
             setTimeout(function () {
                 renderLineChartChatLuong(response, series, seriesLoi, xasix);
@@ -582,81 +573,70 @@ function renderLoiTapTrung(data, categories) {
             }
         }
     };
-<<<<<<< HEAD
-   
 
-    var chart = new ApexCharts(document.querySelector("#chart-phantichloi"), options);
-    chart.render();
-
-
-=======
 
 
     var chart = new ApexCharts(document.querySelector("#chart-phantichloi"), options);
     chart.render();
-
-
->>>>>>> 5bafcf50cc91c2f43fda0f9d67d52e9d6435a4b3
 }
-
-function renderpecentchart(label, data) {
-    var options = {
-        series: data,
-        chart: {
-            width: 380,
-            type: 'pie',
-        },
-        title: {
-            text: ' '
-        },
-        plotOptions: {
-            series: {
-                point: {
-                    events: {
-                        click: function (event) {
-                            iD = this.name.split(":")[1];
-                            console.log(iD, "chuyền")
-                            //dataPieCL.forEach(x => {
-                            //    if (x.MaHang == iD) {
-                            //        getLineData(x.StyleID, dtcl.value.split("-")[1], dtcl.value.split("-")[0])
-                            //    }
-                            //})
-                            //let html = "<div></div>"
-                            //document.getElementById("chart-percent").innerHTML = html
-
+    function renderpecentchart(label, data) {
+        var options = {
+            series: data,
+            chart: {
+                width: 380,
+                type: 'pie',
+            },
+            title: {
+                text: ' '
+            },
+            plotOptions: {
+                series: {
+                    point: {
+                        events: {
+                            click: function (event) {
+                                iD = this.name.split(":")[1];
+                                console.log(iD, "chuyền")
+                                //dataPieCL.forEach(x => {
+                                //    if (x.MaHang == iD) {
+                                //        getLineData(x.StyleID, dtcl.value.split("-")[1], dtcl.value.split("-")[0])
+                                //    }
+                                //})
+                                //let html = "<div></div>"
+                                //document.getElementById("chart-percent").innerHTML = html
 
 
+
+                            }
                         }
                     }
                 }
-            }
-        },
-        labels: label,
-        responsive: [{
-            breakpoint: 480,
-            options: {
-                chart: {
-                    width: 200
-                },
-                legend: {
-                    position: 'bottom'
+            },
+            labels: label,
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
                 }
-            }
-        }]
-    };
+            }]
+        };
 
-    var chart = new ApexCharts(document.querySelector("#chart-percent"), options);
-    chart.render();
+        var chart = new ApexCharts(document.querySelector("#chart-percent"), options);
+        chart.render();
 
-}
+    }
 
-function renndertopsploi(option) {
+    function renndertopsploi(option) {
 
-    let getImgs = ``;
-    for (let i = 0; i < 3; i++) {
-        getImgs =
-            getImgs +
-            `<div class="kt-widget5__item">
+        let getImgs = ``;
+        for (let i = 0; i < 3; i++) {
+            getImgs =
+                getImgs +
+                `<div class="kt-widget5__item">
                                 <div class="kt-widget5__content">
                                     <div class="kt-widget5__pic">
                                         <img class="kt-widget7__img" src="/assets/media/products/product27.jpg" alt="">
@@ -682,26 +662,21 @@ function renndertopsploi(option) {
                                 </div>
                             </div>
                  `;
+        }
+        document.getElementById("rendertopsploi").innerHTML = getImgs;
     }
-    document.getElementById("rendertopsploi").innerHTML = getImgs;
-}
 
-function rennderOptionChuyen(option) {
+    function rennderOptionChuyen(option) {
 
-    let getImgs = ``;
+        let getImgs = ``;
 
-    //let getImgs = `<option value="" >--Tất cả--</option>`;
-    for (let i = 0; i < option.length; i++) {
-        //var TenLenhTemp = option[i].TenLenh.toString().length > 13 ? option[i].TenLenh.toString().substr(0, 10) + "..." : option[i].TenLenh.toString()
-        getImgs =
-            getImgs +
-            `<option value="${option[i].LineX}" >Chuyền ${option[i].Name}</option>
+        //let getImgs = `<option value="" >--Tất cả--</option>`;
+        for (let i = 0; i < option.length; i++) {
+            //var TenLenhTemp = option[i].TenLenh.toString().length > 13 ? option[i].TenLenh.toString().substr(0, 10) + "..." : option[i].TenLenh.toString()
+            getImgs =
+                getImgs +
+                `<option value="${option[i].LineX}" >Chuyền ${option[i].Name}</option>
                  `;
+        }
+        document.getElementById("optionchuyen").innerHTML = getImgs;
     }
-    document.getElementById("optionchuyen").innerHTML = getImgs;
-<<<<<<< HEAD
-}
-
-=======
-}
->>>>>>> 5bafcf50cc91c2f43fda0f9d67d52e9d6435a4b3

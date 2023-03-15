@@ -496,7 +496,6 @@ function renderPie(data) {
                     events: {
                         click: function (event) {
                             iD = this.name.split(" ")[2];
-                            alert(iD)
                             let html = "<div></div>"
                             listMaHAngTheoThang.forEach(x => {
                                 if (x.MaHang == iD) {

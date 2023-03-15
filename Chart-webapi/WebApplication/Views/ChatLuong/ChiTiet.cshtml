@@ -1,15 +1,7 @@
-<<<<<<< HEAD
-﻿
-@*@{
-    ViewBag.Title = "Chất Lượng";
-    ViewBag.Title = "Chất Lượng";
-}*@
-=======
+
 ﻿@{
         ViewBag.Title = "Chi tiết chất lượng";
-        @*ViewBag.Title = "Chất Lượng";*@
     }
->>>>>>> 5bafcf50cc91c2f43fda0f9d67d52e9d6435a4b3
 
 
 <!DOCTYPE html>
@@ -29,9 +21,6 @@
           href="~/Content/all.css" />
     <link rel="stylesheet" href="~/Content/apexcharts.min.css">
     <link href="~/Content/datepicker.min.css" rel="stylesheet">
-
-
-    @*date picker*@
     <style>
         .header-span {
             text-align: center;
@@ -48,22 +37,10 @@
 
 <body>
     <main style="padding:5px">
-        @*<div class="content-span  header-span">
-            <div class="row">
-                <div class="col-sm-12 col-md-12">
-                    Chi tiết chất lượng
-                </div>
-            </div>
-        </div>*@
         <div class="content-span" style="display:none" id="cat">
             <div class="row">
                 <div class="col-sm-12 col-md-6">
                     <div class="layout-border">
-<<<<<<< HEAD
-                      
-=======
-
->>>>>>> 5bafcf50cc91c2f43fda0f9d67d52e9d6435a4b3
                         <div id="container-catall">
                         </div>
                         <div id="chart">
@@ -80,15 +57,6 @@
                         <div id="chart2"></div>
                     </div>
                 </div>
-                @*<div class="col-sm-12 col-md-6">
-                        <div class="layout-border">
-                            <div style="display:flex">
-                                <label for="datepicker" style="margin-top:5px">Chọn năm &#160; </label>
-                                <input type="text" class="form-control" name="datepicker" style="width:150px" id="datepicker" value="2023" />
-                            </div>
-                            <div id="chart2"></div>
-                        </div>
-                    </div>*@
             </div>
 
         </div>
@@ -194,10 +162,6 @@
                                     <span style="font-weight: bold; color: red"> ➡️  Loại hàng thế mạnh <span id="hhtm"></span></span><br />
                                     <span style="font-weight:bold;color:red"> ➡️ Cần cải thiện chất lượng sản phẩm của mã hàng <span id="mahangcancaithien"></span></span><br />
                                     <span style="font-weight:bold;color:red"> ➡️ Lỗi thường gặp phải <span id="loithuonggap"></span> - <span id="solangap"></span> </span><br />
-                                    @*<span style="font-weight: bold; color: red"> ➡️ Giảm tỉ lệ lỗi của <span id="mathangcancaithien"></span></span><br />*@
-
-
-                                    @*<span style="font-weight:bold"> ➡️ Loại hàng cần cải thiện <span id="sanphamcancaithien"></span></span>*@
 
                                 </div>
 
@@ -218,14 +182,7 @@
     <script src="~/Scripts/datepicker.min.js"></script>
 
     <script src="~/Scripts/js cat/index.js"></script>
-    @*<script src="~/Scripts/chart/chart-tiendo.js"></script>*@
     <script src="~/Scripts/chart/chart-chatluongct.js"></script>
-
-    @*<script src="~/Scripts/chart/chart-cat.js"></script>
-        <script src="~/Scripts/chart/chart-donggoi.js"></script>*@
-
-
-
 </body>
 
 </html>
